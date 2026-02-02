@@ -1,0 +1,13 @@
+url=https://ov-qa.gsvlabsportal.com/
+
+expectedURL=https://ov-qa.gsvlabsportal.com/signup
+
+name=Suzy Ghanem
+
+validUsername=suzy.ghanem+test34QA@theonevalley.com
+validPassword=Remyliam@2017
+
+
+invalidEmail=DYNAMIC
+invalidPassword=Wrong@123
+EMPTY=

@@ -1,0 +1,69 @@
+package ov.pages.passport;
+
+import java.time.Duration;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import groovyjarjarantlr4.v4.runtime.tree.xpath.XPath;
+import ov.utilities.CommonMethods;
+import ov.utilities.Driver;
+import ov.utilities.LogColor;
+
+public class Login_POM extends CommonMethods {
+	
+	public WebDriver driver;
+	public WebDriverWait wait;
+	
+	public static final Logger logger = LogManager.getLogger(Login_POM.class);
+	
+	public Login_POM() {
+		this.driver=Driver.getDriver();
+		PageFactory.initElements(driver, this);
+		wait=new WebDriverWait(driver,Duration.ofSeconds(20));
+	}
+	
+	
+//	*****************X-path Locators****************************************************************
+
+	@FindBy (xpath="//span[contains(text(), 'Log In')]")
+	public WebElement Login_button;
+	
+	
+	
+//	******************By Locators****************************************************************************
+
+	By Login_button_by = By.xpath("//span[contains(text(), 'Log In')]");
+	
+	
+//	****************Actions***********************************************************************************
+	
+	public boolean navigate_to_LoginPage() {
+		
+		try {
+			
+			boolean visible = isElementPresent(Login_button_by);
+			
+			if(visible) {
+			clickAndDraw(Login_button);
+			return true;
+			}
+			else {
+				return false;
+			}
+			
+		} catch (Exception e) {
+
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
+	}
+
+}

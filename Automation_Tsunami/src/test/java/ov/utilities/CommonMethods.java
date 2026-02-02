@@ -76,6 +76,7 @@ import com.google.common.base.Function;
 
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.java.Scenario;
+import ov.pages.passport.Login_POM;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -86,13 +87,17 @@ public class CommonMethods extends Driver {
 
 	/** ------------------ Global Variables -------------------- **/
 	public static WebDriver driver = Driver.getDriver();
+	
 	public static final int ELEMENT_WAIT_TIMEOUT_SECONDS = 40;
 	public static final int ELEMENT_POLLING_TIME_MILIS = 50;
 	public static final int PAGE_LOAD_TIMEOUT_SECONDS = 30;
 	public static final int JQUERY_LOAD_TIMEOUT_SECONDS = 30;
 	public static final int SESSION_TIMEOUT_MINUTES = 16;
+	
 	JavascriptExecutor js = (JavascriptExecutor) driver;
+	
 	WebDriverWait wait = null;
+	
 	public static final Logger logger = LogManager.getLogger(CommonMethods.class);
 
 
@@ -108,7 +113,10 @@ public class CommonMethods extends Driver {
 	// 🔹 Page Object Models
 	// ================================
 
+	public static Login_POM login_pom = new Login_POM();
 
+	
+	
 	// ================================
 	// 🔹 Different Wait Methods
 	// ================================
@@ -713,7 +721,7 @@ public class CommonMethods extends Driver {
 			return false; 
 		}
 	}
-
+		
 	public static void scrollIntoView(WebDriver driver, WebElement element) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -1679,7 +1687,7 @@ public class CommonMethods extends Driver {
 		}
 
 		element.click();
-
+		
 		// Step 2: Clear existing text
 		element.clear();
 
@@ -1720,11 +1728,11 @@ public class CommonMethods extends Driver {
 		// Optional: Log success
 		logger.info("✅ Radio button successfully selected: " + element.toString());
 	}
-
-	// ============================================================
-	// Generic keyboard action utility
-	// ============================================================
-
+	
+	 // ============================================================
+    // Generic keyboard action utility
+    // ============================================================
+	
 	/**
 	 * Enum representing supported keyboard keys for automation.
 	 * 
@@ -1735,32 +1743,32 @@ public class CommonMethods extends Driver {
 	 */
 	public enum KeyboardKey {
 
-		// Action keys
-		ENTER,
-		TAB,
+	    // Action keys
+	    ENTER,
+	    TAB,
 
-		// Modifier keys
-		CTRL,
-		ALT,
-		SHIFT,
+	    // Modifier keys
+	    CTRL,
+	    ALT,
+	    SHIFT,
 
-		// Letter keys (used for shortcuts)
-		A,
-		C,
-		V,
-		X,
-		Z,
-		Y
+	    // Letter keys (used for shortcuts)
+	    A,
+	    C,
+	    V,
+	    X,
+	    Z,
+	    Y
 	}
-
+	
 	/**
 	 * Determines whether a key is a modifier key.
 	 * Modifier keys must be held down during shortcut execution.
 	 */
 	private static boolean isModifierKey(KeyboardKey key) {
-		return key == KeyboardKey.CTRL
-				|| key == KeyboardKey.ALT
-				|| key == KeyboardKey.SHIFT;
+	    return key == KeyboardKey.CTRL
+	        || key == KeyboardKey.ALT
+	        || key == KeyboardKey.SHIFT;
 	}
 
 	/**
@@ -1770,24 +1778,24 @@ public class CommonMethods extends Driver {
 	 */
 	private static CharSequence toSeleniumKey(KeyboardKey key) {
 
-		switch (key) {
-		case ENTER: return Keys.ENTER;
-		case TAB:   return Keys.TAB;
-		case CTRL:  return Keys.CONTROL;
-		case ALT:   return Keys.ALT;
-		case SHIFT: return Keys.SHIFT;
+	    switch (key) {
+	        case ENTER: return Keys.ENTER;
+	        case TAB:   return Keys.TAB;
+	        case CTRL:  return Keys.CONTROL;
+	        case ALT:   return Keys.ALT;
+	        case SHIFT: return Keys.SHIFT;
 
-		// Letters must be strings, Selenium has no Keys.A / Keys.C etc
-		case A: return "a";
-		case C: return "c";
-		case V: return "v";
-		case X: return "x";
-		case Z: return "z";
-		case Y: return "y";
+	        // Letters must be strings, Selenium has no Keys.A / Keys.C etc
+	        case A: return "a";
+	        case C: return "c";
+	        case V: return "v";
+	        case X: return "x";
+	        case Z: return "z";
+	        case Y: return "y";
 
-		default:
-			throw new IllegalArgumentException("Unsupported KeyboardKey: " + key);
-		}
+	        default:
+	            throw new IllegalArgumentException("Unsupported KeyboardKey: " + key);
+	    }
 	}
 
 	/**
@@ -1799,42 +1807,42 @@ public class CommonMethods extends Driver {
 	 */
 	public static void pressKeys(WebDriver driver, KeyboardKey... keys) {
 
-		try {
-			logger.info("Starting keyboard action execution");
+	    try {
+	        logger.info("Starting keyboard action execution");
 
-			Actions actions = new Actions(driver);
+	        Actions actions = new Actions(driver);
 
-			// 1️⃣ Hold modifier keys
-			for (KeyboardKey key : keys) {
-				if (isModifierKey(key)) {
-					logger.info("Holding modifier key: " + key);
-					actions.keyDown((Keys) toSeleniumKey(key));
-				}
-			}
+	        // 1️⃣ Hold modifier keys
+	        for (KeyboardKey key : keys) {
+	            if (isModifierKey(key)) {
+	                logger.info("Holding modifier key: " + key);
+	                actions.keyDown((Keys) toSeleniumKey(key));
+	            }
+	        }
 
-			// 2️⃣ Send non-modifier keys (letters / ENTER / TAB)
-			for (KeyboardKey key : keys) {
-				if (!isModifierKey(key)) {
-					logger.info("Sending key: " + key);
-					actions.sendKeys(toSeleniumKey(key));
-				}
-			}
+	        // 2️⃣ Send non-modifier keys (letters / ENTER / TAB)
+	        for (KeyboardKey key : keys) {
+	            if (!isModifierKey(key)) {
+	                logger.info("Sending key: " + key);
+	                actions.sendKeys(toSeleniumKey(key));
+	            }
+	        }
 
-			// 3️⃣ Release modifier keys
-			for (KeyboardKey key : keys) {
-				if (isModifierKey(key)) {
-					logger.info("Releasing modifier key: " + key);
-					actions.keyUp((Keys) toSeleniumKey(key));
-				}
-			}
+	        // 3️⃣ Release modifier keys
+	        for (KeyboardKey key : keys) {
+	            if (isModifierKey(key)) {
+	                logger.info("Releasing modifier key: " + key);
+	                actions.keyUp((Keys) toSeleniumKey(key));
+	            }
+	        }
 
-			actions.perform();
-			logger.info("Keyboard action executed successfully");
+	        actions.perform();
+	        logger.info("Keyboard action executed successfully");
 
-		} catch (Exception e) {
-			logger.error("Keyboard action execution failed", e);
-			throw e; // Fail fast – keyboard failures should not be hidden
-		}
+	    } catch (Exception e) {
+	        logger.error("Keyboard action execution failed", e);
+	        throw e; // Fail fast – keyboard failures should not be hidden
+	    }
 	}
 
 

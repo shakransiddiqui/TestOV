@@ -1,0 +1,31 @@
+@Login
+Feature: Login_Test_Feature
+
+  Background: 
+    Given Navigate to the login page.
+
+  # Negative login test with various invalid, valid, and empty credentials
+  @Tc_01 @passport-neg
+  Scenario Outline: Login fails with invalid, valid, or empty username and password combinations
+    When User enters "<Email>" in the username field
+    And User enters "<Password>" in the password field
+    And User clicks on the "Login" button
+    Then User should see a login error or validation message
+    And User should remain on the Login page
+
+    Examples: 
+      | Email        | Password        |
+      | invalidEmail | invalidPassword |
+      | validEmail   | invalidPassword |
+      | invalidEmail | validPassword   |
+      | EMPTY        | invalidPassword |
+      | invalidEmail | EMPTY           |
+      | EMPTY        | EMPTY           |
+
+  # Positive login test with valid credentials
+  @Tc_02 @passport-pos
+  Scenario: User logs in successfully with valid credentials
+    When User enters "validUsername" in the username field
+    And User enters "validPassword" in the password field
+    And User clicks on the "Login" button
+    Then User should be redirected to the Community Dashboard
