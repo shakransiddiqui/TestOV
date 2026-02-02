@@ -1,0 +1,489 @@
+package ov.step_definitions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
+import org.testng.asserts.SoftAssert;
+import groovy.time.Duration;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
+
+import static org.junit.Assert.assertTrue;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import io.cucumber.java.en.*;
+import junit.framework.Assert;
+import ov.pages.passport.*;
+import ov.utilities.CommonMethods;
+import ov.utilities.ConfigurationReader;
+import ov.utilities.Driver;
+import ov.utilities.LogColor;
+
+
+public class ProgramCreationStepDefinition extends CommonMethods  {
+
+	public static final Logger logger = LogManager.getLogger(ProgramCreationStepDefinition.class);
+    CreateProgramForm createProgramForm=new CreateProgramForm();
+    RoleSelectionPage roleSelectionPage=new RoleSelectionPage();
+    ProgramManagerOrgInfoPage programManagerOrgInfoPage=new ProgramManagerOrgInfoPage();
+    MemberPerks memberPerks=new MemberPerks();
+    HomePage_Passport homePage=new HomePage_Passport();
+
+		public String generateUniqueEmail() {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+			String timestamp = LocalDateTime.now().format(formatter);
+			return "QA_TESTER+tests_" + timestamp + "@theonevalley.com";
+		}
+
+		public String generateProgramTitle() {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+			String timestamp = LocalDateTime.now().format(formatter);
+			return "Testing " + timestamp + "Program";
+		}
+
+@Given("user is on welcome page")
+public void user_is_on_welcome_page()
+{
+	logger.info("user is on welcome page");
+}
+
+@Given("Navigate to the sign-up page")
+public void navigate_to_the_sign_up_page() {
+	  logger.info("DEBUG: Navigating to the sign-up page");
+
+	  try {
+		  //createProgramForm.verifySignupFunctionality();
+          homePage.click_on_signup_button();
+
+	} catch (Exception e) {
+		logger.error(LogColor.RED+ "Exception occurred: ", e +LogColor.RESET);
+	}
+
+}
+
+@When("Enter a valid email address")
+public void enter_a_valid_email_address() {
+	String uniqueEmail = generateUniqueEmail();
+	logger.info("Generated unique email: " + uniqueEmail);
+	createProgramForm.Enter_a_valid_email_address(uniqueEmail);
+}
+
+@And("Enter valid password meeting all requirements")
+public void enter_valid_password_meeting_all_requirements() {
+	String Password=ConfigurationReader.getProperty("password");
+	logger.info("password is filled up");
+ createProgramForm.enter_valid_password_meeting_all_requirement(Password);
+}
+
+@And("Enter full name")
+public void enter_full_name() {
+	String fullName = "Test User";
+	logger.info("Entering full name: " + fullName);
+	createProgramForm.enterFullName(fullName);
+
+}
+
+@And("Enter job title")
+public void enter_job_title() {
+	String jobTitle = "QA Automation Engineer";
+	createProgramForm.enterJobTitle(jobTitle);
+
+}
+
+@Then("Check the terms and conditions checkbox")
+public void check_the_terms_and_conditions_checkbox() {
+	String jobTitle = "QA Automation Engineer";
+	createProgramForm.enterJobTitle(jobTitle);
+
+}
+
+@And("Click the Sign Up button")
+public void click_the_sign_up_button() {
+	try {
+		  System.out.println(" DEBUG: About to click the Sign Up button.");
+		logger.info("Clicking the Sign Up button.");
+		createProgramForm.submitButton.click();
+
+	} catch (Exception e) {
+		 System.out.println("DEBUG: Exception caught - " + e.getMessage());
+		logger.info(e);
+	}
+
+}
+
+@Given("Verify that {string} page is displayed")
+public void verify_that_page_is_displayed(String string) {
+	String actualText = roleSelectionPage.getWelcomeHeaderText();
+
+	logger.info("Expected header text: " + string);
+	logger.info("Actual header text:   " + actualText);
+
+	SoftAssert softAssert = new SoftAssert();
+	softAssert.assertEquals(actualText, string, "Header text mismatch");
+	softAssert.assertAll();
+
+}
+
+
+@When("the user selects the {string} role")
+public void the_user_selects_the_role(String roleName) {
+
+	try {
+        switch (roleName.toLowerCase()) {
+            case "startup":
+                roleSelectionPage.clickStartupLeader();
+                break;
+            case "program manager":
+                roleSelectionPage.clickProgramManager();
+                break;
+            default:
+                throw new IllegalArgumentException("Role not recognized: " + roleName);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        Assert.fail("Failed to select the role: " + roleName);
+    }
+
+}
+
+@And("Click the continue button")
+public void click_the_continue_button() {
+	roleSelectionPage.clickContinueBtn();
+	}
+
+
+@Then("the Program Manager details should be displayed")
+public void the_program_manager_details_should_be_displayed() {
+	 try {
+	        logger.info("Verifying that the Program Manager details page is displayed...");
+
+	        boolean isDisplayed = roleSelectionPage.isProgramManagerDetailsPageVisible();
+
+	        Assert.assertTrue("Program Manager details page is not displayed", isDisplayed);
+
+	        logger.info("Program Manager details page is successfully displayed.");
+
+	    } catch (AssertionError ae) {
+	        logger.error("Assertion failed: Program Manager details page is not displayed.", ae);
+
+	        throw ae;
+
+	    } catch (Exception e) {
+	        logger.error("An unexpected error occurred while verifying Program Manager details page.", e);
+	        throw new RuntimeException(e);
+	    }
+}
+
+@Given("the Program Manager details page is displayed")
+public void the_program_manager_details_page_is_displayed() {
+	try {
+        logger.info("Verifying that the Program Manager details page is displayed...");
+
+        boolean isDisplayed = roleSelectionPage.isProgramManagerDetailsPageVisible();
+
+        Assert.assertTrue("Program Manager details page is not displayed", isDisplayed);
+
+        logger.info("Program Manager details page is successfully displayed.");
+
+    } catch (AssertionError ae) {
+        logger.error("Assertion failed: Program Manager details page is not displayed.", ae);
+
+        throw ae;
+
+    } catch (Exception e) {
+        logger.error("An unexpected error occurred while verifying Program Manager details page.", e);
+        throw new RuntimeException(e);
+    }
+}
+
+@When("the user enters the organization name")
+public void the_user_enters_the_organization_name() {
+    try {
+        String baseName = "Org_";
+        int randomNum = new Random().nextInt(10000);
+        String uniqueOrgName = baseName + randomNum;
+
+        programManagerOrgInfoPage.enterOrganizationName(uniqueOrgName);
+        logger.info("Entered unique organization name: " + uniqueOrgName);
+
+        String enteredName = programManagerOrgInfoPage.getOrganizationName();
+
+        Assert.assertEquals(uniqueOrgName, enteredName);
+        logger.info("Assertion passed: Organization name is correctly entered.");
+    } catch (Exception e) {
+        logger.error("Error entering organization name", e);
+        Assert.fail("Failed to enter organization name due to: " + e.getMessage());
+    }
+}
+
+
+
+@And("the user enters a valid location")
+public void the_user_enters_a_valid_location() {
+	String location = "San Francisco, SF, USA";
+	programManagerOrgInfoPage.enterLocation(location);
+    logger.info("Entered location: " + location);
+}
+
+
+@And("the user clicks the finish button")
+public void the_user_clicks_the_finish_button() {
+	try {
+		programManagerOrgInfoPage.clickFinishButton();
+        logger.info("Clicked the Finish button successfully.");
+
+
+        String expectedUrlPart = "organization";
+        Assert.assertTrue("User is redirected to the dashboard after clicking Finish",
+            Driver.getDriver().getCurrentUrl().contains(expectedUrlPart));
+
+        logger.info("Assertion passed: User was successfully redirected.");
+    } catch (Exception e) {
+        logger.error("Error while clicking the Finish button: ", e);
+        Assert.fail("Failed to click the Finish button due to: " + e.getMessage());
+    }
+}
+
+
+
+
+@Then("the user should be redirected to the {string} page")
+public void the_user_should_be_redirected_to_the_page(String expectedTitle) {
+    try {
+        String actualTitle = programManagerOrgInfoPage.getPageHeading();
+
+        logger.info("Expected page title: " + expectedTitle);
+        logger.info("Actual page title: " + actualTitle);
+
+        Assert.assertEquals("Page heading does not match!", expectedTitle, actualTitle);
+        logger.info("User successfully redirected to the correct page: " + actualTitle);
+
+    } catch (Exception e) {
+        logger.error("Failed to verify page redirection. Error: " + e.getMessage());
+        Assert.fail("Exception occurred while verifying page redirection: " + e.getMessage());
+    }
+}
+
+
+@Given("the user is on the program creation page")
+public void the_user_is_on_the_program_creation_page() {
+
+		try {
+	        logger.info("Attempting to click 'Create a new program' button");
+
+
+            programManagerOrgInfoPage.goToProgramCreationForm();
+
+	        logger.info("Clicked the 'Create a new program' button. Verifying the program creation form...");
+
+	        boolean formDisplayed =programManagerOrgInfoPage.isProgramCreationFormDisplayed();
+	        Assert.assertTrue("Program creation form is not displayed", formDisplayed);
+
+	        logger.info("Program creation form is displayed successfully.");
+	    } catch (Exception e) {
+	        logger.error("Failed to load the program creation page: " + e.getMessage(), e);
+	        Assert.fail("Exception occurred while navigating to the program creation page.");
+	    }
+	}
+
+
+
+
+
+@When("the user clicks on {string}")
+public void the_user_clicks_on(String buttonName) {
+    try {
+        logger.info("Attempting to click on the button: " + buttonName);
+
+        switch(buttonName.toLowerCase()) {
+            case "create a new program":
+                programManagerOrgInfoPage.goToProgramCreationForm();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Button not recognized: " + buttonName);
+        }
+
+        logger.info("Successfully clicked the button: " + buttonName);
+    } catch (Exception e) {
+        logger.error("Failed to click on the button: " + buttonName, e);
+        Assert.fail("Exception occurred while clicking on the button: " + buttonName);
+    }
+}
+
+
+
+
+@Then("the program creation form should be displayed")
+public void the_program_creation_form_should_be_displayed() {
+	 try {
+		    createProgramForm.clickCreateNewProgramButton();
+
+	        logger.info("Verifying if the program creation form is displayed...");
+	        
+	        waitFor(5);
+
+	        boolean isDisplayed = createProgramForm.isProgramCreationFormDisplayed();
+
+	        Assert.assertTrue("Program creation form is not displayed!", isDisplayed);
+	        logger.info("Program creation form is displayed successfully.");
+
+	    } catch (Exception e) {
+	        logger.error("Failed to verify the program creation form visibility.", e);
+	        Assert.fail("Exception occurred while verifying program creation form visibility: " + e.getMessage());
+	    }
+	}
+
+@When("the user enters a valid program title")
+public void the_user_enters_a_valid_program_title() {
+
+	logger.info("Enter the programs title");
+	createProgramForm.enterProgramTitle(generateProgramTitle());
+
+}
+@When("the user enters valid location")
+public void the_user_enters_valid_location() {
+
+	logger.info("Enter the programs location");
+	createProgramForm.enterProgramLocation("San Francisco");
+
+}
+@When("the user selects a program type")
+public void the_user_selects_a_program_type() {
+
+	logger.info("Select Program Type from Dropdown");
+	createProgramForm.selectProgramType();
+
+
+}
+
+
+@And("the user enters program description")
+public void the_user_enters_program_description()
+{
+	logger.info("Enter the Program description");
+	createProgramForm.enterProgramDescription("Hi This is Tester");
+}
+
+@When("the user selects two valid industries")
+public void the_user_selects_two_valid_industries() {
+
+	logger.info("Select two industries from dropdown");
+	waitFor(5);
+	createProgramForm.selectIndustries("a",2);
+
+
+}
+
+@When("the user selects three valid industries")
+public void the_user_selects_three_valid_industries() {
+
+	logger.info("Select three industries from dropdown");
+	waitFor(5);
+	createProgramForm.selectIndustries("a",3);
+
+}
+
+@When("the user selects five valid industries")
+public void the_user_selects_five_valid_industries() {
+
+	logger.info("Select five industries from dropdown");
+	waitFor(5);
+	createProgramForm.selectIndustries("a",5);
+
+}
+
+
+@When("the user clicks the {string} button")
+public void the_user_clicks_the_button(String string) {
+	logger.info("click on save and continue button");
+	createProgramForm.clickOnSaveAndContinueButton();
+
+}
+
+@Then("the user should be redirected to the member perks page")
+public void the_user_should_be_redirected_to_the_member_perks_page() {
+	logger.info("Verifies that user is  redirected to members perks page");
+    boolean userRedirectionFlag=createProgramForm.isUserOnMemebersPerkPage();
+    Assert.assertTrue(userRedirectionFlag);
+}
+
+
+@Given("the user is on the member perks page")
+public void the_user_is_on_the_member_perks_page() {
+    try {
+    	waitFor(7);
+        logger.info("Verify that the user is on the member perks page");
+        boolean userRedirectionFlag = memberPerks.isMemberPerksHeaderDisplayed();
+        Assert.assertTrue(userRedirectionFlag);
+        logger.info("User successfully verified to be on the Member Perks page.");
+    } catch (Exception e) {
+        logger.error("Error while verifying Member Perks page: " + e.getMessage());
+        Assert.fail("Exception occurred while checking Member Perks page.");
+    }
+}
+
+
+ @When("the user selects five perk cards")
+ public void the_user_selects_five_perk_cards() {
+        try {
+            int count = 5;
+            logger.info("Attempting to select " + count + " perk cards");
+            memberPerks.selectFivePerkCards(count);
+            logger.info(count + " perk cards selected successfully");
+        } catch (Exception e) {
+            logger.error("Error selecting perk cards", e);
+            throw e;
+        }
+ }
+
+
+@Then("the user should be redirected to the Create Application screen")
+public void the_user_should_be_redirected_to_the_create_application_screen()
+{
+	try {
+		Thread.sleep(10000);
+	} catch (Exception e) {
+		logger.info("problem in try block");
+
+		e.printStackTrace();
+	}finally {
+	logger.info("click on save and continue button");
+	boolean userOncreateApplicationPage=memberPerks.isCreateApplicationPageDisplayed("createapplication");
+	Assert.assertTrue(userOncreateApplicationPage);
+	}
+
+}
+
+@When("the user selects one perk cards")
+public void the_user_selects_one_perk_cards() {
+	try {
+        int count = 1;
+        logger.info("Attempting to select " + count + " perk cards");
+        memberPerks.selectFivePerkCards(count);
+        logger.info(count + " perk cards selected successfully");
+    } catch (Exception e) {
+        logger.error("Error selecting perk cards", e);
+    }
+}
+
+
+
+@When ("the user selects three perk cards")
+public void the_user_selects_perk_cards() {
+	try {
+        int count = 3;
+        logger.info("Attempting to select " + count + " perk cards");
+        memberPerks.selectFivePerkCards(count);
+        logger.info(count + " perk cards selected successfully");
+    } catch (Exception e) {
+    	logger.error("Error selecting perk cards", e);
+    }
+}
+
+}

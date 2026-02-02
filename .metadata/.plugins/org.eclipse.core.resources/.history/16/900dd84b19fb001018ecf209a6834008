@@ -1,0 +1,402 @@
+package ov.step_definitions;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
+import org.testng.asserts.SoftAssert;
+import groovy.time.Duration;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static org.junit.Assert.assertTrue;
+
+import io.cucumber.java.en.*;
+import junit.framework.Assert;
+import ov.pages.passport.HomePage_Passport;
+import ov.pages.passport.RoleSelectionPage;
+import ov.pages.passport.StartupPage;
+import ov.utilities.CommonMethods;
+import ov.utilities.ConfigurationReader;
+import ov.utilities.Driver;
+import ov.utilities.LogColor;
+
+public class SignUpStepDefinition extends CommonMethods  {
+
+	//use logger after class
+	public static final Logger logger = LogManager.getLogger(SignUpStepDefinition.class);
+	HomePage_Passport homePage = new HomePage_Passport();
+	StartupPage startupPage=new StartupPage();
+	RoleSelectionPage rolePage=new RoleSelectionPage();
+
+
+
+
+
+	public String generateUniqueEmail() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+		String timestamp = LocalDateTime.now().format(formatter);
+		return "QA_TESTER+tests_" + timestamp + "@theonevalley.com";
+	}
+	
+//*************************************SignUp Negative Testing Tc_05 *******************************************
+	
+	@Given("User is on the Passport Sign Up page")
+	public void user_is_on_the_passport_sign_up_page() {
+		homePage.click_on_signup_button();
+	    
+	}
+	@When("User enters {string} in the email address field")
+	public void user_enters_in_the_email_address_field(String uniqueEmail) {
+		
+		logger.info("Generated unique email: " + uniqueEmail);
+		homePage.enterEmailonSignUpPage(uniqueEmail);
+		waitFor(10);
+	}
+	@When("User enters {string} in the password field in signup page")
+	public void user_enters_in_the_password_field_in_signup_page(String Password) {
+		logger.info("password is filled up");
+		homePage.enter_valid_password_meeting_all_requirement(Password);
+	    
+	}
+	@When("User enters {string} in the full name field")
+	public void user_enters_in_the_full_name_field(String fullName) {
+		logger.info("Entering full name: " + fullName);
+		homePage.enterFullName(fullName);
+	   
+	}
+	@When("User enters {string} in the job title field")
+	public void user_enters_in_the_job_title_field(String jobTitle) {
+		
+		logger.info("Entering job title as : " + jobTitle);
+		homePage.enterJobTitle(jobTitle);
+	}
+	@When("User clicks on the Sign Up button")
+	public void user_clicks_on_the_sign_up_button() {
+		logger.info("Clicking the Sign Up button.");
+		homePage.clickOnSignUpSubmitButton();
+	    
+	}
+	@Then("User should see the error message {string}")
+	public void user_should_see_the_error_message(String errorMessage) {
+		
+		logger.info("Validating the checkbox error message ");
+		String message=homePage.getErrorMessageOfTermsAndCondtionsCheckbox();
+		Assert.assertEquals(errorMessage, message);
+	}
+	@Then("User should remain on the Sign Up page")
+	public void user_should_remain_on_the_sign_up_page() {
+	    
+		logger.info("Validating that user is still on sign up page");
+		boolean message=homePage.isSignPagePageLogoDisplayed();
+		Assert.assertEquals(message,true);
+		
+	}
+	
+	@When("User accepts the Terms and Conditions")
+	public void user_accepts_the_terms_and_conditions() {
+		logger.info("User Accepting the terms and conditions ");
+		homePage.termsCheckboxLabel.click();
+	}
+	@When("User receives signup error or validation message")
+	public void user_receives_signup_error_or_validation_message() {
+		logger.info("Validating the Invalid Email error message ");
+		String message=homePage.getErrorMessageOfInvalidEmailField();
+		Assert.assertEquals(message,"Email is not valid.");
+	}
+	
+	@When("User receives signup error or validation message of already registered email")
+	public void user_receives_signup_error_or_validation_message_of_already_registered_email() {
+		logger.info("Validating the Allreday Registered Email error message ");
+		String message=homePage.getErrorMessageOfAllReadyRegisteredEmail();
+		Assert.assertEquals(message,"The user already exists.");
+	}
+	
+	@When("User receives signup error or validation message for missing fields")
+	public void user_receives_signup_error_or_validation_message_for_missing_fields() {
+		logger.info("Validating the Blank Email error message ");
+		String message=homePage.getErrorMessageOfBlankEmailField();
+		Assert.assertEquals(message,"Please enter an email address");
+	}
+	
+	@When("User receives signup error or validation message for missing any other fields")
+	public void user_receives_signup_error_or_validation_message_for_missing_any_other_fields() {
+		logger.info("Validating the Blank Full Name error message ");
+		String message=homePage.getErrorMessageOfBlankFullNameField();
+		Assert.assertEquals(message,"Missing Name");
+	}
+
+	@When("User receives signup error or validation message for missing password field")
+	public void user_receives_signup_error_or_validation_message_for_missing_password_field() {
+	  logger.info("Validating the Blank Password error message ");
+		String message=homePage.getErrorMessageOfBlankPasswordField();
+		Assert.assertEquals(message,"Password is required");
+	}
+	
+	@When("User receives signup error or validation message for invalid password field")
+	public void user_receives_signup_error_or_validation_message_for_invalid_password_field() {
+	 	logger.info("Validating the Invalid Password error message ");
+		String message=homePage.getErrorMessageOfInvalidPasswordField();
+		Assert.assertEquals(message,"The password is too weak");
+	}
+
+
+
+
+
+
+
+
+
+
+	//******************************** SignUp Negative Testing Tc_06************************************
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	@Given("Navigate to the sign-up page .")
+	public void navigate_to_the_sign_up_page() {
+		  logger.info("DEBUG: Navigating to the sign-up page");
+
+		  try {
+			  homePage.click_on_signup_button();
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED+ "Exception occurred: ", e +LogColor.RESET);
+		}
+
+	}
+
+	@When("Enter a valid email address .")
+	public void enter_a_valid_email_address() {
+		String uniqueEmail = generateUniqueEmail();
+		logger.info("Generated unique email: " + uniqueEmail);
+		homePage.Enter_a_valid_email_address_on_Signup(uniqueEmail);
+	}
+
+
+	@And("Enter valid password meeting all requirements.")
+	public void enter_valid_password_meeting_all_requirements() {
+		String Password=ConfigurationReader.getProperty("password");
+		logger.info("password is filled up");
+
+
+		homePage.enter_valid_password_meeting_all_requirement(Password);
+
+	}
+
+	@And("Enter full name .")
+	public void enter_full_name() {
+		String fullName = "Test User";
+		logger.info("Entering full name: " + fullName);
+		homePage.enterFullName(fullName);
+	}
+
+
+	@And("Enter job title .")
+	public void enter_job_title() {
+		String jobTitle = "QA Automation Engineer";
+		homePage.enterJobTitle(jobTitle);
+
+	}
+
+	@Then("Check the terms and conditions checkbox .")
+     public void checkTermsOfService() {
+		homePage.termsCheckboxLabel.click();
+	}
+
+
+	@And("Click the Sign Up button .")
+	public void click_the_sign_up_button() {
+		try {
+			  System.out.println(" DEBUG: About to click the Sign Up button.");
+			logger.info("Clicking the Sign Up button.");
+			homePage.submitButton.click();
+
+		} catch (Exception e) {
+			 System.out.println("DEBUG: Exception caught - " + e.getMessage());
+			logger.info(e);
+		}
+
+
+
+	}
+
+	@Then("Verify that the user is redirected to the role selection page")
+	public void verify_that_the_user_is_redirected_to_the_role_selection_page() {
+        try {
+			Thread.sleep(15000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SoftAssert softAssert = new SoftAssert();
+		boolean isHeaderDisplayed = rolePage.userIsWelcomeToPassportHeaderDisplayed();
+
+		softAssert.assertTrue(isHeaderDisplayed, "Welcome to Passport header is not displayed");
+	}
+
+
+	@Given("Verify that {string} page is displayed.")
+	public void verify_that_page_is_displayed(String expectedText) {
+		waitFor(10);
+		String actualText = rolePage.getWelcomeHeaderText();
+
+		logger.info("Expected header text: " + expectedText);
+		logger.info("Actual header text:   " + actualText);
+
+		SoftAssert softAssert = new SoftAssert();
+		softAssert.assertEquals(actualText, expectedText, "Header text mismatch");
+		softAssert.assertAll();
+
+	}
+
+
+	@When("Select StartUp Leader .")
+	public void select_start_up_leader() {
+		waitFor(10);
+		try {
+			rolePage.clickStartupLeader();
+
+			softAssert.assertTrue(
+					rolePage.StartUpLeader.isSelected(),
+					"Startup Leader radio button should be selected"
+					);
+
+			logger.info("Startup Leader option is selected successfully.");
+		} catch (Exception e) {
+			logger.info("Exception caught while selecting Startup Leader: " + e.getMessage());
+			throw e;
+		}
+	}
+
+	@And("Click the continue button .")
+	public void click_the_continue_button() {
+		waitFor(10);
+		try {
+			softAssert.assertTrue(
+					rolePage.continueButton.isEnabled(),
+					"Continue button should be enabled"
+					);
+
+			rolePage.clickContinueButton();
+			logger.info("Continue button clicked successfully.");
+		} catch (Exception e) {
+			logger.info("Exception while clicking Continue button: " + e.getMessage());
+			throw e;
+		}
+
+		softAssert.AssertAll();
+	}
+
+
+
+
+	@Then("Verify that the Startup information is displayed .")
+	public void verify_that_the_startup_information_is_displayed() {
+		waitFor(10);
+		try {
+			Assert.assertTrue(startupPage.isStartupPageDisplayed());
+
+
+		} catch (AssertionError e) {
+
+
+			logger.info("Assertion failed: " + e.getMessage());
+			throw e;
+		}
+	}
+
+
+	@Given("The user is on the Startup Information page")
+	public void the_user_is_on_the_startup_information_page() {
+		waitFor(10);
+		try {
+			boolean isVisible = startupPage.isOnStartupInformationPage();
+			softAssert.assertTrue(isVisible, "Startup Information Page is NOT displayed!");
+			logger.info("User is on the Startup Information page.");
+		} catch (Exception e) {
+			logger.error("Startup Information page check failed: " + e.getMessage());
+			softAssert.fail("Exception occurred while checking the Startup Information page.");
+		}
+
+		// softAssert.assertAll();
+	}
+
+	@When("Enter a valid Startup name")
+	public void enter_a_valid_startup_name() {
+		waitFor(5);
+		try {
+			 String timestamp = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+		        String uniqueStartupName = "TestStartup_" + timestamp;
+
+		        startupPage.enterStartupName(uniqueStartupName);
+		        logger.info("✅ Successfully entered startup name: " + uniqueStartupName);
+
+
+		        boolean isNameAccepted = true;
+		        softAssert.assertTrue(isNameAccepted, "Startup name should be accepted");
+
+		    } catch (Exception e) {
+			    logger.error("Failed to enter startup name: " + e.getMessage());
+		        softAssert.fail("Startup name input failed: " + e.getMessage());
+		}
+		}
+
+
+	@And("Enter a valid location")
+	public void enter_a_valid_location() {
+		try {
+			startupPage.enterLocation("San Francisco ,CA, USA");
+			softAssert.assertTrue(true, "Location entered successfully");
+		} catch (Exception e) {
+			softAssert.fail("Failed to enter location: " + e.getMessage());
+		}
+	 softAssert.AssertAll();
+
+	}
+
+	@And("Click the finish button")
+	public void click_the_finish_button() {
+	    try {
+
+	        logger.info("Clicked finish button.");
+
+	        startupPage.clickFinishButton();
+	        Thread.sleep(10000);
+	        logger.info("URL after clicking finish button: " + Driver.getDriver().getCurrentUrl());
+	    } catch (Exception e) {
+	        logger.error("Error clicking finish button: " + e.getMessage());
+	    }
+	}
+
+
+@Then("Verify user is redirected to search program")
+public void verify_user_is_redirected_to_search_program() {
+    try {
+        waitForUrlContains("/searchprogram");
+        String currentUrl = Driver.getDriver().getCurrentUrl();
+        logger.info("Current URL is: " + currentUrl);
+
+        softAssert.assertTrue(
+            currentUrl.contains("/searchprogram"),
+            "User is not redirected to search program page. Current URL: " + currentUrl);
+
+        logger.info("User is successfully redirected to the search program page.");
+    } catch (Exception e) {
+        softAssert.fail("Failed to verify redirection to search page: " + e.getMessage());
+    }
+}
+}

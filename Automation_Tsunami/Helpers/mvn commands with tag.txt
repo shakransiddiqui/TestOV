@@ -1,0 +1,39 @@
+mvn test -Dcucumber.filter.tags="@AllTests"
+"
+
+mvn test -Dcucumber.filter.tags="@abc or @def"   (it will run all the scenarios which has one of them)  
+
+
+
+
+mvn test -Dbrowser=chrome-headless -Dcucumber.filter.tags="@AllTests" 
+
+
+
+mvn test -Dcucumber.filter.tags="@abc and @def"   === scenarion have to have both of them  
+
+  
+
+mvn test -Dprofile=Configuration_Headless  -Dcucumber.filter.tags="@AllTests" 
+
+
+
+  
+-------------------------------------
+
+mvn clean verify -Dtest=OvRunner -Dconfig=configuration -Dbrowser=headless -Dcucumber.filter.tags="@AllTests"
+
+
+mvn clean test -Dprofile=Configuration_Headless  -Dcucumber.filter.tags="@AllTests" 
+
+mvn clean test -Dprofile=Configuration_RealBrowser  -Dcucumber.filter.tags="@AllTests" 
+
+
+mvn clean test  -Dcucumber.filter.tags="@AllTests" 
+
+
+test
+
+mvn clean test -Dprofile=Configuration_RealBrowser -DBrowser=headless  -Dcucumber.filter.tags="@AllTests" 
+
+

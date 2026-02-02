@@ -1,0 +1,13 @@
+url=https://demo-stage.gsvlabsportal.com/
+
+validEmail=qa1@theonevalley.com
+validPassword=Remyliam@2017
+
+invalidEmail=wrong1@email.com
+invalidPassword=Wrong@123
+EMPTY=
+
+name=Suzy Ghanem
+
+Login_Page_Title=ov-demo-stage
+Dashboard_Page_Title=Community-Dashboard

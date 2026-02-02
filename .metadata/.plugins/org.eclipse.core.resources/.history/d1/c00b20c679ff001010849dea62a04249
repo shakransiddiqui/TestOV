@@ -1,0 +1,28 @@
+@PassportOS @Login
+Feature: PassportOS Login
+
+  Background: 
+    Given User is on the PassportOS login page with title of "Login_Page_Title"
+
+  @Tc_01 @passportos-neg
+  Scenario Outline: Verify user fails to login with invalid or missing credentials
+    Then User enters "<Email>" in the "username" field
+    Then User enters "<Password>" in the "password" field
+    Then User clicks on the "Continue" button
+    Then User should see login error message "<ErrorMessage>"
+
+    Examples: 
+      | Email        | Password        | ErrorMessage                  |
+      | invalidEmail | invalidPassword | Wrong email or password       |
+      | validEmail   | invalidPassword | Wrong email or password       |
+      | invalidEmail | validPassword   | Wrong email or password       |
+      | EMPTY        | invalidPassword | Please enter an email address |
+      | invalidEmail | EMPTY           | Please enter an email address |
+      | EMPTY        | EMPTY           | Please enter an email address |
+
+  @Tc_02 @passportos-pos
+  Scenario: Verify user logs in successfully with valid credentials
+    Then User enters "validEmail" in the "username" field
+    Then User enters "validPassword" in the "password" field
+    Then User clicks on the "Continue" button
+    And User is redirected to Dashboard page with title "Dashboard_Page_Title"

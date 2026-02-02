@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.ov.runners.OvRunnerTest" time="125.532" tests="4" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami\target\test-classes;C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami\target\classes;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.11.0\junit-jupiter-api-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\platform\junit-platform-commons\1.11.0\junit-platform-commons-1.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0\junit-jupiter-params-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.11.0\junit-jupiter-engine-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\platform\junit-platform-engine\1.11.0\junit-platform-engine-1.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\vintage\junit-vintage-engine\5.11.0\junit-vintage-engine-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-java\4.35.0\selenium-java-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-api\4.35.0\selenium-api-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.35.0\selenium-chrome-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.35.0\selenium-chromium-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-json\4.35.0\selenium-json-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.35.0\selenium-manager-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v137\4.35.0\selenium-devtools-v137-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v138\4.35.0\selenium-devtools-v138-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v139\4.35.0\selenium-devtools-v139-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.35.0\selenium-edge-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.35.0\selenium-firefox-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-http\4.35.0\selenium-http-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.35.0\selenium-ie-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.35.0\selenium-remote-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\guava\33.4.8-jre\guava-33.4.8-jre.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\errorprone\error_prone_annotations\2.36.0\error_prone_annotations-2.36.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-api\1.53.0\opentelemetry-api-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-context\1.53.0\opentelemetry-context-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-common\1.53.0\opentelemetry-common-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.53.0\opentelemetry-exporter-logging-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.53.0\opentelemetry-sdk-common-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.53.0\opentelemetry-sdk-extension-autoconfigure-spi-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.53.0\opentelemetry-sdk-extension-autoconfigure-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.53.0\opentelemetry-sdk-trace-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.53.0\opentelemetry-sdk-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.53.0\opentelemetry-sdk-metrics-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.53.0\opentelemetry-sdk-logs-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\net\bytebuddy\byte-buddy\1.17.6\byte-buddy-1.17.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-os\4.35.0\selenium-os-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-exec\1.5.0\commons-exec-1.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.35.0\selenium-safari-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-support\4.35.0\selenium-support-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\testng\testng\7.8.0\testng-7.8.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\Souhila Brahami\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\Souhila Brahami\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi\3.17\poi-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\commons-codec\commons-codec\1.10\commons-codec-1.10.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-collections4\4.1\commons-collections4-4.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi-ooxml\3.17\poi-ooxml-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi-ooxml-schemas\3.17\poi-ooxml-schemas-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\xmlbeans\xmlbeans\2.6.0\xmlbeans-2.6.0.jar;C:\Users\Souhila Brahami\.m2\repository\stax\stax-api\1.0.1\stax-api-1.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\virtuald\curvesapi\1.04\curvesapi-1.04.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-core\2.23.1\log4j-core-2.23.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\aventstack\extentreports\5.1.1\extentreports-5.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\Souhila Brahami\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\rest-assured\3.1.1\rest-assured-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy\2.4.12\groovy-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.12\groovy-xml-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpmime\4.5.1\httpmime-4.5.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\json-path\3.1.1\json-path-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy-json\2.4.12\groovy-json-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\xml-path\3.1.1\xml-path-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\rest-assured-common\5.3.2\rest-assured-common-5.3.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\groovy\groovy\4.0.11\groovy-4.0.11.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-core\7.17.0\cucumber-core-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-gherkin\7.17.0\cucumber-gherkin-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.17.0\cucumber-gherkin-messages-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\gherkin\28.0.0\gherkin-28.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\messages\24.1.0\messages-24.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\testng-xml-formatter\0.1.0\testng-xml-formatter-0.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\query\12.2.0\query-12.2.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\tag-expressions\6.1.0\tag-expressions-6.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-expressions\17.1.0\cucumber-expressions-17.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\datatable\7.17.0\datatable-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-plugin\7.17.0\cucumber-plugin-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\docstring\7.17.0\docstring-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\html-formatter\21.3.1\html-formatter-21.3.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\junit-xml-formatter\0.4.0\junit-xml-formatter-0.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\ci-environment\10.0.1\ci-environment-10.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-junit\7.14.0\cucumber-junit-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\vimalselvam\cucumber-extentsreport\3.1.1\cucumber-extentsreport-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-testng\7.14.0\cucumber-testng-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-picocontainer\7.0.0\cucumber-picocontainer-7.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\picocontainer\picocontainer\2.15\picocontainer-2.15.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extentreports-cucumber7-adapter\1.14.0\extentreports-cucumber7-adapter-1.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extent-pdf-report\2.12.0\extent-pdf-report-2.12.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\cucumber-pdf-report\2.14.0\cucumber-pdf-report-2.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\pdfbox\pdfbox\2.0.26\pdfbox-2.0.26.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\pdfbox\fontbox\2.0.26\fontbox-2.0.26.jar;C:\Users\Souhila Brahami\.m2\repository\org\knowm\xchart\xchart\3.8.0\xchart-3.8.0.jar;C:\Users\Souhila Brahami\.m2\repository\de\erichseifert\vectorgraphics2d\VectorGraphics2D\0.13\VectorGraphics2D-0.13.jar;C:\Users\Souhila Brahami\.m2\repository\de\rototor\pdfbox\graphics2d\0.30\graphics2d-0.30.jar;C:\Users\Souhila Brahami\.m2\repository\com\madgag\animated-gif-lib\1.4\animated-gif-lib-1.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\yaml\snakeyaml\2.0\snakeyaml-2.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\table-layout\1.5.1\table-layout-1.5.1.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\rest-assured-cucumber-pdf-report\1.5.0\rest-assured-cucumber-pdf-report-1.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jsoup\jsoup\1.15.3\jsoup-1.15.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\aventstack\klov-reporter\5.1.0\klov-reporter-5.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\mongodb-driver\3.6.4\mongodb-driver-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\mongodb-driver-core\3.6.4\mongodb-driver-core-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\bson\3.6.4\bson-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\htmlextentreporter\1.1.0\htmlextentreporter-1.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extent-excel-report\1.4.0\extent-excel-report-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\commons-io\commons-io\2.16.1\commons-io-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\tomcat\tomcat-jdbc\9.0.22\tomcat-jdbc-9.0.22.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\tomcat\tomcat-juli\9.0.22\tomcat-juli-9.0.22.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-jdbc\5.1.5.RELEASE\spring-jdbc-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-beans\5.1.5.RELEASE\spring-beans-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-core\5.1.5.RELEASE\spring-core-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-jcl\5.1.5.RELEASE\spring-jcl-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-tx\5.1.5.RELEASE\spring-tx-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\javafaker\javafaker\0.16\javafaker-0.16.jar;C:\Users\Souhila Brahami\.m2\repository\org\yaml\snakeyaml\1.20\snakeyaml-1.20-android.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\mifmif\generex\1.0.2\generex-1.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\dk\brics\automaton\automaton\1.11-8\automaton-1.11-8.jar;C:\Users\Souhila Brahami\.m2\repository\org\postgresql\postgresql\42.3.9\postgresql-42.3.9.jar;C:\Users\Souhila Brahami\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\webdriver\2.6\webdriver-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\webdriver\webdriver-common\0.9.7089\webdriver-common-0.9.7089.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\htmlunit\2.6\htmlunit-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\xalan\xalan\2.7.1\xalan-2.7.1.jar;C:\Users\Souhila Brahami\.m2\repository\xalan\serializer\2.7.1\serializer-2.7.1.jar;C:\Users\Souhila Brahami\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\Souhila Brahami\.m2\repository\commons-lang\commons-lang\2.4\commons-lang-2.4.jar;C:\Users\Souhila Brahami\.m2\repository\commons-httpclient\commons-httpclient\3.1\commons-httpclient-3.1.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\htmlunit-core-js\2.6\htmlunit-core-js-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\xerces\xercesImpl\2.9.1\xercesImpl-2.9.1.jar;C:\Users\Souhila Brahami\.m2\repository\xml-apis\xml-apis\1.3.04\xml-apis-1.3.04.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\nekohtml\nekohtml\1.9.13\nekohtml-1.9.13.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\cssparser\cssparser\0.9.5\cssparser-0.9.5.jar;C:\Users\Souhila Brahami\.m2\repository\org\w3c\css\sac\1.3\sac-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\codoid\products\fillo\1.18\fillo-1.18.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-slf4j-impl\2.18.0\log4j-slf4j-impl-2.18.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\fusesource\jansi\jansi\2.4.0\jansi-2.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\bettercloud\vault-java-driver\5.1.0\vault-java-driver-5.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\secretsmanager\2.32.25\secretsmanager-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\aws-json-protocol\2.32.25\aws-json-protocol-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\third-party-jackson-core\2.32.25\third-party-jackson-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\protocol-core\2.32.25\protocol-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-aws\2.32.25\http-auth-aws-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\checksums-spi\2.32.25\checksums-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\checksums\2.32.25\checksums-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\sdk-core\2.32.25\sdk-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\auth\2.32.25\auth-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-aws-eventstream\2.32.25\http-auth-aws-eventstream-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-spi\2.32.25\http-auth-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth\2.32.25\http-auth-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\identity-spi\2.32.25\identity-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-client-spi\2.32.25\http-client-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\regions\2.32.25\regions-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\annotations\2.32.25\annotations-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\utils\2.32.25\utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\metrics-spi\2.32.25\metrics-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\json-utils\2.32.25\json-utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\endpoints-spi\2.32.25\endpoints-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\retries-spi\2.32.25\retries-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\apache-client\2.32.25\apache-client-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\netty-nio-client\2.32.25\netty-nio-client-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec-http\4.1.124.Final\netty-codec-http-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec-http2\4.1.124.Final\netty-codec-http2-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec\4.1.124.Final\netty-codec-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport\4.1.124.Final\netty-transport-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-common\4.1.124.Final\netty-common-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-buffer\4.1.124.Final\netty-buffer-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-handler\4.1.124.Final\netty-handler-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport-native-unix-common\4.1.124.Final\netty-transport-native-unix-common-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport-classes-epoll\4.1.124.Final\netty-transport-classes-epoll-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-resolver\4.1.124.Final\netty-resolver-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-jdbc\2.0.2\aws-secretsmanager-jdbc-2.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-caching-java\2.0.0\aws-secretsmanager-caching-java-2.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\spotbugs\spotbugs-annotations\4.7.3\spotbugs-annotations-4.7.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\aws-core\2.32.25\aws-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\profiles\2.32.25\profiles-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\retries\2.32.25\retries-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\eventstream\eventstream\1.0.1\eventstream-1.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\test-utils\2.32.25\test-utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0\junit-jupiter-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\json\json\20240303\json-20240303.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpclient\4.5.9\httpclient-4.5.9.jar;C:\Users\Souhila Brahami\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpcore\4.4.9\httpcore-4.4.9.jar;C:\Users\Souhila Brahami\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.6.1.jre11\mssql-jdbc-12.6.1.jre11.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.16.1\jackson-databind-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.16.1\jackson-annotations-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\github\cdimascio\java-dotenv\5.2.2\java-dotenv-5.2.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.4.0\kotlin-stdlib-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.4.0\kotlin-stdlib-common-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="America/Los_Angeles"/>
+    <property name="os.name" value="Windows 11"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-21\bin"/>
+    <property name="sun.java.command" value="C:\Users\Souhila Brahami\AppData\Local\Temp\surefire2606120917606811682\surefirebooter-20260122093318759_3.jar C:\Users\Souhila Brahami\AppData\Local\Temp\surefire2606120917606811682 2026-01-22T09-33-18_641-jvmRun1 surefire-20260122093318759_1tmp surefire_0-20260122093318759_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami\target\test-classes;C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami\target\classes;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.11.0\junit-jupiter-api-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\platform\junit-platform-commons\1.11.0\junit-platform-commons-1.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0\junit-jupiter-params-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.11.0\junit-jupiter-engine-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\platform\junit-platform-engine\1.11.0\junit-platform-engine-1.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\vintage\junit-vintage-engine\5.11.0\junit-vintage-engine-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-java\4.35.0\selenium-java-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-api\4.35.0\selenium-api-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.35.0\selenium-chrome-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.35.0\selenium-chromium-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-json\4.35.0\selenium-json-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.35.0\selenium-manager-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v137\4.35.0\selenium-devtools-v137-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v138\4.35.0\selenium-devtools-v138-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v139\4.35.0\selenium-devtools-v139-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.35.0\selenium-edge-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.35.0\selenium-firefox-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-http\4.35.0\selenium-http-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.35.0\selenium-ie-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.35.0\selenium-remote-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\guava\33.4.8-jre\guava-33.4.8-jre.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\errorprone\error_prone_annotations\2.36.0\error_prone_annotations-2.36.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-api\1.53.0\opentelemetry-api-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-context\1.53.0\opentelemetry-context-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-common\1.53.0\opentelemetry-common-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.53.0\opentelemetry-exporter-logging-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.53.0\opentelemetry-sdk-common-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.53.0\opentelemetry-sdk-extension-autoconfigure-spi-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.53.0\opentelemetry-sdk-extension-autoconfigure-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.53.0\opentelemetry-sdk-trace-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.53.0\opentelemetry-sdk-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.53.0\opentelemetry-sdk-metrics-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.53.0\opentelemetry-sdk-logs-1.53.0.jar;C:\Users\Souhila Brahami\.m2\repository\net\bytebuddy\byte-buddy\1.17.6\byte-buddy-1.17.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-os\4.35.0\selenium-os-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-exec\1.5.0\commons-exec-1.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.35.0\selenium-safari-driver-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\selenium\selenium-support\4.35.0\selenium-support-4.35.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\testng\testng\7.8.0\testng-7.8.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\Souhila Brahami\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\Souhila Brahami\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi\3.17\poi-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\commons-codec\commons-codec\1.10\commons-codec-1.10.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-collections4\4.1\commons-collections4-4.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi-ooxml\3.17\poi-ooxml-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\poi\poi-ooxml-schemas\3.17\poi-ooxml-schemas-3.17.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\xmlbeans\xmlbeans\2.6.0\xmlbeans-2.6.0.jar;C:\Users\Souhila Brahami\.m2\repository\stax\stax-api\1.0.1\stax-api-1.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\virtuald\curvesapi\1.04\curvesapi-1.04.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-core\2.23.1\log4j-core-2.23.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\aventstack\extentreports\5.1.1\extentreports-5.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\Souhila Brahami\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\rest-assured\3.1.1\rest-assured-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy\2.4.12\groovy-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.12\groovy-xml-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpmime\4.5.1\httpmime-4.5.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\json-path\3.1.1\json-path-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\codehaus\groovy\groovy-json\2.4.12\groovy-json-2.4.12.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\xml-path\3.1.1\xml-path-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\Souhila Brahami\.m2\repository\io\rest-assured\rest-assured-common\5.3.2\rest-assured-common-5.3.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\groovy\groovy\4.0.11\groovy-4.0.11.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-core\7.17.0\cucumber-core-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-gherkin\7.17.0\cucumber-gherkin-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.17.0\cucumber-gherkin-messages-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\gherkin\28.0.0\gherkin-28.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\messages\24.1.0\messages-24.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\testng-xml-formatter\0.1.0\testng-xml-formatter-0.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\query\12.2.0\query-12.2.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\tag-expressions\6.1.0\tag-expressions-6.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-expressions\17.1.0\cucumber-expressions-17.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\datatable\7.17.0\datatable-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-plugin\7.17.0\cucumber-plugin-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\docstring\7.17.0\docstring-7.17.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\html-formatter\21.3.1\html-formatter-21.3.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\junit-xml-formatter\0.4.0\junit-xml-formatter-0.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\ci-environment\10.0.1\ci-environment-10.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-junit\7.14.0\cucumber-junit-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\vimalselvam\cucumber-extentsreport\3.1.1\cucumber-extentsreport-3.1.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-testng\7.14.0\cucumber-testng-7.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\io\cucumber\cucumber-picocontainer\7.0.0\cucumber-picocontainer-7.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\picocontainer\picocontainer\2.15\picocontainer-2.15.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extentreports-cucumber7-adapter\1.14.0\extentreports-cucumber7-adapter-1.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extent-pdf-report\2.12.0\extent-pdf-report-2.12.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\cucumber-pdf-report\2.14.0\cucumber-pdf-report-2.14.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\pdfbox\pdfbox\2.0.26\pdfbox-2.0.26.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\pdfbox\fontbox\2.0.26\fontbox-2.0.26.jar;C:\Users\Souhila Brahami\.m2\repository\org\knowm\xchart\xchart\3.8.0\xchart-3.8.0.jar;C:\Users\Souhila Brahami\.m2\repository\de\erichseifert\vectorgraphics2d\VectorGraphics2D\0.13\VectorGraphics2D-0.13.jar;C:\Users\Souhila Brahami\.m2\repository\de\rototor\pdfbox\graphics2d\0.30\graphics2d-0.30.jar;C:\Users\Souhila Brahami\.m2\repository\com\madgag\animated-gif-lib\1.4\animated-gif-lib-1.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\yaml\snakeyaml\2.0\snakeyaml-2.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\table-layout\1.5.1\table-layout-1.5.1.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\rest-assured-cucumber-pdf-report\1.5.0\rest-assured-cucumber-pdf-report-1.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jsoup\jsoup\1.15.3\jsoup-1.15.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\aventstack\klov-reporter\5.1.0\klov-reporter-5.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\mongodb-driver\3.6.4\mongodb-driver-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\mongodb-driver-core\3.6.4\mongodb-driver-core-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\org\mongodb\bson\3.6.4\bson-3.6.4.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\htmlextentreporter\1.1.0\htmlextentreporter-1.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\tech\grasshopper\extent-excel-report\1.4.0\extent-excel-report-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\commons-io\commons-io\2.16.1\commons-io-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\tomcat\tomcat-jdbc\9.0.22\tomcat-jdbc-9.0.22.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\tomcat\tomcat-juli\9.0.22\tomcat-juli-9.0.22.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-jdbc\5.1.5.RELEASE\spring-jdbc-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-beans\5.1.5.RELEASE\spring-beans-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-core\5.1.5.RELEASE\spring-core-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-jcl\5.1.5.RELEASE\spring-jcl-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\org\springframework\spring-tx\5.1.5.RELEASE\spring-tx-5.1.5.RELEASE.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\javafaker\javafaker\0.16\javafaker-0.16.jar;C:\Users\Souhila Brahami\.m2\repository\org\yaml\snakeyaml\1.20\snakeyaml-1.20-android.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\mifmif\generex\1.0.2\generex-1.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\dk\brics\automaton\automaton\1.11-8\automaton-1.11-8.jar;C:\Users\Souhila Brahami\.m2\repository\org\postgresql\postgresql\42.3.9\postgresql-42.3.9.jar;C:\Users\Souhila Brahami\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\webdriver\2.6\webdriver-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\org\seleniumhq\webdriver\webdriver-common\0.9.7089\webdriver-common-0.9.7089.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\htmlunit\2.6\htmlunit-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\xalan\xalan\2.7.1\xalan-2.7.1.jar;C:\Users\Souhila Brahami\.m2\repository\xalan\serializer\2.7.1\serializer-2.7.1.jar;C:\Users\Souhila Brahami\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\Souhila Brahami\.m2\repository\commons-lang\commons-lang\2.4\commons-lang-2.4.jar;C:\Users\Souhila Brahami\.m2\repository\commons-httpclient\commons-httpclient\3.1\commons-httpclient-3.1.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\htmlunit\htmlunit-core-js\2.6\htmlunit-core-js-2.6.jar;C:\Users\Souhila Brahami\.m2\repository\xerces\xercesImpl\2.9.1\xercesImpl-2.9.1.jar;C:\Users\Souhila Brahami\.m2\repository\xml-apis\xml-apis\1.3.04\xml-apis-1.3.04.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\nekohtml\nekohtml\1.9.13\nekohtml-1.9.13.jar;C:\Users\Souhila Brahami\.m2\repository\net\sourceforge\cssparser\cssparser\0.9.5\cssparser-0.9.5.jar;C:\Users\Souhila Brahami\.m2\repository\org\w3c\css\sac\1.3\sac-1.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\codoid\products\fillo\1.18\fillo-1.18.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\logging\log4j\log4j-slf4j-impl\2.18.0\log4j-slf4j-impl-2.18.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\fusesource\jansi\jansi\2.4.0\jansi-2.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\bettercloud\vault-java-driver\5.1.0\vault-java-driver-5.1.0.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\secretsmanager\2.32.25\secretsmanager-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\aws-json-protocol\2.32.25\aws-json-protocol-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\third-party-jackson-core\2.32.25\third-party-jackson-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\protocol-core\2.32.25\protocol-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-aws\2.32.25\http-auth-aws-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\checksums-spi\2.32.25\checksums-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\checksums\2.32.25\checksums-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\sdk-core\2.32.25\sdk-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\auth\2.32.25\auth-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-aws-eventstream\2.32.25\http-auth-aws-eventstream-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth-spi\2.32.25\http-auth-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-auth\2.32.25\http-auth-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\identity-spi\2.32.25\identity-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\http-client-spi\2.32.25\http-client-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\regions\2.32.25\regions-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\annotations\2.32.25\annotations-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\utils\2.32.25\utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\metrics-spi\2.32.25\metrics-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\json-utils\2.32.25\json-utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\endpoints-spi\2.32.25\endpoints-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\retries-spi\2.32.25\retries-spi-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\apache-client\2.32.25\apache-client-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\netty-nio-client\2.32.25\netty-nio-client-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec-http\4.1.124.Final\netty-codec-http-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec-http2\4.1.124.Final\netty-codec-http2-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-codec\4.1.124.Final\netty-codec-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport\4.1.124.Final\netty-transport-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-common\4.1.124.Final\netty-common-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-buffer\4.1.124.Final\netty-buffer-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-handler\4.1.124.Final\netty-handler-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport-native-unix-common\4.1.124.Final\netty-transport-native-unix-common-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-transport-classes-epoll\4.1.124.Final\netty-transport-classes-epoll-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\io\netty\netty-resolver\4.1.124.Final\netty-resolver-4.1.124.Final.jar;C:\Users\Souhila Brahami\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-jdbc\2.0.2\aws-secretsmanager-jdbc-2.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-caching-java\2.0.0\aws-secretsmanager-caching-java-2.0.0.jar;C:\Users\Souhila Brahami\.m2\repository\com\github\spotbugs\spotbugs-annotations\4.7.3\spotbugs-annotations-4.7.3.jar;C:\Users\Souhila Brahami\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\aws-core\2.32.25\aws-core-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\profiles\2.32.25\profiles-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\retries\2.32.25\retries-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\eventstream\eventstream\1.0.1\eventstream-1.0.1.jar;C:\Users\Souhila Brahami\.m2\repository\software\amazon\awssdk\test-utils\2.32.25\test-utils-2.32.25.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0\junit-jupiter-5.11.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\json\json\20240303\json-20240303.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpclient\4.5.9\httpclient-4.5.9.jar;C:\Users\Souhila Brahami\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\apache\httpcomponents\httpcore\4.4.9\httpcore-4.4.9.jar;C:\Users\Souhila Brahami\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.6.1.jre11\mssql-jdbc-12.6.1.jre11.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.16.1\jackson-databind-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.16.1\jackson-annotations-2.16.1.jar;C:\Users\Souhila Brahami\.m2\repository\io\github\cdimascio\java-dotenv\5.2.2\java-dotenv-5.2.2.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.4.0\kotlin-stdlib-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.4.0\kotlin-stdlib-common-1.4.0.jar;C:\Users\Souhila Brahami\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Souhila Brahami"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk-21"/>
+    <property name="file.separator" value="\"/>
+    <property name="basedir" value="C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="extent.reporter.spark.start" value="true"/>
+    <property name="jansi.force" value="true"/>
+    <property name="surefire.real.class.path" value="C:\Users\Souhila Brahami\AppData\Local\Temp\surefire2606120917606811682\surefirebooter-20260122093318759_3.jar"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.9+7-LTS-338"/>
+    <property name="user.name" value="Suzy"/>
+    <property name="stdout.encoding" value="Cp1252"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="extent.reporter.spark.out" value="PipeLine_mvnRun_Report/mavenRUN.html"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="browser" value="chrome-headless"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Souhila Brahami\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="C:\Users\SOUHIL~1\AppData\Local\Temp\"/>
+    <property name="os" value="linux"/>
+    <property name="java.version" value="21.0.9"/>
+    <property name="cucumber.filter.tags" value="@Login"/>
+    <property name="user.dir" value="C:\Users\Souhila Brahami\eclipse-workspace\tsunami-qa\Automation_Tsunami"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="engineer" value="runner1"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="native.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk-21\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\Maven\apache-maven-3.9.11\bin;C:\Program Files\Java\jdk-21\bin;C:\Users\Souhila Brahami\AppData\Local\Microsoft\WindowsApps;C:\Users\Souhila Brahami\AppData\Local\GitHubDesktop\bin;C:\Users\Souhila Brahami\AppData\Local\Programs\Microsoft VS Code\bin;."/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="Cp1252"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="21.0.9+7-LTS-338"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="Login fails with invalid or empty email and password combinations #1" classname="Login_Test_Feature" time="34.999">
+    <system-out><![CDATA[09:33:21.352 INFO  [OvRunnerTest &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;135m @BeforeClass-OVRunner Running one time&amp#27;[0m
+09:33:21.568 INFO  [Hooks &amp#27;[95m:30&amp#27;[m] &amp#27;[38;5;54m @Before All Hooks &amp#27;[0m
+09:33:21.568 INFO  [Hooks &amp#27;[95m:35&amp#27;[m] &amp#27;[1;35m Browser Setup &amp#27;[0m
+
+@Login @Tc_01 @validate_unsuccessful_login_with_invalid_credentials @passport-neg
+Scenario Outline: Login fails with invalid or empty email and password combinations &amp#27;[90m# src/test/resources/features/1_Login/0_Login.feature:17&amp#27;[0m
+09:33:21.812 INFO  [Hooks &amp#27;[95m:40&amp#27;[m] &amp#27;[38;5;54mStarting scenario: Login fails with invalid or empty email and password combinations&amp#27;[0m
+09:33:21.812 INFO  [Driver &amp#27;[95m:60&amp#27;[m] Launching Browser → CHROME-HEADLESS
+09:33:23.495 INFO  [ConfigurationReader &amp#27;[95m:22&amp#27;[m] &amp#27;[38;5;201m****************** Current Profile: null******************&amp#27;[0m
+09:33:23.496 INFO  [ConfigurationReader &amp#27;[95m:29&amp#27;[m] Current configFile =Configuration.properties
+jQuery not detected or error occurred. Skipping AJAX wait.
+09:33:23.712 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:23.718 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:23.719 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Navigate to the login page.
+09:33:23.719 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:33:23.742 INFO  [HomePage_Passport &amp#27;[95m:299&amp#27;[m] clicking on login button from homepage
+  &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mNavigate to the login page.&amp#27;[0m                                                 &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.navigate_to_the_login_page()&amp#27;[0m
+09:33:34.597 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103214598 [image/png 79647 bytes]
+
+09:33:34.697 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:34.698 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:34.699 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "invalid@email" in the username field
+09:33:34.699 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"invalid@email"&amp#27;[0m&amp#27;[32m in the username field&amp#27;[0m                            &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_username_field(java.lang.String)&amp#27;[0m
+09:33:34.877 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103214877 [image/png 80616 bytes]
+
+09:33:34.968 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:34.970 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:34.970 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "wrong123" in the password field
+09:33:34.970 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"wrong123"&amp#27;[0m&amp#27;[32m in the password field&amp#27;[0m                                  &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_password_field(java.lang.String)&amp#27;[0m
+09:33:35.116 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103215116 [image/png 81623 bytes]
+
+09:33:35.202 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:35.203 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:35.206 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User clicks on the Login button
+09:33:35.206 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser clicks on the Login button&amp#27;[0m                                               &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_clicks_on_the_login_button()&amp#27;[0m
+09:33:45.715 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103225715 [image/png 84873 bytes]
+
+09:33:45.833 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:45.836 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:45.836 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should see a login error or validation message
+09:33:45.837 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:33:45.936 INFO  [LogInStepDefinition &amp#27;[95m:49&amp#27;[m] Login error/validation message displayed: [Wrong email or password]
+  &amp#27;[32mThen &amp#27;[0m&amp#27;[32mUser should see a login error or validation message&amp#27;[0m                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_see_a_login_error_or_validation_message()&amp#27;[0m
+09:33:45.939 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103225939 [image/png 82878 bytes]
+
+09:33:46.042 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:46.045 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:46.045 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should remain on the Login page
+09:33:46.045 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser should remain on the Login page&amp#27;[0m                                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_remain_on_the_login_page()&amp#27;[0m
+09:33:56.146 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103236147 [image/png 82864 bytes]
+
+09:33:56.219 INFO  [Hooks &amp#27;[95m:61&amp#27;[m] &amp#27;[38;5;54m @after hook &amp#27;[0m
+09:33:56.220 INFO  [Hooks &amp#27;[95m:62&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+09:33:56.223 INFO  [Hooks &amp#27;[95m:64&amp#27;[m] &amp#27;[38;5;54mLogin fails with invalid or empty email and password combinations :- Status - PASSED&amp#27;[0m
+09:33:56.224 INFO  [Hooks &amp#27;[95m:65&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+]]></system-out>
+    <system-err><![CDATA[Jan 22, 2026 9:33:23 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 144
+Jan 22, 2026 9:33:23 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.35.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="04_User logs in successfully with valid credentials." classname="Login_Test_Feature" time="18.509">
+    <system-out><![CDATA[
+@Login @Tc_02 @validate_successful_login_with_valid_credentials @passport-pos
+Scenario: 04_User logs in successfully with valid credentials.        &amp#27;[90m# src/test/resources/features/1_Login/0_Login.feature:21&amp#27;[0m
+09:33:56.629 INFO  [Hooks &amp#27;[95m:40&amp#27;[m] &amp#27;[38;5;54mStarting scenario: 04_User logs in successfully with valid credentials.&amp#27;[0m
+09:33:56.629 INFO  [Driver &amp#27;[95m:60&amp#27;[m] Launching Browser → CHROME-HEADLESS
+jQuery not detected or error occurred. Skipping AJAX wait.
+09:33:57.735 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:33:57.736 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:33:57.737 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Navigate to the login page.
+09:33:57.737 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:33:57.738 INFO  [HomePage_Passport &amp#27;[95m:299&amp#27;[m] clicking on login button from homepage
+  &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mNavigate to the login page.&amp#27;[0m                                   &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.navigate_to_the_login_page()&amp#27;[0m
+09:34:08.992 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding 04_User_logs_in_successfully_with_valid_credentials._1769103248992 [image/png 79647 bytes]
+
+09:34:09.093 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:09.094 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:09.094 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Enter a valid username and password
+09:34:09.094 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:34:09.095 INFO  [LogInStepDefinition &amp#27;[95m:102&amp#27;[m] password and username filled up
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mEnter a valid username and password&amp#27;[0m                             &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.enter_a_valid_username_and_password()&amp#27;[0m
+09:34:09.366 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding 04_User_logs_in_successfully_with_valid_credentials._1769103249366 [image/png 82899 bytes]
+
+09:34:09.468 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:09.469 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:09.469 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Click the "Login" button.
+09:34:09.469 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mClick the &amp#27;[0m&amp#27;[32m&amp#27;[1m"Login"&amp#27;[0m&amp#27;[32m button.&amp#27;[0m                                      &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.click_the_button(java.lang.String)&amp#27;[0m
+09:34:14.491 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding 04_User_logs_in_successfully_with_valid_credentials._1769103254493 [image/png 72416 bytes]
+
+09:34:14.663 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:14.664 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:14.665 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Verify that the user is redirected to the Community Dashboard.
+09:34:14.665 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mThen &amp#27;[0m&amp#27;[32mVerify that the user is redirected to the Community Dashboard.&amp#27;[0m &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.verify_that_the_user_is_redirected_to_the_community_dashboard()&amp#27;[0m
+09:34:14.682 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding 04_User_logs_in_successfully_with_valid_credentials._1769103254683 [image/png 72352 bytes]
+
+09:34:14.792 INFO  [Hooks &amp#27;[95m:61&amp#27;[m] &amp#27;[38;5;54m @after hook &amp#27;[0m
+09:34:14.793 INFO  [Hooks &amp#27;[95m:62&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+09:34:14.793 INFO  [Hooks &amp#27;[95m:64&amp#27;[m] &amp#27;[38;5;54m04_User logs in successfully with valid credentials. :- Status - PASSED&amp#27;[0m
+09:34:14.793 INFO  [Hooks &amp#27;[95m:65&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+]]></system-out>
+    <system-err><![CDATA[Jan 22, 2026 9:33:57 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 144
+Jan 22, 2026 9:33:57 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.35.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="Login fails with invalid or empty email and password combinations #2" classname="Login_Test_Feature" time="34.207">
+    <system-out><![CDATA[
+@Login @Tc_03 @validate_unsuccessful_login_with_invalid_email_and_valid_password @passport-neg
+Scenario Outline: Login fails with invalid or empty email and password combinations &amp#27;[90m# src/test/resources/features/1_Login/0_Login.feature:37&amp#27;[0m
+09:34:15.136 INFO  [Hooks &amp#27;[95m:40&amp#27;[m] &amp#27;[38;5;54mStarting scenario: Login fails with invalid or empty email and password combinations&amp#27;[0m
+09:34:15.137 INFO  [Driver &amp#27;[95m:60&amp#27;[m] Launching Browser → CHROME-HEADLESS
+jQuery not detected or error occurred. Skipping AJAX wait.
+09:34:16.501 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:16.502 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:16.502 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Navigate to the login page.
+09:34:16.502 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:34:16.503 INFO  [HomePage_Passport &amp#27;[95m:299&amp#27;[m] clicking on login button from homepage
+  &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mNavigate to the login page.&amp#27;[0m                                                 &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.navigate_to_the_login_page()&amp#27;[0m
+09:34:27.547 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103267547 [image/png 79647 bytes]
+
+09:34:27.644 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:27.645 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:27.645 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "invalid@email" in the username field
+09:34:27.645 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"invalid@email"&amp#27;[0m&amp#27;[32m in the username field&amp#27;[0m                            &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_username_field(java.lang.String)&amp#27;[0m
+09:34:27.798 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103267799 [image/png 80616 bytes]
+
+09:34:27.876 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:27.877 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:27.877 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "Remyliam@2017" in the password field
+09:34:27.877 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"Remyliam@2017"&amp#27;[0m&amp#27;[32m in the password field&amp#27;[0m                             &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_password_field(java.lang.String)&amp#27;[0m
+09:34:28.139 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103268139 [image/png 81712 bytes]
+
+09:34:28.219 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:28.221 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:28.221 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User clicks on the Login button
+09:34:28.222 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser clicks on the Login button&amp#27;[0m                                               &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_clicks_on_the_login_button()&amp#27;[0m
+09:34:38.595 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103278595 [image/png 84875 bytes]
+
+09:34:38.719 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:38.721 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:38.721 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should see a login error or validation message
+09:34:38.721 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:34:38.799 INFO  [LogInStepDefinition &amp#27;[95m:49&amp#27;[m] Login error/validation message displayed: [Wrong email or password]
+  &amp#27;[32mThen &amp#27;[0m&amp#27;[32mUser should see a login error or validation message&amp#27;[0m                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_see_a_login_error_or_validation_message()&amp#27;[0m
+09:34:38.803 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103278803 [image/png 82878 bytes]
+
+09:34:38.879 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:38.879 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:38.879 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should remain on the Login page
+09:34:38.881 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser should remain on the Login page&amp#27;[0m                                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_remain_on_the_login_page()&amp#27;[0m
+09:34:48.933 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103288934 [image/png 82864 bytes]
+
+09:34:49.006 INFO  [Hooks &amp#27;[95m:61&amp#27;[m] &amp#27;[38;5;54m @after hook &amp#27;[0m
+09:34:49.008 INFO  [Hooks &amp#27;[95m:62&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+09:34:49.008 INFO  [Hooks &amp#27;[95m:64&amp#27;[m] &amp#27;[38;5;54mLogin fails with invalid or empty email and password combinations :- Status - PASSED&amp#27;[0m
+09:34:49.008 INFO  [Hooks &amp#27;[95m:65&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+]]></system-out>
+    <system-err><![CDATA[Jan 22, 2026 9:34:16 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 144
+Jan 22, 2026 9:34:16 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.35.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+  <testcase name="Login fails with invalid or empty email and password combinations #3" classname="Login_Test_Feature" time="33.696">
+    <system-out><![CDATA[
+@Login @Tc_04 @validate_unsuccessful_login_with_valid_email_and_invalid_password @passport-neg
+Scenario Outline: Login fails with invalid or empty email and password combinations &amp#27;[90m# src/test/resources/features/1_Login/0_Login.feature:49&amp#27;[0m
+09:34:49.341 INFO  [Hooks &amp#27;[95m:40&amp#27;[m] &amp#27;[38;5;54mStarting scenario: Login fails with invalid or empty email and password combinations&amp#27;[0m
+09:34:49.341 INFO  [Driver &amp#27;[95m:60&amp#27;[m] Launching Browser → CHROME-HEADLESS
+jQuery not detected or error occurred. Skipping AJAX wait.
+09:34:50.506 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:34:50.507 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:34:50.508 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: Navigate to the login page.
+09:34:50.508 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:34:50.509 INFO  [HomePage_Passport &amp#27;[95m:299&amp#27;[m] clicking on login button from homepage
+  &amp#27;[32mGiven &amp#27;[0m&amp#27;[32mNavigate to the login page.&amp#27;[0m                                                 &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.navigate_to_the_login_page()&amp#27;[0m
+09:35:01.486 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103301486 [image/png 79647 bytes]
+
+09:35:01.593 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:35:01.595 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:35:01.595 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "suzy.ghanem+test32QA@theonevalley.com" in the username field
+09:35:01.595 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mWhen &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"suzy.ghanem+test32QA@theonevalley.com"&amp#27;[0m&amp#27;[32m in the username field&amp#27;[0m    &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_username_field(java.lang.String)&amp#27;[0m
+09:35:01.722 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103301723 [image/png 81824 bytes]
+
+09:35:01.810 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:35:01.811 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:35:01.811 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User enters "wrong123" in the password field
+09:35:01.812 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser enters &amp#27;[0m&amp#27;[32m&amp#27;[1m"wrong123"&amp#27;[0m&amp#27;[32m in the password field&amp#27;[0m                                  &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_enters_in_the_password_field(java.lang.String)&amp#27;[0m
+09:35:01.931 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103301932 [image/png 82825 bytes]
+
+09:35:02.022 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:35:02.025 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:35:02.025 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User clicks on the Login button
+09:35:02.025 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser clicks on the Login button&amp#27;[0m                                               &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_clicks_on_the_login_button()&amp#27;[0m
+09:35:12.426 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103312427 [image/png 86065 bytes]
+
+09:35:12.536 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:35:12.537 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:35:12.538 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should see a login error or validation message
+09:35:12.538 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+09:35:12.600 INFO  [LogInStepDefinition &amp#27;[95m:49&amp#27;[m] Login error/validation message displayed: [Wrong email or password]
+  &amp#27;[32mThen &amp#27;[0m&amp#27;[32mUser should see a login error or validation message&amp#27;[0m                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_see_a_login_error_or_validation_message()&amp#27;[0m
+09:35:12.601 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103312602 [image/png 84074 bytes]
+
+09:35:12.706 INFO  [Hooks &amp#27;[95m:47&amp#27;[m] &amp#27;[38;5;54m @Before Step Hooks &amp#27;[0m
+  
+  
+09:35:12.707 INFO  [StepNameListener &amp#27;[95m:36&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+09:35:12.707 WARN  [StepNameListener &amp#27;[95m:37&amp#27;[m] &amp#27;[38;5;208mExecuting step: User should remain on the Login page
+09:35:12.707 INFO  [StepNameListener &amp#27;[95m:38&amp#27;[m] &amp#27;[38;5;208m================================================================&amp#27;[0m
+  
+  &amp#27;[32mAnd &amp#27;[0m&amp#27;[32mUser should remain on the Login page&amp#27;[0m                                          &amp#27;[90m# com.ov.step_definitions.LogInStepDefinition.user_should_remain_on_the_login_page()&amp#27;[0m
+09:35:22.747 INFO  [Hooks &amp#27;[95m:53&amp#27;[m] &amp#27;[38;5;54m  @after step hook &amp#27;[0m
+
+    Embedding Login_fails_with_invalid_or_empty_email_and_password_combinations_1769103322747 [image/png 84065 bytes]
+
+09:35:22.803 INFO  [Hooks &amp#27;[95m:61&amp#27;[m] &amp#27;[38;5;54m @after hook &amp#27;[0m
+09:35:22.804 INFO  [Hooks &amp#27;[95m:62&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+09:35:22.804 INFO  [Hooks &amp#27;[95m:64&amp#27;[m] &amp#27;[38;5;54mLogin fails with invalid or empty email and password combinations :- Status - PASSED&amp#27;[0m
+09:35:22.804 INFO  [Hooks &amp#27;[95m:65&amp#27;[m] &amp#27;[32;1m================================================================&amp#27;[0m
+]]></system-out>
+    <system-err><![CDATA[Jan 22, 2026 9:34:50 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 144
+Jan 22, 2026 9:34:50 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$4
+WARNING: Unable to find version of CDP to use for 144.0.7559.59. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.35.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+]]></system-err>
+  </testcase>
+</testsuite>

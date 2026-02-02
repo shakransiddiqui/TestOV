@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="166.702" tests="1" skipped="0" failures="0" errors="0">
+<testcase classname="Startup applies to a program and saves responses" name="26_Startup completes program application and saves responses" time="165.73">
+<system-out><![CDATA[
+Given User completes initial startup setup successfully.....................passed
+And Click on "See More" button for Startup Program..........................passed
+When Click on "Apply Now" button for Startup Program........................passed
+And User fills the application form using existing reusable method..........passed
+And Upload pitch deck file..................................................passed
+And Check "Save my responses" checkbox......................................passed
+And Click "Submit" button...................................................passed
+And Verify that the success message "Thank you for submitting your application!" is displayed.passed
+]]></system-out>
+</testcase>
+</testsuite>

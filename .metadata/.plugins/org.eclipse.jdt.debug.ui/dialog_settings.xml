@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="conditionHistory">
+		<item key="conditionHistoryEntry_0" value="errorText.equalsIgnoreCase(&quot;Please enter an email address&quot;)"/>
+		<item key="conditionHistoryEntryCount" value="3"/>
+		<item key="conditionHistoryEntry_1" value="errorText.equalsI(Please enter an email address)"/>
+		<item key="conditionHistoryEntry_2" value="errorText.equalsI(&quot;Please enter an email address&quot;)"/>
+	</section>
+	<section name="expressionHistory">
+	</section>
+</section>

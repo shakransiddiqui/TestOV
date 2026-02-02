@@ -1,0 +1,122 @@
+package ov.step_definitions.passport;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.Given;
+import junit.framework.Assert;
+import ov.pages.passport.HomePage_Passport;
+import ov.utilities.CommonMethods;
+import ov.utilities.ConfigurationReader;
+import io.cucumber.java.en.*;
+
+
+public class LogInStepDefinition extends CommonMethods {
+	//use logger after class 
+	public static final Logger logger = LogManager.getLogger(LogInStepDefinition.class);
+	HomePage_Passport homePage = new HomePage_Passport();
+
+
+	//Tc_01-------------------------------
+	
+	@When("User enters {string} in the username field")
+	public void user_enters_in_the_username_field(String email) {
+	   
+		homePage.Enter_a_valid_email_address(email);
+	}
+	
+	@When("User enters {string} in the password field")
+	public void user_enters_in_the_password_field(String password) {
+
+		 homePage.enter_valid_password_meeting_all_requirement(password);
+	}
+	@When("User clicks on the Login button")
+	public void user_clicks_on_the_login_button() {
+	   
+		 homePage.clickOnLoginBtn();
+	}
+	@Then("User should see a login error or validation message")
+	public void user_should_see_a_login_error_or_validation_message() {
+
+	    String text = homePage.getLoginErrorMessage();
+	    text = (text == null) ? "" : text.trim();
+
+	    logger.info("Login error/validation message displayed: [" + text + "]");
+
+	    // Accept any valid negative outcome
+	    boolean isValidNegative =
+	            text.toLowerCase().contains("wrong email or password")
+	            || text.toLowerCase().contains("wrong")
+	            || text.toLowerCase().contains("invalid")
+	            || text.toLowerCase().contains("required")
+	            || text.toLowerCase().contains("blocked")
+	            || text.toLowerCase().contains("multiple consecutive login attempts");
+
+	    Assert.assertTrue("Expected login error/validation message, but got: [" + text + "]", isValidNegative);
+	}
+
+
+	
+//	@Then("User should see a login error or validation message")
+//	public void user_should_see_a_login_error_or_validation_message() {
+//	    String text = homePage.getLoginErrorMessage();
+//	    Assert.assertTrue(text.contains("Wrong email or password"));
+//	}
+
+	
+	@Then("User should remain on the Login page")
+	public void user_should_remain_on_the_login_page() {
+	   
+		 Assert.assertEquals(homePage.isLoginPageLogoDisplayed(), true);
+	}
+
+
+
+
+
+
+
+
+
+
+
+	//****************************************************************************************************
+	// Tc_02 ----------------
+
+	@Given("Navigate to the login page.")
+	public void navigate_to_the_login_page() {
+		homePage.click_on_login_button();
+	}
+
+	@And("Enter a valid username and password")
+	public void enter_a_valid_username_and_password() {
+
+		String username=ConfigurationReader.getProperty("username");
+		String password=ConfigurationReader.getProperty("password");
+
+		logger.info("password and username filled up");
+
+		homePage.enter_username_and_password(username, password);
+
+	}
+
+	@When("Click the {string} button.")
+	public void click_the_button(String string) {
+		homePage.user_login();
+
+	}
+
+
+	@Then("Verify that the user is redirected to the Community Dashboard.")
+	public void verify_that_the_user_is_redirected_to_the_community_dashboard() {
+		homePage.verify_community_dashboard();
+
+
+	}
+
+
+}

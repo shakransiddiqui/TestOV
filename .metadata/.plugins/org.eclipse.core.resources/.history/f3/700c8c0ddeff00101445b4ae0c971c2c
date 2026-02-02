@@ -1,0 +1,27 @@
+package ov.step_definitions.passport;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.Given;
+import junit.framework.Assert;
+import ov.pages.passport.HomePage_Passport;
+import ov.utilities.CommonMethods;
+import ov.utilities.ConfigurationReader;
+import io.cucumber.java.en.*;
+
+
+public class Login_stepD extends CommonMethods {
+	
+
+	public static final Logger logger = LogManager.getLogger(Login_stepD.class);
+	
+//	HomePage_Passport homePage = new HomePage_Passport();
+
+
+
+}

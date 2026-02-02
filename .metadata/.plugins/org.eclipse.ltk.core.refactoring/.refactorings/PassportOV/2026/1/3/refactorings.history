@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;PassportOS.project/src/test/resources/features/1_PassportOS&apos; to &apos;1_PassportOS_Login&apos;" description="Rename resource &apos;1_PassportOS&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/test/resources/features/1_PassportOS" name="1_PassportOS_Login" stamp="1768618313177" updateReferences="true"/>
+</session>

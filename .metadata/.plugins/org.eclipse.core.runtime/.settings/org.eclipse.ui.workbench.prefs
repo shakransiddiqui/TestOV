@@ -1,0 +1,10 @@
+//org.eclipse.ui.commands/state/org.eclipse.ui.navigator.resources.nested.changeProjectPresentation/org.eclipse.ui.commands.radioState=false
+PLUGINS_NOT_ACTIVATED_ON_STARTUP=;org.eclipse.m2e.discovery;
+eclipse.preferences.version=1
+org.eclipse.ui.commands=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<org.eclipse.ui.commands>\r\n<keyBinding contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL++"/>\r\n<keyBinding commandId\="org.eclipse.ui.edit.text.zoomOut" contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+NUMPAD_SUBTRACT"/>\r\n<keyBinding commandId\="org.eclipse.ui.edit.text.zoomIn" contextId\="org.eclipse.ui.contexts.window" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+NUMPAD_ADD"/>\r\n<keyBinding contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+-"/>\r\n<keyBinding contextId\="org.eclipse.ui.textEditorScope" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+\="/>\r\n<keyBinding commandId\="org.eclipse.ui.edit.text.zoomIn" contextId\="org.eclipse.terminal.view.ui.TerminalsView" keyConfigurationId\="org.eclipse.ui.defaultAcceleratorConfiguration" keySequence\="CTRL+NUMPAD_ADD"/>\r\n</org.eclipse.ui.commands>
+org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_END=248,248,248
+org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_START=248,248,248
+org.eclipse.ui.workbench.ACTIVE_TAB_BG_END=248,248,248
+org.eclipse.ui.workbench.ACTIVE_TAB_BG_START=248,248,248
+org.eclipse.ui.workbench.INACTIVE_TAB_BG_END=248,248,248
+org.eclipse.ui.workbench.INACTIVE_TAB_BG_START=248,248,248
