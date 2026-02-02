@@ -17,16 +17,12 @@ import ov.utilities.LogColor;
 
 public class PassportOSAdminPage_POM extends CommonMethods {
 
-	public WebDriver driver;
-	public WebDriverWait wait;
 
 	public static final Logger logger =
 			LogManager.getLogger(PassportOSAdminPage_POM.class);
 
 	public PassportOSAdminPage_POM() {
-		this.driver = Driver.getDriver();
-		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+			PageFactory.initElements(driver, this);
 	}
 
 	//	**********************************************************************************************************************************************************

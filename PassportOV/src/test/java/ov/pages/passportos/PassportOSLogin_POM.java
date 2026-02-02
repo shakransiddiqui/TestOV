@@ -21,16 +21,11 @@ import java.time.Duration;
 
 public class PassportOSLogin_POM extends CommonMethods {
 
-	public WebDriver driver;
-	public WebDriverWait wait;
-
 	public static final Logger logger =
 			LogManager.getLogger(PassportOSLogin_POM.class);
 
 	public PassportOSLogin_POM() {
-		this.driver = Driver.getDriver();
 		PageFactory.initElements(driver, this);
-		wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 	}
 
 	
