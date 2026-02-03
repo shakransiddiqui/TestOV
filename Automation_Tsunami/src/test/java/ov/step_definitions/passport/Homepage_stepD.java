@@ -13,7 +13,7 @@ public class Homepage_stepD extends CommonMethods {
 
 	
 	//	***************************************************************************************************************
-	@Given("Navigate to the login page with title of {string}")
+	@Given("Navigates to the page with title of {string}")
 	public void navigate_to_the_login_page(String pageTitle) {
 
 		logger.info("Getting the expected page title of : "+pageTitle);
