@@ -21,21 +21,7 @@ public class Login_stepD extends CommonMethods {
 	public static final Logger logger = LogManager.getLogger(Login_stepD.class);
 
 
-	//	***************************************************************************************************************
-	@Given("Navigate to the login page with title of {string}")
-	public void navigate_to_the_login_page(String pageTitle) {
 
-		logger.info("Getting the expected page title of : "+pageTitle);
-		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
-		logger.info("Expected Title is: "+expectedPageTitle);
-
-		logger.info("Navigating to the login page");
-		boolean TitleMatched = login_pom.navigate_to_LoginPage(expectedPageTitle);
-
-		softAssert.softAssertTrue(TitleMatched, 
-				"Navigated to Login Page and Title Matched successfully", 
-				"Title of Login Page Did Not Match");
-	}
 
 	//	***************************************************************************************************************
 	@When("User enters {string} in the username field")

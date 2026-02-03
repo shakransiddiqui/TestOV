@@ -28,44 +28,15 @@ public class Login_POM extends CommonMethods {
 
 	//	*****************X-path Locators****************************************************************
 
-	@FindBy (xpath="//span[contains(text(), 'Log In')]")
-	public WebElement Login_button;
 
 
 
 	//	******************By Locators****************************************************************************
 
-	By Login_button_by = By.xpath("//span[contains(text(), 'Log In')]");
+	
 
 
 	//	****************Actions***********************************************************************************
 
-	public boolean navigate_to_LoginPage(String expectedTitle) {
-
-		try {
-			logger.info("Looking for the Login Button");
-			boolean visible = isElementPresent(Login_button_by);
-
-			if(visible) {
-				logger.info("Clicking on the Login Button");
-				clickAndDraw(Login_button);
-				logger.info("Clicked on the Login Button");
-
-
-				boolean isTitleMatched = verifyPageTitle(expectedTitle);
-
-				return isTitleMatched;
-			}
-			else {
-				return false;
-			}
-
-		} catch (Exception e) {
-
-			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
-			logger.error(LogColor.RED+e+LogColor.RESET);
-			return false;
-		}
-	}
 
 }
