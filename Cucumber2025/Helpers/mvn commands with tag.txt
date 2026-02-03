@@ -1,0 +1,39 @@
+mvn test -Dcucumber.filter.tags="@OfferPortal_smoke"
+"
+
+mvn test -Dcucumber.filter.tags="@abc or @def"   (it will run all the scenarios which has one of them)  
+
+
+
+
+mvn clean test -Dbrowser=edge-headless -Dcucumber.filter.tags="@OP-02-03" (to run specific test from specific browser )
+
+
+
+mvn clean test -Dcucumber.filter.tags="@abc and @def"   ( scenario have to have both of the tags )
+
+  
+
+mvn clean test -Dprofile=Configuration_Headless  -Dcucumber.filter.tags="@OP-01" 
+
+
+
+  
+-------------------------------------
+
+mvn clean verify -Dtest=ealRunner -Dconfig=configuration -Dbrowser=headless -Dcucumber.filter.tags="@pdlLogin"
+
+
+mvn clean test -Dprofile=Configuration_Headless  -Dcucumber.filter.tags="@OP-01" 
+
+mvn clean test -Dprofile=Configuration_RealBrowser  -Dcucumber.filter.tags="@pdlLogin" 
+
+
+mvn clean test  -Dcucumber.filter.tags="@OP-01" 
+
+
+test
+
+mvn clean test -Dprofile=Configuration_RealBrowser -DBrowser=headless  -Dcucumber.filter.tags="@OP-01" 
+
+

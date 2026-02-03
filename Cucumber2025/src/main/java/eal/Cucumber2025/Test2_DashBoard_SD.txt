@@ -1,0 +1,29 @@
+package eal.step_definitions;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import eal.Utilities.CommonMethods;
+import io.cucumber.java.en.*;
+
+public class DashBoard_StepD  extends CommonMethods {
+
+	public static final Logger logger = LogManager.getLogger(DashBoard_StepD.class);
+
+	//***********************************************************************************************************
+	@Given("click on {string} Button")
+	public void click_on_button(String buttonName) {
+		
+		boolean visibilityAndClickabilityStatus = false;
+
+		logger.info("Verifying Visibility and clickability of button: "+buttonName);
+
+		boolean Ui_LinkButton_Element = dashboard_pom.verify_LinkButtons_inDashBoard(buttonName);
+	   
+		visibilityAndClickabilityStatus = Ui_LinkButton_Element;
+		
+		
+		softAssert.softAssertTrue(visibilityAndClickabilityStatus, buttonName+" Button is Visible and Clickable", 
+				buttonName+" Button is not Visible and Clickable");
+	}
+}

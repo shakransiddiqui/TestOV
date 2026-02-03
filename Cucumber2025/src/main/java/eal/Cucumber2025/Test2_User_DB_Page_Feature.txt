@@ -1,0 +1,13 @@
+@dashboard
+Feature: Testing Loogedin User Dashboard features
+
+ Background: 
+    Given Validate User landed on homepage
+    Then Pass "mngr651142" on "UserID" Field
+    Then Pass "yzebYbA" on "Password" Field
+    And Click on Login button with Valid Credentials
+    
+    @TC_0014 @test
+    Scenario: Verify Manager and logout button is visible in the left side
+    Given "Manager" button is visible.
+    Then "Log out" button is visible.

@@ -1,0 +1,46 @@
+package eal.pages;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.PageFactory;
+
+import eal.Utilities.CommonMethods;
+import eal.Utilities.LogColor;
+
+public class DashBoard_POM extends CommonMethods{
+	
+	public static final Logger logger = LogManager.getLogger(DashBoard_POM.class);
+
+	public DashBoard_POM() {
+		PageFactory.initElements(driver, this);
+	}
+	
+	//Controllable Xpath Strings:
+	
+	String DashBoard_Link_Elements= "//a[text()='%s']";
+
+//	**********************************************************************************************************************************************************
+	public boolean verify_LinkButtons_inDashBoard(String buttonName) {
+
+		try {
+			
+			String formattedStringXpathOf_Ui_Element =String.format(DashBoard_Link_Elements, buttonName);
+			logger.info(formattedStringXpathOf_Ui_Element);
+
+			boolean presence=isElementPresent(By.xpath(formattedStringXpathOf_Ui_Element));
+			if(presence) {
+				return true;
+			}
+			else {
+				return false;
+			}
+
+		} catch(Exception e) {
+			logger.error(LogColor.RED + e + LogColor.RESET);
+			return false;
+		}
+	}
+	
+	
+}

@@ -1,0 +1,1858 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title></title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa bdd-report standard">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary"></span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Jan 3, 2026 02:23:25 PM</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('category-view')">
+<a id="nav-category" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-tag"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Jan 3, 2026 02:23:25 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Jan 3, 2026 02:24:36 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Features Passed</p>
+<h3>3</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Features Failed</p>
+<h3>0</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Features</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'>
+<b>3</b> features passed
+</small>
+</div>
+<div>
+<small data-tooltip='0%'><b>0</b> features failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Scenarios</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='child-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>9</b> scenarios passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> scenarios failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Steps</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='grandchild-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>71</b> steps passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> steps failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"This feature file is to Test different Items on the Homepage.":37.875,"Testing User Dashboard features after Successful Login":10.66,"Testing Add New Customer Page features after Successful Login":14.789
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 category-container">
+<div class="card">
+<div class="card-header"><p>Tags</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
+<tr>
+<td>@homepage</td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@test</td>
+<td>9</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@afterLogin</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0011</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0002</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0010</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0014</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@dashboard</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0016</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@login</td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@addNewCustomer</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@TC_0001</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@InvalidLogin</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 sysenv-container">
+<div class="card">
+<div class="card-header"><p>System/Environment</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr>
+<td>Engineer</td>
+<td>Shakran</td>
+</tr>
+<tr>
+<td>Project</td>
+<td>EAL</td>
+</tr>
+<tr>
+<td>Browser</td>
+<td>Google Chrome</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Windows</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 3,
+failParent: 0,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 9,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 71,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+};
+</script><div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
+<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">@homepage</a><a class="dropdown-item" href="#">@test</a><a class="dropdown-item" href="#">@afterLogin</a><a class="dropdown-item" href="#">@TC_0011</a><a class="dropdown-item" href="#">@TC_0002</a><a class="dropdown-item" href="#">@TC_0010</a><a class="dropdown-item" href="#">@TC_0014</a><a class="dropdown-item" href="#">@dashboard</a><a class="dropdown-item" href="#">@TC_0016</a><a class="dropdown-item" href="#">@login</a><a class="dropdown-item" href="#">@addNewCustomer</a><a class="dropdown-item" href="#">@TC_0001</a><a class="dropdown-item" href="#">@InvalidLogin</a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="pass" test-id="1"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">This feature file is to Test different Items on the Homepage.</p>
+            <p class="text-sm">
+              <span>2:23:32 PM</span> / <span>00:00:37:875</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">This feature file is to Test different Items on the Homepage.</h5>
+<span class='badge badge-success'>01.03.2026 2:23:32 PM</span>
+<span class='badge badge-danger'>01.03.2026 2:24:10 PM</span>
+<span class='badge badge-default'>00:00:37:875</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Verify user landed on Homepage and UserID is available</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_user_landed_on_Homepage_and_UserID_is_available_1767468212471
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded1.png' src="../screenshot/embedded1.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.verify_homepage_UiTextElement_is_visible(java.lang.String)">
+                <span>Then Verify "UserID" is visible</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_user_landed_on_Homepage_and_UserID_is_available_1767468213613
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded2.png' src="../screenshot/embedded2.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="11"><span class="badge log pass-bg mr-2">Pass</span>Verify Password field is available</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Password_field_is_available_1767468213916
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded3.png' src="../screenshot/embedded3.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.verify_homepage_UiTextElement_is_visible(java.lang.String)">
+                <span>Then Verify "Password" is visible</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Password_field_is_available_1767468214999
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded4.png' src="../screenshot/embedded4.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="20"><span class="badge log pass-bg mr-2">Pass</span>Verify logging in with Invalid credentials in Login Homepage</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="scenario_outline collapse">
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="21"><span class="badge log pass-bg mr-2">Pass</span>Verify logging in with Invalid credentials in Login Homepage</div>
+                    <div class="status-avatar float-right">
+                      <i class="fa fa-paperclip"></i>
+                    </div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468215284
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded5.png' src="../screenshot/embedded5.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "mngr6467" on "UserID" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468217020
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded6.png' src="../screenshot/embedded6.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "0000000" on "Password" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468218699
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded7.png' src="../screenshot/embedded7.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And Click on Login button</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Click on "OK" button from the alert</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468221867
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded8.png' src="../screenshot/embedded8.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="39"><span class="badge log pass-bg mr-2">Pass</span>Verify logging in with Invalid credentials in Login Homepage</div>
+                    <div class="status-avatar float-right">
+                      <i class="fa fa-paperclip"></i>
+                    </div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468222134
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded9.png' src="../screenshot/embedded9.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "mngr650508" on "UserID" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468223688
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded10.png' src="../screenshot/embedded10.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "0000000" on "Password" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468225135
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded11.png' src="../screenshot/embedded11.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And Click on Login button</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Click on "OK" button from the alert</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468227899
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded12.png' src="../screenshot/embedded12.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="card-body l1">
+              <div class="card-header">
+                <div class="card-title outline-child">
+                  <div class="node" id="57"><span class="badge log pass-bg mr-2">Pass</span>Verify logging in with Invalid credentials in Login Homepage</div>
+                    <div class="status-avatar float-right">
+                      <i class="fa fa-paperclip"></i>
+                    </div>
+                </div>
+              </div>
+              <div class="card-body mt-3 collapse">
+                  <div class="step pass-bg">
+                    <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468228151
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded13.png' src="../screenshot/embedded13.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "mngr111" on "UserID" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468229621
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded14.png' src="../screenshot/embedded14.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Pass "mEhAbem" on "Password" Field</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468231061
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded15.png' src="../screenshot/embedded15.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>And Click on Login button</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>Then Click on "OK" button from the alert</span>
+      <div>
+      </div>
+                  </div>
+                  <div class="step pass-bg">
+                    <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_logging_in_with_Invalid_credentials_in_Login_Homepage_1767468233390
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded16.png' src="../screenshot/embedded16.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="75"><span class="badge log pass-bg mr-2">Pass</span>Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_User_can_Clear_userID_Field_after_putting_multiple_Numeric_userID_by_Mistake_1767468233635
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded17.png' src="../screenshot/embedded17.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.i_enter_and_immidiately_clear_the_following_user_i_ds(io.cucumber.datatable.DataTable)">
+                <span>Given I enter and immidiately clear the following UserIDs:</span>
+      <div><table class='markup-table table '><tr><td>123456</td></tr><tr><td>12345</td></tr><tr><td>12345678</td></tr><tr><td>1234567891</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_User_can_Clear_userID_Field_after_putting_multiple_Numeric_userID_by_Mistake_1767468239029
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded18.png' src="../screenshot/embedded18.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.click_on_reset_button()">
+                <span>Then click on Reset button</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_User_can_Clear_userID_Field_after_putting_multiple_Numeric_userID_by_Mistake_1767468240379
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded19.png' src="../screenshot/embedded19.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="87"><span class="badge log pass-bg mr-2">Pass</span>Verify Multiple UserID and Password combinations</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Multiple_UserID_and_Password_combinations_1767468240582
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded20.png' src="../screenshot/embedded20.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.i_try_with_following_credentials(io.cucumber.datatable.DataTable)">
+                <span>Given I try with following credentials:</span>
+      <div><table class='markup-table table '><tr><td>UserID</td><td>Password</td></tr><tr><td>123456</td><td>pass123</td></tr><tr><td>98765</td><td>qwerty789</td></tr><tr><td>11111111</td><td>testpwd</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Multiple_UserID_and_Password_combinations_1767468248674
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded21.png' src="../screenshot/embedded21.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.click_on_reset_button()">
+                <span>Then click on Reset button</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Multiple_UserID_and_Password_combinations_1767468250069
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded22.png' src="../screenshot/embedded22.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="99"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Testing User Dashboard features after Successful Login</p>
+            <p class="text-sm">
+              <span>2:24:10 PM</span> / <span>00:00:10:660</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Testing User Dashboard features after Successful Login</h5>
+<span class='badge badge-success'>01.03.2026 2:24:10 PM</span>
+<span class='badge badge-danger'>01.03.2026 2:24:20 PM</span>
+<span class='badge badge-default'>00:00:10:660</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=99</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="100"><span class="badge log pass-bg mr-2">Pass</span>Verify Manager and logout button is visible in the left side</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Manager_and_logout_button_is_visible_in_the_left_side_1767468250278
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded23.png' src="../screenshot/embedded23.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.pass_on_field(java.lang.String,java.lang.String)">
+                <span>Then Pass "mngr651142" on "UserID" Field</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Manager_and_logout_button_is_visible_in_the_left_side_1767468251692
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded24.png' src="../screenshot/embedded24.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.pass_on_field(java.lang.String,java.lang.String)">
+                <span>Then Pass "yzebYbA" on "Password" Field</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Manager_and_logout_button_is_visible_in_the_left_side_1767468253131
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded25.png' src="../screenshot/embedded25.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.click_on_login_button_with_valid_credentials()">
+                <span>And Click on Login button with Valid Credentials</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Manager_and_logout_button_is_visible_in_the_left_side_1767468255644
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded26.png' src="../screenshot/embedded26.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.DashBoard_StepD.click_on_button(java.lang.String,java.lang.String)">
+                <span>Given click on "Manager" button and open "Welcome_To_Manager's_Page_of_Guru99_Bank" page</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_Manager_and_logout_button_is_visible_in_the_left_side_1767468258175
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded27.png' src="../screenshot/embedded27.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.DashBoard_StepD.click_on_button(java.lang.String)">
+                <span>Then click on "Log out" button</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="121"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Testing Add New Customer Page features after Successful Login</p>
+            <p class="text-sm">
+              <span>2:24:20 PM</span> / <span>00:00:14:789</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Testing Add New Customer Page features after Successful Login</h5>
+<span class='badge badge-success'>01.03.2026 2:24:20 PM</span>
+<span class='badge badge-danger'>01.03.2026 2:24:35 PM</span>
+<span class='badge badge-default'>00:00:14:789</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=121</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"></div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="122"><span class="badge log pass-bg mr-2">Pass</span>Verify new customer creation feature with Invalid data where PIN Is Invalid</div>
+          <div class="status-avatar float-right mr-4">
+            <i class="fa fa-paperclip"></i>
+          </div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.validate_user_landed_on_homepage()">
+                <span>Given Validate User landed on homepage</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468261571
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded28.png' src="../screenshot/embedded28.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.pass_on_field(java.lang.String,java.lang.String)">
+                <span>Then Pass "mngr651142" on "UserID" Field</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468263082
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded29.png' src="../screenshot/embedded29.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.pass_on_field(java.lang.String,java.lang.String)">
+                <span>Then Pass "yzebYbA" on "Password" Field</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468264538
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded30.png' src="../screenshot/embedded30.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Login_StepD.click_on_login_button_with_valid_credentials()">
+                <span>And Click on Login button with Valid Credentials</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468266990
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded31.png' src="../screenshot/embedded31.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Add_New_Customer_StepD.click_on_button(java.lang.String,java.lang.String)">
+                <span>Given click on "New Customer" button and go to "Add_New_Customer" page</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468269541
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded32.png' src="../screenshot/embedded32.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Add_New_Customer_StepD.i_fill_the_form_with_the_following_fields_from_and_sheet(java.lang.String,java.lang.String,io.cucumber.datatable.DataTable)">
+                <span>When I fill the form with the following fields from "testcases_for_Automation.xlsx" and sheet "Invalid_Pin_Data":</span>
+      <div><table class='markup-table table '><tr><td>Customer Name</td></tr><tr><td>Gender</td></tr><tr><td>Date of Birth</td></tr><tr><td>Address</td></tr><tr><td>City</td></tr><tr><td>State</td></tr><tr><td>PIN</td></tr><tr><td>Mobile Number</td></tr><tr><td>E-mail</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="AFTER_STEP">
+                <span>eal.Hooks.Hooks.takeScreenshot(io.cucumber.java.Scenario)</span>
+      <div>Verify_new_customer_creation_feature_with_Invalid_data_where_PIN_Is_Invalid_1767468273615
+          <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='../screenshot/embedded33.png' src="../screenshot/embedded33.png">
+    
+    </div></div>
+</div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="eal.step_definitions.Add_New_Customer_StepD.click_on_submit_button(java.lang.String)">
+                <span>Then click on "Submit" button.</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view category-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">13</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>7</span>
+</span>
+<p class="name">@homepage</p>
+<p class="duration text-sm">7 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@homepage</h4>
+<span status="pass" class='badge log pass-bg'>7 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:32 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Verify user landed on Homepage and UserID is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify user landed on Homepage and UserID is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:33 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='11'>Verify Password field is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Password field is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:35 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='21'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:42 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='39'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:48 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='57'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:53 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='75'>Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='87'>Verify Multiple UserID and Password combinations</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Multiple UserID and Password combinations</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>9</span>
+</span>
+<p class="name">@test</p>
+<p class="duration text-sm">9 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@test</h4>
+<span status="pass" class='badge log pass-bg'>9 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:32 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Verify user landed on Homepage and UserID is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify user landed on Homepage and UserID is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:33 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='11'>Verify Password field is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Password field is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:35 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='21'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:42 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='39'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:48 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='57'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:53 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='75'>Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='87'>Verify Multiple UserID and Password combinations</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Multiple UserID and Password combinations</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:10 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>Verify Manager and logout button is visible in the left side</a>
+<div class="">
+<span class="badge badge-default">Testing User Dashboard features after Successful Login.Verify Manager and logout button is visible in the left side</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:20 PM</td>
+<td>
+<a href="#" class="linked" test-id='121' id='122'>Verify new customer creation feature with Invalid data where PIN Is Invalid</a>
+<div class="">
+<span class="badge badge-default">Testing Add New Customer Page features after Successful Login.Verify new customer creation feature with Invalid data where PIN Is Invalid</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@afterLogin</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@afterLogin</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:10 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>Verify Manager and logout button is visible in the left side</a>
+<div class="">
+<span class="badge badge-default">Testing User Dashboard features after Successful Login.Verify Manager and logout button is visible in the left side</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0011</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0011</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='87'>Verify Multiple UserID and Password combinations</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Multiple UserID and Password combinations</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0002</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0002</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:33 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='11'>Verify Password field is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Password field is available</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0010</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0010</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:53 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='75'>Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0014</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0014</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:10 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>Verify Manager and logout button is visible in the left side</a>
+<div class="">
+<span class="badge badge-default">Testing User Dashboard features after Successful Login.Verify Manager and logout button is visible in the left side</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@dashboard</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@dashboard</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:10 PM</td>
+<td>
+<a href="#" class="linked" test-id='99' id='100'>Verify Manager and logout button is visible in the left side</a>
+<div class="">
+<span class="badge badge-default">Testing User Dashboard features after Successful Login.Verify Manager and logout button is visible in the left side</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0016</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0016</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:20 PM</td>
+<td>
+<a href="#" class="linked" test-id='121' id='122'>Verify new customer creation feature with Invalid data where PIN Is Invalid</a>
+<div class="">
+<span class="badge badge-default">Testing Add New Customer Page features after Successful Login.Verify new customer creation feature with Invalid data where PIN Is Invalid</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>7</span>
+</span>
+<p class="name">@login</p>
+<p class="duration text-sm">7 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@login</h4>
+<span status="pass" class='badge log pass-bg'>7 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:32 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Verify user landed on Homepage and UserID is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify user landed on Homepage and UserID is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:33 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='11'>Verify Password field is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Password field is available</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:35 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='21'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:42 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='39'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:48 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='57'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:53 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='75'>Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify User can Clear userID Field after putting multiple Numeric userID by Mistake</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:00 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='87'>Verify Multiple UserID and Password combinations</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify Multiple UserID and Password combinations</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@addNewCustomer</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@addNewCustomer</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:24:20 PM</td>
+<td>
+<a href="#" class="linked" test-id='121' id='122'>Verify new customer creation feature with Invalid data where PIN Is Invalid</a>
+<div class="">
+<span class="badge badge-default">Testing Add New Customer Page features after Successful Login.Verify new customer creation feature with Invalid data where PIN Is Invalid</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@TC_0001</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@TC_0001</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:32 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Verify user landed on Homepage and UserID is available</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify user landed on Homepage and UserID is available</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>3</span>
+</span>
+<p class="name">@InvalidLogin</p>
+<p class="duration text-sm">3 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@InvalidLogin</h4>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:35 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='21'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:42 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='39'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>14:23:48 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='57'>Verify logging in with Invalid credentials in Login Homepage</a>
+<div class="">
+<span class="badge badge-default">This feature file is to Test different Items on the Homepage..Verify logging in with Invalid credentials in Login Homepage</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/js/spark-script.js"></script>
+<script type="text/javascript"></script></body>
+</html>

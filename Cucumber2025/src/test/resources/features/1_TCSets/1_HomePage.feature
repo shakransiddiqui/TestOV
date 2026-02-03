@@ -1,0 +1,59 @@
+@login @homepage
+Feature: This feature file is to Test different Items on the Homepage.
+
+  Background: 
+    Given Validate User landed on homepage
+
+  @TC_0001 @test
+  Scenario: Verify user landed on Homepage and UserID is available
+    Then Verify "UserID" is visible
+
+  @TC_0002 @test
+  Scenario: Verify Password field is available
+    Then Verify "Password" is visible
+
+  #TC3 and TC4 are Homeworks
+  @InvalidLogin @test
+  Scenario Outline: Verify logging in with Invalid credentials in Login Homepage
+    Then Pass "<UserID>" on "UserID" Field
+    Then Pass "<Password>" on "Password" Field
+    And Click on Login button
+    Then Click on "OK" button from the alert
+
+    Examples: 
+      | UserID     | Password | Tag      |
+      | mngr6467   |  0000000 | @TC_0005 |
+      | mngr650508 |  0000000 | @TC_0006 |
+      | mngr111    | mEhAbem  | @TC_0007 |
+
+  Scenario: Verify User can Clear userID Field after putting multiple Numeric userID by Mistake
+    Given Pass 6 digit Numeric userID 123456 on userID Field and immidiately Clear it
+    Then Pass 5 digit Numeric userID 12345 on userID Field and immidiately Clear it
+    Then Pass 8 digit Numeric userID 12345678 on userID Field and immidiately Clear it
+    Then Pass 10 digit Numeric userID 1234567891 on userID Field and immidiately Clear it
+    Then click on Reset button
+
+  @TC_0010 @test
+  Scenario: Verify User can Clear userID Field after putting multiple Numeric userID by Mistake
+    Given I enter and immidiately clear the following UserIDs:
+      |     123456 |
+      |      12345 |
+      |   12345678 |
+      | 1234567891 |
+    Then click on Reset button
+
+  @TC_0011 @test
+  Scenario: Verify Multiple UserID and Password combinations
+    Given I try with following credentials:
+      | UserID   | Password  |
+      |   123456 | pass123   |
+      |    98765 | qwerty789 |
+      | 11111111 | testpwd   |
+    Then click on Reset button
+
+  #Valid UserID and Valid Password
+  @TC_0013
+  Scenario: Verify logging in with Valid credentials in Login Homepage
+    Then Pass "mngr651142" on "UserID" Field
+    Then Pass "yzebYbA" on "Password" Field
+    And Click on Login button with Valid Credentials

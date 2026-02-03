@@ -1,0 +1,706 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 592080 bytes. Error detail: Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Zero Based Compressed Oops mode in which the Java heap is
+#     placed in the first 32GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 32GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (arena.cpp:168), pid=36828, tid=17888
+#
+# JRE version: OpenJDK Runtime Environment Temurin-21.0.9+10 (21.0.9+10) (build 21.0.9+10-LTS)
+# Java VM: OpenJDK 64-Bit Server VM Temurin-21.0.9+10 (21.0.9+10-LTS, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:+ShowCodeDetailsInExceptionMessages -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:61012 -ea -javaagent:C:\Users\Dell Home\eclipse\java-2025-092\eclipse\configuration\org.eclipse.osgi\714\0\.cp\lib\javaagent-shaded.jar -Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 51775 -testLoaderClass org.eclipse.jdt.internal.junit5.runner.JUnit5TestLoader -loaderpluginname org.eclipse.jdt.junit5.runtime -classNames eal.Runners.ealRunner
+
+Host: Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz, 8 cores, 15G,  Windows 11 , 64 bit Build 26100 (10.0.26100.7309)
+Time: Wed Dec 24 21:33:49 2025 Eastern Standard Time elapsed time: 26.963024 seconds (0d 0h 0m 26s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000021d6ac948c0):  JavaThread "C2 CompilerThread2" daemon [_thread_in_native, id=17888, stack(0x000000fa02100000,0x000000fa02200000) (1024K)]
+
+
+Current CompileTask:
+C2:26963 4637   !   4       java.util.Formatter::format (284 bytes)
+
+Stack: [0x000000fa02100000,0x000000fa02200000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6d6e29]
+V  [jvm.dll+0x8b4b76]
+V  [jvm.dll+0x8b712e]
+V  [jvm.dll+0x8b7813]
+V  [jvm.dll+0x283d86]
+V  [jvm.dll+0xc66ed]
+V  [jvm.dll+0xc6c31]
+V  [jvm.dll+0x3be53b]
+V  [jvm.dll+0x38ab92]
+V  [jvm.dll+0x389fda]
+V  [jvm.dll+0x24bfa0]
+V  [jvm.dll+0x24b580]
+V  [jvm.dll+0x1cb13e]
+V  [jvm.dll+0x25b29d]
+V  [jvm.dll+0x25982a]
+V  [jvm.dll+0x3f7ea6]
+V  [jvm.dll+0x85e9ad]
+V  [jvm.dll+0x6d565d]
+C  [ucrtbase.dll+0x37b0]
+C  [KERNEL32.DLL+0x2e8d7]
+C  [ntdll.dll+0x8c53c]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000021d6ab4de60, length=33, elements={
+0x0000021d50480890, 0x0000021d6aa98680, 0x0000021d6aa9be00, 0x0000021d6aaa0c80,
+0x0000021d6aaa16d0, 0x0000021d6aaaa2e0, 0x0000021d6aaabef0, 0x0000021d6aab2180,
+0x0000021d6aabac20, 0x0000021d6ad2b620, 0x0000021d6ad2c540, 0x0000021d6ae14570,
+0x0000021d6ae158b0, 0x0000021d6feff640, 0x0000021d6ff4e440, 0x0000021d718a3ef0,
+0x0000021d718a52a0, 0x0000021d744de960, 0x0000021d744df680, 0x0000021d744e10c0,
+0x0000021d744deff0, 0x0000021d744ddc40, 0x0000021d744de2d0, 0x0000021d744e03a0,
+0x0000021d744e0a30, 0x0000021d7591e9e0, 0x0000021d7591dcc0, 0x0000021d7591e350,
+0x0000021d75920420, 0x0000021d759217d0, 0x0000021d75921140, 0x0000021d702f74d0,
+0x0000021d6ac948c0
+}
+
+Java Threads: ( => current thread )
+  0x0000021d50480890 JavaThread "main"                              [_thread_blocked, id=14780, stack(0x000000fa7f000000,0x000000fa7f100000) (1024K)]
+  0x0000021d6aa98680 JavaThread "Reference Handler"          daemon [_thread_blocked, id=30324, stack(0x000000fa7f800000,0x000000fa7f900000) (1024K)]
+  0x0000021d6aa9be00 JavaThread "Finalizer"                  daemon [_thread_blocked, id=21848, stack(0x000000fa7f900000,0x000000fa7fa00000) (1024K)]
+  0x0000021d6aaa0c80 JavaThread "Signal Dispatcher"          daemon [_thread_blocked, id=30696, stack(0x000000fa7fa00000,0x000000fa7fb00000) (1024K)]
+  0x0000021d6aaa16d0 JavaThread "Attach Listener"            daemon [_thread_blocked, id=10416, stack(0x000000fa7fb00000,0x000000fa7fc00000) (1024K)]
+  0x0000021d6aaaa2e0 JavaThread "Service Thread"             daemon [_thread_blocked, id=37412, stack(0x000000fa7fc00000,0x000000fa7fd00000) (1024K)]
+  0x0000021d6aaabef0 JavaThread "Monitor Deflation Thread"   daemon [_thread_blocked, id=38776, stack(0x000000fa7fd00000,0x000000fa7fe00000) (1024K)]
+  0x0000021d6aab2180 JavaThread "C2 CompilerThread0"         daemon [_thread_blocked, id=38340, stack(0x000000fa7fe00000,0x000000fa7ff00000) (1024K)]
+  0x0000021d6aabac20 JavaThread "C1 CompilerThread0"         daemon [_thread_blocked, id=32300, stack(0x000000fa7ff00000,0x000000fa80000000) (1024K)]
+  0x0000021d6ad2b620 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=39400, stack(0x000000fa00000000,0x000000fa00100000) (1024K)]
+  0x0000021d6ad2c540 JavaThread "JDWP Event Helper Thread"   daemon [_thread_blocked, id=31084, stack(0x000000fa00100000,0x000000fa00200000) (1024K)]
+  0x0000021d6ae14570 JavaThread "JDWP Command Reader"        daemon [_thread_in_native, id=20892, stack(0x000000fa00200000,0x000000fa00300000) (1024K)]
+  0x0000021d6ae158b0 JavaThread "Common-Cleaner"             daemon [_thread_blocked, id=3032, stack(0x000000fa00300000,0x000000fa00400000) (1024K)]
+  0x0000021d6feff640 JavaThread "Notification Thread"        daemon [_thread_blocked, id=152, stack(0x000000fa00500000,0x000000fa00600000) (1024K)]
+  0x0000021d6ff4e440 JavaThread "ReaderThread"                      [_thread_in_native, id=3284, stack(0x000000fa00600000,0x000000fa00700000) (1024K)]
+  0x0000021d718a3ef0 JavaThread "ForkJoinPool.commonPool-worker-1" daemon [_thread_blocked, id=3968, stack(0x000000fa00d00000,0x000000fa00e00000) (1024K)]
+  0x0000021d718a52a0 JavaThread "HttpClient-1-SelectorManager" daemon [_thread_in_native, id=39192, stack(0x000000fa00e00000,0x000000fa00f00000) (1024K)]
+  0x0000021d744de960 JavaThread "External Process Output Forwarder - C:\Users\Dell Home\.cache\selenium\chromedriver\win64\143.0.7499.169\chromedriver.exe" daemon [_thread_in_native, id=31600, stack(0x000000fa01000000,0x000000fa01100000) (1024K)]
+  0x0000021d744df680 JavaThread "Driver Service Executor"    daemon [_thread_blocked, id=38780, stack(0x000000fa01100000,0x000000fa01200000) (1024K)]
+  0x0000021d744e10c0 JavaThread "Driver Service Executor"    daemon [_thread_in_native, id=38896, stack(0x000000fa01200000,0x000000fa01300000) (1024K)]
+  0x0000021d744deff0 JavaThread "UrlChecker-2"               daemon [_thread_blocked, id=22948, stack(0x000000fa01300000,0x000000fa01400000) (1024K)]
+  0x0000021d744ddc40 JavaThread "JdkHttpClient-0-0"          daemon [_thread_blocked, id=1376, stack(0x000000fa01600000,0x000000fa01700000) (1024K)]
+  0x0000021d744de2d0 JavaThread "CompletableFutureDelayScheduler" daemon [_thread_blocked, id=5128, stack(0x000000fa01700000,0x000000fa01800000) (1024K)]
+  0x0000021d744e03a0 JavaThread "JdkHttpClient-0-1"          daemon [_thread_blocked, id=14276, stack(0x000000fa01800000,0x000000fa01900000) (1024K)]
+  0x0000021d744e0a30 JavaThread "JdkHttpClient-0-2"          daemon [_thread_blocked, id=26116, stack(0x000000fa01900000,0x000000fa01a00000) (1024K)]
+  0x0000021d7591e9e0 JavaThread "JdkHttpClient-0-3"          daemon [_thread_blocked, id=11888, stack(0x000000fa01a00000,0x000000fa01b00000) (1024K)]
+  0x0000021d7591dcc0 JavaThread "HttpClient-2-SelectorManager" daemon [_thread_in_native, id=36708, stack(0x000000fa01b00000,0x000000fa01c00000) (1024K)]
+  0x0000021d7591e350 JavaThread "JdkHttpClient-1-0"          daemon [_thread_blocked, id=39912, stack(0x000000fa01c00000,0x000000fa01d00000) (1024K)]
+  0x0000021d75920420 JavaThread "JdkHttpClient-1-1"          daemon [_thread_blocked, id=1132, stack(0x000000fa01d00000,0x000000fa01e00000) (1024K)]
+  0x0000021d759217d0 JavaThread "JdkHttpClient-1-2"          daemon [_thread_blocked, id=9728, stack(0x000000fa01e00000,0x000000fa01f00000) (1024K)]
+  0x0000021d75921140 JavaThread "JdkHttpClient-1-3"          daemon [_thread_blocked, id=22984, stack(0x000000fa01f00000,0x000000fa02000000) (1024K)]
+  0x0000021d702f74d0 JavaThread "C2 CompilerThread1"         daemon [_thread_blocked, id=38608, stack(0x000000fa02000000,0x000000fa02100000) (1024K)]
+=>0x0000021d6ac948c0 JavaThread "C2 CompilerThread2"         daemon [_thread_in_native, id=17888, stack(0x000000fa02100000,0x000000fa02200000) (1024K)]
+Total: 33
+
+Other Threads:
+  0x0000021d6aa7dd30 VMThread "VM Thread"                           [id=24972, stack(0x000000fa7f700000,0x000000fa7f800000) (1024K)]
+  0x0000021d6aa65b20 WatcherThread "VM Periodic Task Thread"        [id=22912, stack(0x000000fa7f600000,0x000000fa7f700000) (1024K)]
+  0x0000021d504e75b0 WorkerThread "GC Thread#0"                     [id=6228, stack(0x000000fa7f100000,0x000000fa7f200000) (1024K)]
+  0x0000021d6fb16b20 WorkerThread "GC Thread#1"                     [id=1292, stack(0x000000fa00700000,0x000000fa00800000) (1024K)]
+  0x0000021d6fb16ec0 WorkerThread "GC Thread#2"                     [id=5608, stack(0x000000fa00800000,0x000000fa00900000) (1024K)]
+  0x0000021d6ff14720 WorkerThread "GC Thread#3"                     [id=19892, stack(0x000000fa00900000,0x000000fa00a00000) (1024K)]
+  0x0000021d6ff14ac0 WorkerThread "GC Thread#4"                     [id=13744, stack(0x000000fa00a00000,0x000000fa00b00000) (1024K)]
+  0x0000021d6ff14e60 WorkerThread "GC Thread#5"                     [id=20488, stack(0x000000fa00b00000,0x000000fa00c00000) (1024K)]
+  0x0000021d6fa54700 WorkerThread "GC Thread#6"                     [id=28756, stack(0x000000fa00c00000,0x000000fa00d00000) (1024K)]
+  0x0000021d703fad00 WorkerThread "GC Thread#7"                     [id=3084, stack(0x000000fa00400000,0x000000fa00500000) (1024K)]
+  0x0000021d504f9f20 ConcurrentGCThread "G1 Main Marker"            [id=36488, stack(0x000000fa7f200000,0x000000fa7f300000) (1024K)]
+  0x0000021d504fa930 WorkerThread "G1 Conc#0"                       [id=32772, stack(0x000000fa7f300000,0x000000fa7f400000) (1024K)]
+  0x0000021d716eeaf0 WorkerThread "G1 Conc#1"                       [id=10772, stack(0x000000fa00f00000,0x000000fa01000000) (1024K)]
+  0x0000021d6a936b60 ConcurrentGCThread "G1 Refine#0"               [id=4364, stack(0x000000fa7f400000,0x000000fa7f500000) (1024K)]
+  0x0000021d6a938490 ConcurrentGCThread "G1 Service"                [id=20440, stack(0x000000fa7f500000,0x000000fa7f600000) (1024K)]
+Total: 15
+
+Threads with active compile tasks:
+C2 CompilerThread2  26993 4637   !   4       java.util.Formatter::format (284 bytes)
+Total: 1
+
+VM state: not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000703a00000, size: 4038 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000021d00000000-0x0000021d00c80000-0x0000021d00c80000), size 13107200, SharedBaseAddress: 0x0000021d00000000, ArchiveRelocationMode: 1.
+Compressed class space mapped at: 0x0000021d01000000-0x0000021d41000000, reserved size: 1073741824
+Narrow klass base: 0x0000021d00000000, Narrow klass shift: 0, Narrow klass range: 0x100000000
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 16 size 48 Howl #buckets 8 coarsen threshold 3686 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 4096
+ CPUs: 8 total, 8 available
+ Memory: 16144M
+ Large Page Support: Disabled
+ NUMA Support: Disabled
+ Compressed Oops: Enabled (Zero based)
+ Heap Region Size: 2M
+ Heap Min Capacity: 8M
+ Heap Initial Capacity: 254M
+ Heap Max Capacity: 4038M
+ Pre-touch: Disabled
+ Parallel Workers: 8
+ Concurrent Workers: 2
+ Concurrent Refinement Workers: 8
+ Periodic GC: Disabled
+
+Heap:
+ garbage-first heap   total 69632K, used 30476K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 7 young (14336K), 2 survivors (4096K)
+ Metaspace       used 35380K, committed 35840K, reserved 1114112K
+  class space    used 4281K, committed 4480K, reserved 1048576K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, TAMS=top-at-mark-start, PB=parsable bottom
+|   0|0x0000000703a00000, 0x0000000703c00000, 0x0000000703c00000|100%|HS|  |TAMS 0x0000000703a00000| PB 0x0000000703a00000| Complete 
+|   1|0x0000000703c00000, 0x0000000703e00000, 0x0000000703e00000|100%| O|  |TAMS 0x0000000703c00000| PB 0x0000000703c00000| Untracked 
+|   2|0x0000000703e00000, 0x0000000704000000, 0x0000000704000000|100%| O|  |TAMS 0x0000000703e00000| PB 0x0000000703e00000| Untracked 
+|   3|0x0000000704000000, 0x0000000704200000, 0x0000000704200000|100%| O|  |TAMS 0x0000000704000000| PB 0x0000000704000000| Untracked 
+|   4|0x0000000704200000, 0x0000000704400000, 0x0000000704400000|100%| O|  |TAMS 0x0000000704200000| PB 0x0000000704200000| Untracked 
+|   5|0x0000000704400000, 0x0000000704600000, 0x0000000704600000|100%| O|  |TAMS 0x0000000704400000| PB 0x0000000704400000| Untracked 
+|   6|0x0000000704600000, 0x0000000704620d98, 0x0000000704800000|  6%| O|  |TAMS 0x0000000704600000| PB 0x0000000704600000| Untracked 
+|   7|0x0000000704800000, 0x0000000704a00000, 0x0000000704a00000|100%| O|  |TAMS 0x0000000704800000| PB 0x0000000704800000| Untracked 
+|   8|0x0000000704a00000, 0x0000000704c00000, 0x0000000704c00000|100%| O|  |TAMS 0x0000000704a00000| PB 0x0000000704a00000| Untracked 
+|   9|0x0000000704c00000, 0x0000000704e00000, 0x0000000704e00000|100%| O|  |TAMS 0x0000000704c00000| PB 0x0000000704c00000| Untracked 
+|  10|0x0000000704e00000, 0x0000000704e00000, 0x0000000705000000|  0%| F|  |TAMS 0x0000000704e00000| PB 0x0000000704e00000| Untracked 
+|  11|0x0000000705000000, 0x0000000705000000, 0x0000000705200000|  0%| F|  |TAMS 0x0000000705000000| PB 0x0000000705000000| Untracked 
+|  12|0x0000000705200000, 0x0000000705200000, 0x0000000705400000|  0%| F|  |TAMS 0x0000000705200000| PB 0x0000000705200000| Untracked 
+|  13|0x0000000705400000, 0x00000007055a23c8, 0x0000000705600000| 81%| S|CS|TAMS 0x0000000705400000| PB 0x0000000705400000| Complete 
+|  14|0x0000000705600000, 0x0000000705800000, 0x0000000705800000|100%| S|CS|TAMS 0x0000000705600000| PB 0x0000000705600000| Complete 
+|  15|0x0000000705800000, 0x0000000705800000, 0x0000000705a00000|  0%| F|  |TAMS 0x0000000705800000| PB 0x0000000705800000| Untracked 
+|  16|0x0000000705a00000, 0x0000000705a00000, 0x0000000705c00000|  0%| F|  |TAMS 0x0000000705a00000| PB 0x0000000705a00000| Untracked 
+|  17|0x0000000705c00000, 0x0000000705c00000, 0x0000000705e00000|  0%| F|  |TAMS 0x0000000705c00000| PB 0x0000000705c00000| Untracked 
+|  18|0x0000000705e00000, 0x0000000705e00000, 0x0000000706000000|  0%| F|  |TAMS 0x0000000705e00000| PB 0x0000000705e00000| Untracked 
+|  19|0x0000000706000000, 0x0000000706000000, 0x0000000706200000|  0%| F|  |TAMS 0x0000000706000000| PB 0x0000000706000000| Untracked 
+|  20|0x0000000706200000, 0x0000000706200000, 0x0000000706400000|  0%| F|  |TAMS 0x0000000706200000| PB 0x0000000706200000| Untracked 
+|  21|0x0000000706400000, 0x0000000706400000, 0x0000000706600000|  0%| F|  |TAMS 0x0000000706400000| PB 0x0000000706400000| Untracked 
+|  22|0x0000000706600000, 0x0000000706600000, 0x0000000706800000|  0%| F|  |TAMS 0x0000000706600000| PB 0x0000000706600000| Untracked 
+|  23|0x0000000706800000, 0x0000000706800000, 0x0000000706a00000|  0%| F|  |TAMS 0x0000000706800000| PB 0x0000000706800000| Untracked 
+|  24|0x0000000706a00000, 0x0000000706a00000, 0x0000000706c00000|  0%| F|  |TAMS 0x0000000706a00000| PB 0x0000000706a00000| Untracked 
+|  25|0x0000000706c00000, 0x0000000706c00000, 0x0000000706e00000|  0%| F|  |TAMS 0x0000000706c00000| PB 0x0000000706c00000| Untracked 
+|  26|0x0000000706e00000, 0x0000000706e00000, 0x0000000707000000|  0%| F|  |TAMS 0x0000000706e00000| PB 0x0000000706e00000| Untracked 
+|  27|0x0000000707000000, 0x0000000707000000, 0x0000000707200000|  0%| F|  |TAMS 0x0000000707000000| PB 0x0000000707000000| Untracked 
+|  28|0x0000000707200000, 0x0000000707200000, 0x0000000707400000|  0%| F|  |TAMS 0x0000000707200000| PB 0x0000000707200000| Untracked 
+|  29|0x0000000707400000, 0x0000000707600000, 0x0000000707600000|100%| E|  |TAMS 0x0000000707400000| PB 0x0000000707400000| Complete 
+|  81|0x000000070dc00000, 0x000000070de00000, 0x000000070de00000|100%| E|CS|TAMS 0x000000070dc00000| PB 0x000000070dc00000| Complete 
+|  82|0x000000070de00000, 0x000000070e000000, 0x000000070e000000|100%| E|CS|TAMS 0x000000070de00000| PB 0x000000070de00000| Complete 
+|  83|0x000000070e000000, 0x000000070e200000, 0x000000070e200000|100%| E|CS|TAMS 0x000000070e000000| PB 0x000000070e000000| Complete 
+| 126|0x0000000713600000, 0x0000000713800000, 0x0000000713800000|100%| E|CS|TAMS 0x0000000713600000| PB 0x0000000713600000| Complete 
+
+Card table byte_map: [0x0000021d63930000,0x0000021d64120000] _byte_map_base: 0x0000021d60113000
+
+Marking Bits: (CMBitMap*) 0x0000021d504e83d0
+ Bits: [0x0000021d64120000, 0x0000021d68038000)
+
+Polling page: 0x0000021d4fc20000
+
+Metaspace:
+
+Usage:
+  Non-class:     30.37 MB used.
+      Class:      4.18 MB used.
+       Both:     34.55 MB used.
+
+Virtual space:
+  Non-class space:       64.00 MB reserved,      30.62 MB ( 48%) committed,  1 nodes.
+      Class space:        1.00 GB reserved,       4.38 MB ( <1%) committed,  1 nodes.
+             Both:        1.06 GB reserved,      35.00 MB (  3%) committed. 
+
+Chunk freelists:
+   Non-Class:  1.17 MB
+       Class:  11.57 MB
+        Both:  12.74 MB
+
+MaxMetaspaceSize: unlimited
+CompressedClassSpaceSize: 1.00 GB
+Initial GC threshold: 21.00 MB
+Current GC threshold: 35.25 MB
+CDS: on
+ - commit_granule_bytes: 65536.
+ - commit_granule_words: 8192.
+ - virtual_space_node_default_size: 8388608.
+ - enlarge_chunks_in_place: 1.
+ - use_allocation_guard: 0.
+
+
+Internal statistics:
+
+num_allocs_failed_limit: 3.
+num_arena_births: 538.
+num_arena_deaths: 0.
+num_vsnodes_births: 2.
+num_vsnodes_deaths: 0.
+num_space_committed: 560.
+num_space_uncommitted: 0.
+num_chunks_returned_to_freelist: 3.
+num_chunks_taken_from_freelist: 1573.
+num_chunk_merges: 3.
+num_chunk_splits: 1069.
+num_chunks_enlarged: 760.
+num_inconsistent_stats: 0.
+
+CodeHeap 'non-profiled nmethods': size=120000Kb used=3072Kb max_used=3072Kb free=116927Kb
+ bounds [0x0000021d5b8d0000, 0x0000021d5bbe0000, 0x0000021d62e00000]
+CodeHeap 'profiled nmethods': size=120000Kb used=9653Kb max_used=9653Kb free=110346Kb
+ bounds [0x0000021d53e00000, 0x0000021d54770000, 0x0000021d5b330000]
+CodeHeap 'non-nmethods': size=5760Kb used=1557Kb max_used=1617Kb free=4202Kb
+ bounds [0x0000021d5b330000, 0x0000021d5b5a0000, 0x0000021d5b8d0000]
+CodeCache: size=245760Kb, used=14282Kb, max_used=14342Kb, free=231475Kb
+ total_blobs=5311, nmethods=4664, adapters=550, full_count=0
+Compilation: enabled, stopped_count=0, restarted_count=0
+
+Compilation events (20 events):
+Event: 24.932 Thread 0x0000021d6aab2180 nmethod 4650 0x0000021d5bbcc390 code [0x0000021d5bbcc520, 0x0000021d5bbcc688]
+Event: 24.933 Thread 0x0000021d6aab2180 4657       4       java.lang.StringConcatHelper::checkOverflow (17 bytes)
+Event: 24.933 Thread 0x0000021d6aabac20 nmethod 4655 0x0000021d54769010 code [0x0000021d547691e0, 0x0000021d54769558]
+Event: 24.933 Thread 0x0000021d6aabac20 4662       3       jdk.internal.net.http.common.Utils::getCompletionCause (47 bytes)
+Event: 24.934 Thread 0x0000021d6aab2180 nmethod 4657 0x0000021d5bbcc810 code [0x0000021d5bbcc9a0, 0x0000021d5bbcca30]
+Event: 24.934 Thread 0x0000021d6aab2180 4659       4       java.lang.Class::getComponentType (14 bytes)
+Event: 24.934 Thread 0x0000021d6aabac20 nmethod 4662 0x0000021d54769690 code [0x0000021d547698a0, 0x0000021d54769ff0]
+Event: 24.934 Thread 0x0000021d6aabac20 4663       3       java.time.Instant::compareTo (28 bytes)
+Event: 24.934 Thread 0x0000021d6aabac20 nmethod 4663 0x0000021d5476a210 code [0x0000021d5476a3c0, 0x0000021d5476a648]
+Event: 24.934 Thread 0x0000021d6aabac20 4653       3       java.lang.StringConcatHelper::prepend (22 bytes)
+Event: 24.934 Thread 0x0000021d6aab2180 nmethod 4659 0x0000021d5bbccb10 code [0x0000021d5bbccca0, 0x0000021d5bbccd58]
+Event: 24.934 Thread 0x0000021d6aab2180 4651       4       java.util.Properties::getProperty (50 bytes)
+Event: 24.934 Thread 0x0000021d6aabac20 nmethod 4653 0x0000021d5476a710 code [0x0000021d5476a8e0, 0x0000021d5476ab90]
+Event: 24.935 Thread 0x0000021d6aabac20 4654       3       java.lang.StringConcatHelper::prepend (30 bytes)
+Event: 24.935 Thread 0x0000021d6aabac20 nmethod 4654 0x0000021d5476ad10 code [0x0000021d5476aee0, 0x0000021d5476b0d0]
+Event: 24.935 Thread 0x0000021d6aabac20 4658       3       jdk.internal.net.http.HttpClientImpl$PendingRequest::compareTo (9 bytes)
+Event: 24.935 Thread 0x0000021d6aabac20 nmethod 4658 0x0000021d5476b190 code [0x0000021d5476b360, 0x0000021d5476b778]
+Event: 24.935 Thread 0x0000021d6aabac20 4656       3       java.io.StringReader::ensureOpen (18 bytes)
+Event: 24.935 Thread 0x0000021d6aabac20 nmethod 4656 0x0000021d5476b890 code [0x0000021d5476ba40, 0x0000021d5476bc58]
+Event: 26.961 Thread 0x0000021d702f74d0 nmethod 4636 0x0000021d5bbcce10 code [0x0000021d5bbcd160, 0x0000021d5bbce670]
+
+GC Heap History (14 events):
+Event: 2.136 GC heap before
+{Heap before GC invocations=0 (full 0):
+ garbage-first heap   total 260096K, used 22528K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 11 young (22528K), 0 survivors (0K)
+ Metaspace       used 3765K, committed 3968K, reserved 1114112K
+  class space    used 330K, committed 448K, reserved 1048576K
+}
+Event: 2.144 GC heap after
+{Heap after GC invocations=1 (full 0):
+ garbage-first heap   total 260096K, used 13198K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 3765K, committed 3968K, reserved 1114112K
+  class space    used 330K, committed 448K, reserved 1048576K
+}
+Event: 2.794 GC heap before
+{Heap before GC invocations=1 (full 0):
+ garbage-first heap   total 260096K, used 31630K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 11 young (22528K), 2 survivors (4096K)
+ Metaspace       used 6223K, committed 6400K, reserved 1114112K
+  class space    used 667K, committed 768K, reserved 1048576K
+}
+Event: 2.799 GC heap after
+{Heap after GC invocations=2 (full 0):
+ garbage-first heap   total 260096K, used 13297K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 1 young (2048K), 1 survivors (2048K)
+ Metaspace       used 6223K, committed 6400K, reserved 1114112K
+  class space    used 667K, committed 768K, reserved 1048576K
+}
+Event: 4.563 GC heap before
+{Heap before GC invocations=2 (full 0):
+ garbage-first heap   total 260096K, used 80881K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 35 young (71680K), 1 survivors (2048K)
+ Metaspace       used 12356K, committed 12544K, reserved 1114112K
+  class space    used 1356K, committed 1472K, reserved 1048576K
+}
+Event: 4.567 GC heap after
+{Heap after GC invocations=3 (full 0):
+ garbage-first heap   total 260096K, used 15056K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 12356K, committed 12544K, reserved 1114112K
+  class space    used 1356K, committed 1472K, reserved 1048576K
+}
+Event: 7.126 GC heap before
+{Heap before GC invocations=3 (full 0):
+ garbage-first heap   total 260096K, used 96976K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 43 young (88064K), 2 survivors (4096K)
+ Metaspace       used 21346K, committed 21504K, reserved 1114112K
+  class space    used 2494K, committed 2560K, reserved 1048576K
+}
+Event: 7.133 GC heap after
+{Heap after GC invocations=4 (full 0):
+ garbage-first heap   total 260096K, used 17338K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 3 young (6144K), 3 survivors (6144K)
+ Metaspace       used 21346K, committed 21504K, reserved 1114112K
+  class space    used 2494K, committed 2560K, reserved 1048576K
+}
+Event: 8.643 GC heap before
+{Heap before GC invocations=5 (full 0):
+ garbage-first heap   total 69632K, used 52154K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 20 young (40960K), 3 survivors (6144K)
+ Metaspace       used 26411K, committed 26752K, reserved 1114112K
+  class space    used 3154K, committed 3328K, reserved 1048576K
+}
+Event: 8.655 GC heap after
+{Heap after GC invocations=6 (full 0):
+ garbage-first heap   total 69632K, used 18930K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 26411K, committed 26752K, reserved 1114112K
+  class space    used 3154K, committed 3328K, reserved 1048576K
+}
+Event: 10.304 GC heap before
+{Heap before GC invocations=6 (full 0):
+ garbage-first heap   total 69632K, used 49650K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 18 young (36864K), 2 survivors (4096K)
+ Metaspace       used 30238K, committed 30656K, reserved 1114112K
+  class space    used 3651K, committed 3840K, reserved 1048576K
+}
+Event: 10.314 GC heap after
+{Heap after GC invocations=7 (full 0):
+ garbage-first heap   total 69632K, used 20958K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 30238K, committed 30656K, reserved 1114112K
+  class space    used 3651K, committed 3840K, reserved 1048576K
+}
+Event: 17.315 GC heap before
+{Heap before GC invocations=7 (full 0):
+ garbage-first heap   total 69632K, used 55774K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 19 young (38912K), 2 survivors (4096K)
+ Metaspace       used 35125K, committed 35584K, reserved 1114112K
+  class space    used 4280K, committed 4480K, reserved 1048576K
+}
+Event: 17.324 GC heap after
+{Heap after GC invocations=8 (full 0):
+ garbage-first heap   total 69632K, used 22284K [0x0000000703a00000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 35125K, committed 35584K, reserved 1114112K
+  class space    used 4280K, committed 4480K, reserved 1048576K
+}
+
+Dll operation events (12 events):
+Event: 0.029 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\java.dll
+Event: 0.101 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\zip.dll
+Event: 0.688 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\instrument.dll
+Event: 0.703 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\net.dll
+Event: 0.710 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\nio.dll
+Event: 0.719 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\zip.dll
+Event: 1.679 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\jimage.dll
+Event: 1.796 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\verify.dll
+Event: 2.100 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\extnet.dll
+Event: 6.535 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\management.dll
+Event: 6.540 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\management_ext.dll
+Event: 10.369 Loaded shared library C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\sunmscapi.dll
+
+Deoptimization events (20 events):
+Event: 10.544 Thread 0x0000021d744e10c0 DEOPT PACKING pc=0x0000021d5babe424 sp=0x000000fa012ff110
+Event: 10.544 Thread 0x0000021d744e10c0 DEOPT UNPACKING pc=0x0000021d5b384422 sp=0x000000fa012ff0e8 mode 2
+Event: 10.554 Thread 0x0000021d744deff0 Uncommon trap: trap_request=0xffffffc6 fr.pc=0x0000021d5babe424 relative=0x00000000000002c4
+Event: 10.554 Thread 0x0000021d744deff0 Uncommon trap: reason=bimorphic_or_optimized_type_check action=maybe_recompile pc=0x0000021d5babe424 method=java.util.concurrent.locks.AbstractQueuedSynchronizer.release(I)Z @ 2 c2
+Event: 10.554 Thread 0x0000021d744deff0 DEOPT PACKING pc=0x0000021d5babe424 sp=0x000000fa013ff4a0
+Event: 10.555 Thread 0x0000021d744deff0 DEOPT UNPACKING pc=0x0000021d5b384422 sp=0x000000fa013ff478 mode 2
+Event: 10.706 Thread 0x0000021d744deff0 Uncommon trap: trap_request=0xffffffc6 fr.pc=0x0000021d5babe424 relative=0x00000000000002c4
+Event: 10.706 Thread 0x0000021d744deff0 Uncommon trap: reason=bimorphic_or_optimized_type_check action=maybe_recompile pc=0x0000021d5babe424 method=java.util.concurrent.locks.AbstractQueuedSynchronizer.release(I)Z @ 2 c2
+Event: 10.706 Thread 0x0000021d744deff0 DEOPT PACKING pc=0x0000021d5babe424 sp=0x000000fa013ff4a0
+Event: 10.706 Thread 0x0000021d744deff0 DEOPT UNPACKING pc=0x0000021d5b384422 sp=0x000000fa013ff478 mode 2
+Event: 12.233 Thread 0x0000021d50480890 Uncommon trap: trap_request=0xffffff45 fr.pc=0x0000021d5baa8fd4 relative=0x00000000000010d4
+Event: 12.233 Thread 0x0000021d50480890 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000021d5baa8fd4 method=java.util.concurrent.ConcurrentHashMap.putVal(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object; @ 231 c2
+Event: 12.233 Thread 0x0000021d50480890 DEOPT PACKING pc=0x0000021d5baa8fd4 sp=0x000000fa7f0fcea0
+Event: 12.233 Thread 0x0000021d50480890 DEOPT UNPACKING pc=0x0000021d5b384422 sp=0x000000fa7f0fce30 mode 2
+Event: 12.443 Thread 0x0000021d50480890 DEOPT PACKING pc=0x0000021d541e1f6c sp=0x000000fa7f0fc5d0
+Event: 12.443 Thread 0x0000021d50480890 DEOPT UNPACKING pc=0x0000021d5b384bc2 sp=0x000000fa7f0fba98 mode 1
+Event: 12.443 Thread 0x0000021d50480890 DEOPT PACKING pc=0x0000021d541e1a8c sp=0x000000fa7f0fc660
+Event: 12.443 Thread 0x0000021d50480890 DEOPT UNPACKING pc=0x0000021d5b384bc2 sp=0x000000fa7f0fbb38 mode 1
+Event: 21.655 Thread 0x0000021d50480890 DEOPT PACKING pc=0x0000021d545b8cf4 sp=0x000000fa7f0fb820
+Event: 21.655 Thread 0x0000021d50480890 DEOPT UNPACKING pc=0x0000021d5b384bc2 sp=0x000000fa7f0fad50 mode 0
+
+Classes loaded (20 events):
+Event: 12.444 Loading class sun/util/logging/resources/logging
+Event: 12.444 Loading class sun/util/logging/resources/logging done
+Event: 12.444 Loading class sun/util/logging/resources/logging_en
+Event: 12.444 Loading class sun/util/logging/resources/logging_en done
+Event: 12.444 Loading class sun/util/logging/resources/logging_en
+Event: 12.444 Loading class sun/util/logging/resources/logging_en done
+Event: 12.445 Loading class sun/util/logging/resources/logging_en_US
+Event: 12.445 Loading class sun/util/logging/resources/logging_en_US done
+Event: 12.445 Loading class sun/util/logging/resources/logging_en_US
+Event: 12.445 Loading class sun/util/logging/resources/logging_en_US done
+Event: 12.445 Loading class java/util/Formatter$DateTime
+Event: 12.445 Loading class java/util/Formatter$DateTime done
+Event: 12.446 Loading class java/time/ZonedDateTime$1
+Event: 12.446 Loading class java/time/ZonedDateTime$1 done
+Event: 12.530 Loading class java/util/Observer
+Event: 12.530 Loading class java/util/Observer done
+Event: 12.538 Loading class java/util/Observable
+Event: 12.538 Loading class java/util/Observable done
+Event: 12.576 Loading class java/util/TreeMap$EntrySpliterator
+Event: 12.577 Loading class java/util/TreeMap$EntrySpliterator done
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (20 events):
+Event: 9.953 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x0000000706821ce8}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.lang.Object, long)'> (0x0000000706821ce8) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 9.956 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x0000000706835c88}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x0000000706835c88) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 9.957 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x0000000706847330}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, int, java.lang.Object, java.lang.Object)'> (0x0000000706847330) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 9.958 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x000000070684b020}: 'java.lang.Object java.lang.invoke.DelegatingMethodHandle$Holder.delegate(java.lang.Object, int, java.lang.Object, java.lang.Object)'> (0x000000070684b020) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 9.960 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x000000070685b498}: 'int java.lang.invoke.Invokers$Holder.linkToTargetMethod(java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000070685b498) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.056 Thread 0x0000021d50480890 Exception <a 'sun/nio/fs/WindowsException'{0x0000000706715878}> (0x0000000706715878) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 520]
+Event: 10.513 Thread 0x0000021d50480890 Exception <a 'java/lang/IncompatibleClassChangeError'{0x000000070df5fc10}: Found class java.lang.Object, but interface was expected> (0x000000070df5fc10) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 840]
+Event: 10.522 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x000000070dfb4448}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeVirtual(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000070dfb4448) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.573 Thread 0x0000021d744deff0 Exception <a 'java/net/ConnectException'{0x000000070dc824b0}: Connection refused: getsockopt> (0x000000070dc824b0) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 539]
+Event: 10.602 Thread 0x0000021d744deff0 Exception <a 'java/net/ConnectException'{0x000000070dc84400}: Connection refused: getsockopt> (0x000000070dc84400) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 539]
+Event: 10.636 Thread 0x0000021d744deff0 Exception <a 'java/net/ConnectException'{0x000000070dc85260}: Connection refused: getsockopt> (0x000000070dc85260) 
+thrown [s\src\hotspot\share\prims\jni.cpp, line 539]
+Event: 10.737 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x000000070dde4d28}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, java.lang.Object, int, int)'> (0x000000070dde4d28) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.741 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x000000070ddf1248}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.lang.Object, java.lang.Object, int)'> (0x000000070ddf1248) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.797 Thread 0x0000021d744ddc40 Exception <a 'java/lang/NoSuchMethodError'{0x000000070723d4d0}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeStatic(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000070723d4d0) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.851 Thread 0x0000021d744ddc40 Exception <a 'java/lang/NoSuchMethodError'{0x0000000707199720}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, int)'> (0x0000000707199720) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 10.851 Thread 0x0000021d744ddc40 Exception <a 'java/lang/NoSuchMethodError'{0x000000070719d078}: 'java.lang.Object java.lang.invoke.Invokers$Holder.linkToTargetMethod(java.lang.Object, java.lang.Object, int, java.lang.Object)'> (0x000000070719d078) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 12.100 Thread 0x0000021d744e03a0 Exception <a 'java/lang/NoSuchMethodError'{0x0000000706b1bd38}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, java.lang.Object, long, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x0000000706b1bd38) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 12.150 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x00000007075064e0}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeSpecialIFC(java.lang.Object, java.lang.Object, java.lang.Object)'> (0x00000007075064e0) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+Event: 12.443 Thread 0x0000021d50480890 Exception <a 'java/lang/ClassNotFoundException'{0x0000000706046ae0}: sun/util/logging/resources/spi/loggingProvider> (0x0000000706046ae0) 
+thrown [s\src\hotspot\share\classfile\systemDictionary.cpp, line 312]
+Event: 12.557 Thread 0x0000021d50480890 Exception <a 'java/lang/NoSuchMethodError'{0x0000000705e38808}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object)'> (0x0000000705e38808) 
+thrown [s\src\hotspot\share\interpreter\linkResolver.cpp, line 773]
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (20 events):
+Event: 15.116 Executing VM operation: Cleanup
+Event: 15.116 Executing VM operation: Cleanup done
+Event: 16.124 Executing VM operation: Cleanup
+Event: 16.124 Executing VM operation: Cleanup done
+Event: 17.125 Executing VM operation: Cleanup
+Event: 17.125 Executing VM operation: Cleanup done
+Event: 17.315 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause)
+Event: 17.324 Executing VM operation: G1CollectForAllocation (G1 Evacuation Pause) done
+Event: 18.325 Executing VM operation: Cleanup
+Event: 18.325 Executing VM operation: Cleanup done
+Event: 19.327 Executing VM operation: Cleanup
+Event: 19.327 Executing VM operation: Cleanup done
+Event: 20.336 Executing VM operation: Cleanup
+Event: 20.336 Executing VM operation: Cleanup done
+Event: 21.343 Executing VM operation: Cleanup
+Event: 21.466 Executing VM operation: Cleanup done
+Event: 22.473 Executing VM operation: Cleanup
+Event: 22.473 Executing VM operation: Cleanup done
+Event: 23.479 Executing VM operation: Cleanup
+Event: 23.479 Executing VM operation: Cleanup done
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (20 events):
+Event: 10.698 Thread 0x0000021d744deff0 Thread added: 0x0000021d744dfd10
+Event: 10.777 Thread 0x0000021d50480890 Thread added: 0x0000021d744ddc40
+Event: 10.786 Thread 0x0000021d50480890 Thread added: 0x0000021d744de2d0
+Event: 10.916 Thread 0x0000021d718a52a0 Thread added: 0x0000021d744e03a0
+Event: 10.921 Thread 0x0000021d718a52a0 Thread added: 0x0000021d744e0a30
+Event: 10.921 Thread 0x0000021d718a52a0 Thread added: 0x0000021d7591e9e0
+Event: 12.283 Thread 0x0000021d50480890 Thread added: 0x0000021d7591dcc0
+Event: 12.284 Thread 0x0000021d50480890 Thread added: 0x0000021d7591e350
+Event: 12.298 Thread 0x0000021d7591dcc0 Thread added: 0x0000021d75920420
+Event: 12.298 Thread 0x0000021d7591dcc0 Thread added: 0x0000021d759217d0
+Event: 12.299 Thread 0x0000021d7591dcc0 Thread added: 0x0000021d75921140
+Event: 12.820 Thread 0x0000021d6aabac20 Thread added: 0x0000021d702f74d0
+Event: 12.962 Thread 0x0000021d702f74d0 Thread exited: 0x0000021d702f74d0
+Event: 21.466 Thread 0x0000021d6aabac20 Thread added: 0x0000021d702f74d0
+Event: 21.467 Thread 0x0000021d6aabac20 Thread added: 0x0000021d6ac95660
+Event: 21.776 Thread 0x0000021d6ac95660 Thread exited: 0x0000021d6ac95660
+Event: 21.777 Thread 0x0000021d702f74d0 Thread exited: 0x0000021d702f74d0
+Event: 23.873 Thread 0x0000021d6aabac20 Thread added: 0x0000021d702f74d0
+Event: 23.873 Thread 0x0000021d6aabac20 Thread added: 0x0000021d6ac948c0
+Event: 26.961 Thread 0x0000021d744dfd10 Thread exited: 0x0000021d744dfd10
+
+
+Dynamic libraries:
+0x00007ff614410000 - 0x00007ff61441e000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\javaw.exe
+0x00007ffb40fa0000 - 0x00007ffb41207000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffb40090000 - 0x00007ffb40159000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffb3e940000 - 0x00007ffb3ed2f000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffb3e6c0000 - 0x00007ffb3e80b000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffb291c0000 - 0x00007ffb291de000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\VCRUNTIME140.dll
+0x00007ffb19280000 - 0x00007ffb19298000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\jli.dll
+0x00007ffb3f000000 - 0x00007ffb3f1c5000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffb3e690000 - 0x00007ffb3e6b7000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffb3ff80000 - 0x00007ffb3ffab000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffb3e810000 - 0x00007ffb3e93c000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffb2bf20000 - 0x00007ffb2c1b3000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7309_none_3e05feeae336a044\COMCTL32.dll
+0x00007ffb3e270000 - 0x00007ffb3e313000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffb3ef00000 - 0x00007ffb3efa9000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffb40430000 - 0x00007ffb40461000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffb38fa0000 - 0x00007ffb38fac000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\vcruntime140_1.dll
+0x00007ffaff640000 - 0x00007ffaff6cd000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\msvcp140.dll
+0x00007ffa98450000 - 0x00007ffa991f0000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\server\jvm.dll
+0x00007ffb3fb70000 - 0x00007ffb3fc24000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffb40eb0000 - 0x00007ffb40f56000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffb40540000 - 0x00007ffb40658000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffb406d0000 - 0x00007ffb40744000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffb2d890000 - 0x00007ffb2d8c5000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffb3df50000 - 0x00007ffb3dfae000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffb2f720000 - 0x00007ffb2f72b000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffb3df30000 - 0x00007ffb3df44000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffb3ce60000 - 0x00007ffb3ce7b000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffb38f40000 - 0x00007ffb38f4a000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\jimage.dll
+0x00007ffb2c1d0000 - 0x00007ffb2c412000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffb3f760000 - 0x00007ffb3fae5000 	C:\WINDOWS\System32\combase.dll
+0x00007ffb3ffb0000 - 0x00007ffb40086000 	C:\WINDOWS\System32\OLEAUT32.dll
+0x00007ffb26f90000 - 0x00007ffb26fcc000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffb3e3b0000 - 0x00007ffb3e455000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffb12000000 - 0x00007ffb1203c000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\jdwp.dll
+0x00007ffb291b0000 - 0x00007ffb291bf000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\instrument.dll
+0x00007ffb11fe0000 - 0x00007ffb12000000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\java.dll
+0x00007ffb40750000 - 0x00007ffb40ea3000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ffb3e520000 - 0x00007ffb3e68a000 	C:\WINDOWS\System32\wintypes.dll
+0x00007ffb3bcb0000 - 0x00007ffb3c50e000 	C:\WINDOWS\SYSTEM32\windows.storage.dll
+0x00007ffb3ee00000 - 0x00007ffb3eef5000 	C:\WINDOWS\System32\SHCORE.dll
+0x00007ffb40660000 - 0x00007ffb406c6000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ffb3e010000 - 0x00007ffb3e039000 	C:\WINDOWS\SYSTEM32\profapi.dll
+0x00007ffb12290000 - 0x00007ffb122a8000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\zip.dll
+0x00007ffb263b0000 - 0x00007ffb263bc000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\dt_socket.dll
+0x00007ffb3c850000 - 0x00007ffb3c884000 	C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL
+0x00007ffb3d3b0000 - 0x00007ffb3d41b000 	C:\WINDOWS\system32\mswsock.dll
+0x00007ffb3c890000 - 0x00007ffb3c9bc000 	C:\WINDOWS\SYSTEM32\DNSAPI.dll
+0x00007ffb40530000 - 0x00007ffb4053a000 	C:\WINDOWS\System32\NSI.dll
+0x00007ffb30520000 - 0x00007ffb3052b000 	C:\Windows\System32\rasadhlp.dll
+0x00007ffb31ac0000 - 0x00007ffb31b46000 	C:\WINDOWS\System32\fwpuclnt.dll
+0x00007ffb38f00000 - 0x00007ffb38f10000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\net.dll
+0x00007ffb32b90000 - 0x00007ffb32cb8000 	C:\WINDOWS\SYSTEM32\WINHTTP.dll
+0x00007ffb121f0000 - 0x00007ffb12206000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\nio.dll
+0x00007ffb26b00000 - 0x00007ffb26b10000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\verify.dll
+0x00007ffb19270000 - 0x00007ffb19279000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\extnet.dll
+0x00007ffb3d7a0000 - 0x00007ffb3d7bb000 	C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0x00007ffb3cdc0000 - 0x00007ffb3cdfa000 	C:\WINDOWS\system32\rsaenh.dll
+0x00007ffb3d460000 - 0x00007ffb3d48b000 	C:\WINDOWS\SYSTEM32\USERENV.dll
+0x00007ffb3dfe0000 - 0x00007ffb3e00a000 	C:\WINDOWS\SYSTEM32\bcrypt.dll
+0x00007ffb3d600000 - 0x00007ffb3d60c000 	C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0x00007ffb19160000 - 0x00007ffb1916a000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\management.dll
+0x00007ffb18f30000 - 0x00007ffb18f3c000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\management_ext.dll
+0x00007ffb40280000 - 0x00007ffb40288000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffb1b410000 - 0x00007ffb1b428000 	C:\WINDOWS\system32\napinsp.dll
+0x00007ffb1b3f0000 - 0x00007ffb1b402000 	C:\WINDOWS\System32\winrnr.dll
+0x00007ffb1b3c0000 - 0x00007ffb1b3e2000 	C:\WINDOWS\system32\nlansp_c.dll
+0x00007ffb31320000 - 0x00007ffb31336000 	C:\WINDOWS\system32\wshbth.dll
+0x00007ffb1b9d0000 - 0x00007ffb1b9de000 	C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\sunmscapi.dll
+0x00007ffb3e0f0000 - 0x00007ffb3e267000 	C:\WINDOWS\System32\CRYPT32.dll
+0x00007ffb3d8f0000 - 0x00007ffb3d920000 	C:\WINDOWS\SYSTEM32\ncrypt.dll
+0x00007ffb3d8a0000 - 0x00007ffb3d8df000 	C:\WINDOWS\SYSTEM32\NTASN1.dll
+0x00007ffaa4e10000 - 0x00007ffaa4e18000 	C:\WINDOWS\system32\wshunix.dll
+
+JVMTI agents:
+jdwp path:C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\jdwp.dll, loaded, initialized, options:transport=dt_socket,suspend=y,address=localhost:61012
+C:\Users\Dell Home\eclipse\java-2025-092\eclipse\configuration\org.eclipse.osgi\714\0\.cp\lib\javaagent-shaded.jar path:C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\instrument.dll, loaded, initialized, instrumentlib options:none
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.26100.7309_none_3e05feeae336a044;C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin\server
+
+VM Arguments:
+jvm_args: -XX:+ShowCodeDetailsInExceptionMessages -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:61012 -ea -javaagent:C:\Users\Dell Home\eclipse\java-2025-092\eclipse\configuration\org.eclipse.osgi\714\0\.cp\lib\javaagent-shaded.jar -Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 51775 -testLoaderClass org.eclipse.jdt.internal.junit5.runner.JUnit5TestLoader -loaderpluginname org.eclipse.jdt.junit5.runtime -classNames eal.Runners.ealRunner
+java_class_path (initial): C:\Users\Dell Home\eclipse-workspace\EAL teach(2)\Cucumber2025\target\test-classes;C:\Users\Dell Home\eclipse-workspace\EAL teach(2)\Cucumber2025\target\classes;C:\Users\Dell Home\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.11.0\junit-jupiter-api-5.11.0.jar;C:\Users\Dell Home\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\Dell Home\.m2\repository\org\junit\platform\junit-platform-commons\1.11.0\junit-platform-commons-1.11.0.jar;C:\Users\Dell Home\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\Dell Home\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.11.0\junit-jupiter-params-5.11.0.jar;C:\Users\Dell Home\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.11.0\junit-jupiter-engine-5.11.0.jar;C:\Users\Dell Home\.m2\repository\org\junit\platform\junit-platform-engine\1.11.0\junit-platform-engine-1.11.0.jar;C:\Users\Dell Home\.m2\repository\org\junit\vintage\junit-vintage-engine\5.11.0\junit-vintage-engine-5.11.0.jar;C:\Users\Dell Home\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Dell Home\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-java\4.35.0\selenium-java-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-api\4.35.0\selenium-api-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.35.0\selenium-chrome-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.35.0\selenium-chromium-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-json\4.35.0\selenium-json-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.35.0\selenium-manager-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v137\4.35.0\selenium-devtools-v137-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v138\4.35.0\selenium-devtools-v138-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v139\4.35.0\selenium-devtools-v139-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.35.0\selenium-edge-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.35.0\selenium-firefox-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-http\4.35.0\selenium-http-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.35.0\selenium-ie-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.35.0\selenium-remote-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\com\google\guava\guava\33.4.8-jre\guava-33.4.8-jre.jar;C:\Users\Dell Home\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\Dell Home\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\Dell Home\.m2\repository\com\google\errorprone\error_prone_annotations\2.36.0\error_prone_annotations-2.36.0.jar;C:\Users\Dell Home\.m2\repository\com\google\j2objc\j2objc-annotations\3.0.0\j2objc-annotations-3.0.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-api\1.53.0\opentelemetry-api-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-context\1.53.0\opentelemetry-context-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-common\1.53.0\opentelemetry-common-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.53.0\opentelemetry-exporter-logging-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.53.0\opentelemetry-sdk-common-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.53.0\opentelemetry-sdk-extension-autoconfigure-spi-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.53.0\opentelemetry-sdk-extension-autoconfigure-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.53.0\opentelemetry-sdk-trace-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.53.0\opentelemetry-sdk-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.53.0\opentelemetry-sdk-metrics-1.53.0.jar;C:\Users\Dell Home\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.53.0\opentelemetry-sdk-logs-1.53.0.jar;C:\Users\Dell Home\.m2\repository\net\bytebuddy\byte-buddy\1.17.6\byte-buddy-1.17.6.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-os\4.35.0\selenium-os-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\apache\commons\commons-exec\1.5.0\commons-exec-1.5.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.35.0\selenium-safari-driver-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\selenium\selenium-support\4.35.0\selenium-support-4.35.0.jar;C:\Users\Dell Home\.m2\repository\org\testng\testng\7.8.0\testng-7.8.0.jar;C:\Users\Dell Home\.m2\repository\org\slf4j\slf4j-api\1.7.36\slf4j-api-1.7.36.jar;C:\Users\Dell Home\.m2\repository\com\beust\jcommander\1.82\jcommander-1.82.jar;C:\Users\Dell Home\.m2\repository\org\webjars\jquery\3.6.1\jquery-3.6.1.jar;C:\Users\Dell Home\.m2\repository\org\apache\poi\poi\3.17\poi-3.17.jar;C:\Users\Dell Home\.m2\repository\commons-codec\commons-codec\1.10\commons-codec-1.10.jar;C:\Users\Dell Home\.m2\repository\org\apache\commons\commons-collections4\4.1\commons-collections4-4.1.jar;C:\Users\Dell Home\.m2\repository\org\apache\poi\poi-ooxml\3.17\poi-ooxml-3.17.jar;C:\Users\Dell Home\.m2\repository\org\apache\poi\poi-ooxml-schemas\3.17\poi-ooxml-schemas-3.17.jar;C:\Users\Dell Home\.m2\repository\org\apache\xmlbeans\xmlbeans\2.6.0\xmlbeans-2.6.0.jar;C:\Users\Dell Home\.m2\repository\stax\stax-api\1.0.1\stax-api-1.0.1.jar;C:\Users\Dell Home\.m2\repository\com\github\virtuald\curvesapi\1.04\curvesapi-1.04.jar;C:\Users\Dell Home\.m2\repository\org\apache\logging\log4j\log4j-core\2.23.1\log4j-core-2.23.1.jar;C:\Users\Dell Home\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Dell Home\.m2\repository\com\aventstack\extentreports\5.1.1\extentreports-5.1.1.jar;C:\Users\Dell Home\.m2\repository\io\reactivex\rxjava3\rxjava\3.1.6\rxjava-3.1.6.jar;C:\Users\Dell Home\.m2\repository\org\reactivestreams\reactive-streams\1.0.4\reactive-streams-1.0.4.jar;C:\Users\Dell Home\.m2\repository\org\freemarker\freemarker\2.3.32\freemarker-2.3.32.jar;C:\Users\Dell Home\.m2\repository\org\projectlombok\lombok\1.18.26\lombok-1.18.26.jar;C:\Users\Dell Home\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\Dell Home\.m2\repository\io\rest-assured\rest-assured\3.1.1\rest-assured-3.1.1.jar;C:\Users\Dell Home\.m2\repository\org\codehaus\groovy\groovy\2.4.12\groovy-2.4.12.jar;C:\Users\Dell Home\.m2\repository\org\codehaus\groovy\groovy-xml\2.4.12\groovy-xml-2.4.12.jar;C:\Users\Dell Home\.m2\repository\org\apache\httpcomponents\httpmime\4.5.1\httpmime-4.5.1.jar;C:\Users\Dell Home\.m2\repository\org\hamcrest\hamcrest-library\1.3\hamcrest-library-1.3.jar;C:\Users\Dell Home\.m2\repository\org\ccil\cowan\tagsoup\tagsoup\1.2.1\tagsoup-1.2.1.jar;C:\Users\Dell Home\.m2\repository\io\rest-assured\json-path\3.1.1\json-path-3.1.1.jar;C:\Users\Dell Home\.m2\repository\org\codehaus\groovy\groovy-json\2.4.12\groovy-json-2.4.12.jar;C:\Users\Dell Home\.m2\repository\io\rest-assured\xml-path\3.1.1\xml-path-3.1.1.jar;C:\Users\Dell Home\.m2\repository\javax\xml\bind\jaxb-api\2.2.12\jaxb-api-2.2.12.jar;C:\Users\Dell Home\.m2\repository\io\rest-assured\rest-assured-common\5.3.2\rest-assured-common-5.3.2.jar;C:\Users\Dell Home\.m2\repository\org\apache\groovy\groovy\4.0.11\groovy-4.0.11.jar;C:\Users\Dell Home\.m2\repository\org\apache\commons\commons-lang3\3.11\commons-lang3-3.11.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-core\7.17.0\cucumber-core-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-gherkin\7.17.0\cucumber-gherkin-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-gherkin-messages\7.17.0\cucumber-gherkin-messages-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\gherkin\28.0.0\gherkin-28.0.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\messages\24.1.0\messages-24.1.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\testng-xml-formatter\0.1.0\testng-xml-formatter-0.1.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\query\12.2.0\query-12.2.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\tag-expressions\6.1.0\tag-expressions-6.1.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-expressions\17.1.0\cucumber-expressions-17.1.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\datatable\7.17.0\datatable-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-plugin\7.17.0\cucumber-plugin-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\docstring\7.17.0\docstring-7.17.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\html-formatter\21.3.1\html-formatter-21.3.1.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\junit-xml-formatter\0.4.0\junit-xml-formatter-0.4.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\ci-environment\10.0.1\ci-environment-10.0.1.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-java\7.14.0\cucumber-java-7.14.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-junit\7.14.0\cucumber-junit-7.14.0.jar;C:\Users\Dell Home\.m2\repository\com\vimalselvam\cucumber-extentsreport\3.1.1\cucumber-extentsreport-3.1.1.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-testng\7.14.0\cucumber-testng-7.14.0.jar;C:\Users\Dell Home\.m2\repository\io\cucumber\cucumber-picocontainer\7.0.0\cucumber-picocontainer-7.0.0.jar;C:\Users\Dell Home\.m2\repository\org\picocontainer\picocontainer\2.15\picocontainer-2.15.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\extentreports-cucumber7-adapter\1.14.0\extentreports-cucumber7-adapter-1.14.0.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\extent-pdf-report\2.12.0\extent-pdf-report-2.12.0.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\cucumber-pdf-report\2.14.0\cucumber-pdf-report-2.14.0.jar;C:\Users\Dell Home\.m2\repository\org\apache\pdfbox\pdfbox\2.0.26\pdfbox-2.0.26.jar;C:\Users\Dell Home\.m2\repository\org\apache\pdfbox\fontbox\2.0.26\fontbox-2.0.26.jar;C:\Users\Dell Home\.m2\repository\org\knowm\xchart\xchart\3.8.0\xchart-3.8.0.jar;C:\Users\Dell Home\.m2\repository\de\erichseifert\vectorgraphics2d\VectorGraphics2D\0.13\VectorGraphics2D-0.13.jar;C:\Users\Dell Home\.m2\repository\de\rototor\pdfbox\graphics2d\0.30\graphics2d-0.30.jar;C:\Users\Dell Home\.m2\repository\com\madgag\animated-gif-lib\1.4\animated-gif-lib-1.4.jar;C:\Users\Dell Home\.m2\repository\org\yaml\snakeyaml\2.0\snakeyaml-2.0.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\table-layout\1.5.1\table-layout-1.5.1.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\rest-assured-cucumber-pdf-report\1.5.0\rest-assured-cucumber-pdf-report-1.5.0.jar;C:\Users\Dell Home\.m2\repository\org\jsoup\jsoup\1.15.3\jsoup-1.15.3.jar;C:\Users\Dell Home\.m2\repository\com\aventstack\klov-reporter\5.1.0\klov-reporter-5.1.0.jar;C:\Users\Dell Home\.m2\repository\org\mongodb\mongodb-driver\3.6.4\mongodb-driver-3.6.4.jar;C:\Users\Dell Home\.m2\repository\org\mongodb\mongodb-driver-core\3.6.4\mongodb-driver-core-3.6.4.jar;C:\Users\Dell Home\.m2\repository\org\mongodb\bson\3.6.4\bson-3.6.4.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\htmlextentreporter\1.1.0\htmlextentreporter-1.1.0.jar;C:\Users\Dell Home\.m2\repository\tech\grasshopper\extent-excel-report\1.4.0\extent-excel-report-1.4.0.jar;C:\Users\Dell Home\.m2\repository\commons-io\commons-io\2.16.1\commons-io-2.16.1.jar;C:\Users\Dell Home\.m2\repository\org\apache\tomcat\tomcat-jdbc\9.0.22\tomcat-jdbc-9.0.22.jar;C:\Users\Dell Home\.m2\repository\org\apache\tomcat\tomcat-juli\9.0.22\tomcat-juli-9.0.22.jar;C:\Users\Dell Home\.m2\repository\org\springframework\spring-jdbc\5.1.5.RELEASE\spring-jdbc-5.1.5.RELEASE.jar;C:\Users\Dell Home\.m2\repository\org\springframework\spring-beans\5.1.5.RELEASE\spring-beans-5.1.5.RELEASE.jar;C:\Users\Dell Home\.m2\repository\org\springframework\spring-core\5.1.5.RELEASE\spring-core-5.1.5.RELEASE.jar;C:\Users\Dell Home\.m2\repository\org\springframework\spring-jcl\5.1.5.RELEASE\spring-jcl-5.1.5.RELEASE.jar;C:\Users\Dell Home\.m2\repository\org\springframework\spring-tx\5.1.5.RELEASE\spring-tx-5.1.5.RELEASE.jar;C:\Users\Dell Home\.m2\repository\com\github\javafaker\javafaker\0.16\javafaker-0.16.jar;C:\Users\Dell Home\.m2\repository\org\yaml\snakeyaml\1.20\snakeyaml-1.20-android.jar;C:\Users\Dell Home\.m2\repository\com\github\mifmif\generex\1.0.2\generex-1.0.2.jar;C:\Users\Dell Home\.m2\repository\dk\brics\automaton\automaton\1.11-8\automaton-1.11-8.jar;C:\Users\Dell Home\.m2\repository\org\postgresql\postgresql\42.3.9\postgresql-42.3.9.jar;C:\Users\Dell Home\.m2\repository\org\checkerframework\checker-qual\3.5.0\checker-qual-3.5.0.jar;C:\Users\Dell Home\.m2\repository\net\sourceforge\htmlunit\webdriver\2.6\webdriver-2.6.jar;C:\Users\Dell Home\.m2\repository\org\seleniumhq\webdriver\webdriver-common\0.9.7089\webdriver-common-0.9.7089.jar;C:\Users\Dell Home\.m2\repository\net\sourceforge\htmlunit\htmlunit\2.6\htmlunit-2.6.jar;C:\Users\Dell Home\.m2\repository\xalan\xalan\2.7.1\xalan-2.7.1.jar;C:\Users\Dell Home\.m2\repository\xalan\serializer\2.7.1\serializer-2.7.1.jar;C:\Users\Dell Home\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\Dell Home\.m2\repository\commons-lang\commons-lang\2.4\commons-lang-2.4.jar;C:\Users\Dell Home\.m2\repository\commons-httpclient\commons-httpclient\3.1\commons-httpclient-3.1.jar;C:\Users\Dell Home\.m2\repository\net\sourceforge\htmlunit\htmlunit-core-js\2.6\htmlunit-core-js-2.6.jar;C:\Users\Dell Home\.m2\repository\xerces\xercesImpl\2.9.1\xercesImpl-2.9.1.jar;C:\Users\Dell Home\.m2\repository\xml-apis\xml-apis\1.3.04\xml-apis-1.3.04.jar;C:\Users\Dell Home\.m2\repository\net\sourceforge\nekohtml\nekohtml\1.9.13\nekohtml-1.9.13.jar;C:\Users\Dell Home\.m2\repository\net\sourceforge\cssparser\cssparser\0.9.5\cssparser-0.9.5.jar;C:\Users\Dell Home\.m2\repository\org\w3c\css\sac\1.3\sac-1.3.jar;C:\Users\Dell Home\.m2\repository\com\codoid\products\fillo\1.18\fillo-1.18.jar;C:\Users\Dell Home\.m2\repository\org\apache\logging\log4j\log4j-slf4j-impl\2.18.0\log4j-slf4j-impl-2.18.0.jar;C:\Users\Dell Home\.m2\repository\org\fusesource\jansi\jansi\2.4.0\jansi-2.4.0.jar;C:\Users\Dell Home\.m2\repository\com\bettercloud\vault-java-driver\5.1.0\vault-java-driver-5.1.0.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\secretsmanager\2.32.25\secretsmanager-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\aws-json-protocol\2.32.25\aws-json-protocol-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\third-party-jackson-core\2.32.25\third-party-jackson-core-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\protocol-core\2.32.25\protocol-core-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\http-auth-aws\2.32.25\http-auth-aws-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\checksums-spi\2.32.25\checksums-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\checksums\2.32.25\checksums-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\sdk-core\2.32.25\sdk-core-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\auth\2.32.25\auth-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\http-auth-aws-eventstream\2.32.25\http-auth-aws-eventstream-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\http-auth-spi\2.32.25\http-auth-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\http-auth\2.32.25\http-auth-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\identity-spi\2.32.25\identity-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\http-client-spi\2.32.25\http-client-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\regions\2.32.25\regions-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\annotations\2.32.25\annotations-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\utils\2.32.25\utils-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\metrics-spi\2.32.25\metrics-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\json-utils\2.32.25\json-utils-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\endpoints-spi\2.32.25\endpoints-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\retries-spi\2.32.25\retries-spi-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\apache-client\2.32.25\apache-client-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\netty-nio-client\2.32.25\netty-nio-client-2.32.25.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-codec-http\4.1.124.Final\netty-codec-http-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-codec-http2\4.1.124.Final\netty-codec-http2-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-codec\4.1.124.Final\netty-codec-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-transport\4.1.124.Final\netty-transport-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-common\4.1.124.Final\netty-common-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-buffer\4.1.124.Final\netty-buffer-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-handler\4.1.124.Final\netty-handler-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-transport-native-unix-common\4.1.124.Final\netty-transport-native-unix-common-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-transport-classes-epoll\4.1.124.Final\netty-transport-classes-epoll-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\io\netty\netty-resolver\4.1.124.Final\netty-resolver-4.1.124.Final.jar;C:\Users\Dell Home\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-jdbc\2.0.2\aws-secretsmanager-jdbc-2.0.2.jar;C:\Users\Dell Home\.m2\repository\com\amazonaws\secretsmanager\aws-secretsmanager-caching-java\2.0.0\aws-secretsmanager-caching-java-2.0.0.jar;C:\Users\Dell Home\.m2\repository\com\github\spotbugs\spotbugs-annotations\4.7.3\spotbugs-annotations-4.7.3.jar;C:\Users\Dell Home\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\aws-core\2.32.25\aws-core-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\profiles\2.32.25\profiles-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\retries\2.32.25\retries-2.32.25.jar;C:\Users\Dell Home\.m2\repository\software\amazon\eventstream\eventstream\1.0.1\eventstream-1.0.1.jar;C:\Users\Dell Home\.m2\repository\software\amazon\awssdk\test-utils\2.32.25\test-utils-2.32.25.jar;C:\Users\Dell Home\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar;C:\Users\Dell Home\.m2\repository\org\junit\jupiter\junit-jupiter\5.11.0\junit-jupiter-5.11.0.jar;C:\Users\Dell Home\.m2\repository\org\json\json\20240303\json-20240303.jar;C:\Users\Dell Home\.m2\repository\org\apache\httpcomponents\httpclient\4.5.9\httpclient-4.5.9.jar;C:\Users\Dell Home\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\Dell Home\.m2\repository\org\apache\httpcomponents\httpcore\4.4.9\httpcore-4.4.9.jar;C:\Users\Dell Home\.m2\repository\com\microsoft\sqlserver\mssql-jdbc\12.6.1.jre11\mssql-jdbc-12.6.1.jre11.jar;C:\Users\Dell Home\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.16.1\jackson-databind-2.16.1.jar;C:\Users\Dell Home\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.16.1\jackson-annotations-2.16.1.jar;C:\Users\Dell Home\.m2\repository\io\github\cdimascio\java-dotenv\5.2.2\java-dotenv-5.2.2.jar;C:\Users\Dell Home\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.4.0\kotlin-stdlib-1.4.0.jar;C:\Users\Dell Home\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.4.0\kotlin-stdlib-common-1.4.0.jar;C:\Users\Dell Home\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\Dell Home\.m2\repository\org\junit\platform\junit-platform-launcher\1.11.0\junit-platform-launcher-1.11.0.jar;C:\Users\Dell Home\eclipse\java-2025-092\eclipse\configuration\org.eclipse.osgi\712\0\.cp;C:\Users\Dell Home\eclipse\java-2025-092\eclipse\configuration\org.eclipse.osgi\710\0\.cp
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 266338304                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4234149888                                {product} {ergonomic}
+   size_t MaxNewSize                               = 2539651072                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool ShowCodeDetailsInExceptionMessages       = true                                   {manageable} {command line}
+   size_t SoftMaxHeapSize                          = 4234149888                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Release file:
+JAVA_VERSION="21.0.9" 
+MODULES="java.base java.compiler java.datatransfer java.xml java.prefs java.desktop java.instrument java.logging java.management java.security.sasl java.naming java.rmi java.management.rmi java.net.http java.scripting java.security.jgss java.transaction.xa java.sql java.sql.rowset java.xml.crypto java.se java.smartcardio jdk.accessibility jdk.internal.jvmstat jdk.attach jdk.charsets jdk.internal.opt jdk.zipfs jdk.compiler jdk.crypto.ec jdk.crypto.cryptoki jdk.crypto.mscapi jdk.dynalink jdk.internal.ed jdk.editpad jdk.hotspot.agent jdk.httpserver jdk.internal.le jdk.internal.vm.ci jdk.internal.vm.compiler jdk.internal.vm.compiler.management jdk.jartool jdk.javadoc jdk.jcmd jdk.management jdk.management.agent jdk.jconsole jdk.jdeps jdk.jdwp.agent jdk.jdi jdk.jfr jdk.jshell jdk.jsobject jdk.jstatd jdk.localedata jdk.management.jfr jdk.naming.dns jdk.naming.rmi jdk.net jdk.nio.mapmode jdk.random jdk.sctp jdk.security.auth jdk.security.jgss jdk.unsupported jdk.unsupported.desktop jdk.xml.dom" 
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk-21
+PATH=C:\Users\Dell Home\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741\jre\bin;C:/Users/Dell Home/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741/jre/bin/server;C:/Users/Dell Home/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_21.0.9.v20251105-0741/jre/bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Tailscale\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-21\bin;C:\Maven\apache-maven-3.9.11\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Dell Home\AppData\Local\Microsoft\WindowsApps;C:\Users\Dell Home\AppData\Local\GitHubDesktop\bin;C:\WINDOWS\system32;
+USERNAME=Dell Home
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+TMP=C:\Users\DELLHO~1\AppData\Local\Temp
+TEMP=C:\Users\DELLHO~1\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 11 , 64 bit Build 26100 (10.0.26100.7309)
+OS uptime: 3 days 13:34 hours
+Hyper-V role detected
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 142 stepping 12 microcode 0xfc, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt, hv, rdtscp, f16c
+Processor Information for the first 8 processors :
+  Max Mhz: 2304, Current Mhz: 1803, Mhz Limit: 1797
+
+Memory: 4k page, system-wide physical 16144M (1297M free)
+TotalPageFile size 46501M (AvailPageFile size 3M)
+current process WorkingSet (physical memory assigned to process): 197M, peak: 241M
+current process commit charge ("private bytes"): 234M, peak: 448M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.9+10-LTS) for windows-amd64 JRE (21.0.9+10-LTS), built on 2025-10-21T00:00:00Z by "admin" with unknown MS VC++:1942
+
+END.

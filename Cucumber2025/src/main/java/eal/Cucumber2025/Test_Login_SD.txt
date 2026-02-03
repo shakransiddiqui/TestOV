@@ -1,0 +1,176 @@
+package eal.step_definitions;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.*;
+import eal.Utilities.CommonMethods;
+import eal.Utilities.LogColor;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.*;
+
+public class Login_StepD extends CommonMethods {
+
+	public static final Logger logger = LogManager.getLogger(Login_StepD.class);
+
+	//***********************************************************************************************************
+	@Given("Validate User landed on homepage")
+	public void validate_user_landed_on_homepage() {
+
+
+		logger.info("Verify Title");
+		boolean titleMatched = hmpage_pom.verify_homepage_title();
+
+		logger.info("Performing Assertion");
+		softAssert.softAssertTrue(titleMatched, "Title Matched Successfully", 
+				"Title didn't Match");
+	}
+
+	//***********************************************************************************************************
+	@Then("Verify {string} is visible")
+	public void verify_homepage_UiTextElement_is_visible(String UiTextElement_fromFeature) {
+
+		boolean visibilityStatus = false;
+
+		logger.info("Verifying Visibility of "+UiTextElement_fromFeature);
+		boolean UiTextElement = hmpage_pom.verify_homepage_UiTextElement_is_visible(UiTextElement_fromFeature);
+
+		visibilityStatus=UiTextElement;
+
+		logger.info("Performing Assertion");
+
+		softAssert.softAssertTrue(visibilityStatus, UiTextElement_fromFeature+" Text is Visible", 
+				UiTextElement_fromFeature+" Text is not Visible");
+
+	}
+
+	//***********************************************************************************************************
+	@Then("Pass {string} on {string} Field")
+	public void pass_on_field(String fieldValue, String fieldName) {
+
+		String actualFieldValue = hmpage_pom.passFieldValue(fieldValue, fieldName);
+
+		softAssert.softAssertEquals(actualFieldValue, fieldValue, "Field is filled with value: "+actualFieldValue);
+	}
+
+	//***********************************************************************************************************
+	@Then("Click on Login button")
+	public void click_on_login_button() {
+
+		String expectedTextInTheAlert = "User is not valid";
+
+		String actualTextInTheAlert =	hmpage_pom.clickingOnLoginButton_with_Invalid_Credentials();	  
+
+		softAssert.softAssertEquals(actualTextInTheAlert, expectedTextInTheAlert, 
+				"error message: 'User is not valid' is visible as Alert");
+
+	}
+
+	//***********************************************************************************************************
+	@Then("Click on {string} button from the alert")
+	public void click_on_button_from_the_alert(String string) {
+
+		acceptAlert();
+
+		boolean homePagetitleMatched =hmpage_pom.verify_homepage_title();
+
+		softAssert.softAssertTrue(homePagetitleMatched, "Title Matched Successfully", "Title didn't Match");
+
+
+	}
+
+
+	//***********************************************************************************************************
+	@Given("Pass {int} digit Numeric userID {int} on userID Field and immidiately Clear it")
+	public void pass_digit_numeric_user_id_on_user_id_field_and_immidiately_clear_it(Integer count, Integer userID_valueFromFeature) {
+
+		String fieldName = "UserID";
+		String inserted_fieldValue = String.valueOf(userID_valueFromFeature);
+
+		String actualFieldValueinTheUI =  hmpage_pom.passFieldValue(inserted_fieldValue, fieldName);
+
+		if(actualFieldValueinTheUI.equals(inserted_fieldValue)) {
+			logger.info(LogColor.Blue + "Accurate value inserted" + LogColor.RESET);
+		}
+		else {
+			logger.info(LogColor.Blue + "Different value inserted" + LogColor.RESET);
+		}
+
+		String actualFieldValueinTheUI_afterClear = hmpage_pom.clearField(fieldName);
+
+		softAssert.softAssertEquals(actualFieldValueinTheUI_afterClear, "", "UserId field Cleared Ater Typing");
+	}
+
+	//***********************************************************************************************************
+	@Then("click on Reset Button")
+	public void click_on_reset_button() {
+
+		String fieldName = "UserID";
+		logger.info("Clicking on the Reset button");
+		hmpage_pom.clickingOnResetButton();
+
+
+	}
+
+	//***********************************************************************************************************
+	@Given("I enter and immidiately clear the following UserIDs:")
+	public void i_enter_and_immediately_clear_the_following_user_i_ds(DataTable dataTable) {
+
+		String fieldName = "UserID";
+
+		List<String> userIdList_forFeature = dataTable.asList();
+
+		for(String userID:userIdList_forFeature) {
+
+			String actualFieldValueinTheUI =  hmpage_pom.passFieldValue(userID, fieldName);
+
+			if(actualFieldValueinTheUI.equals(userID)) {
+				logger.info(LogColor.Blue + "Accurate value inserted" + LogColor.RESET);
+			}
+			else {
+				logger.info(LogColor.Blue + "Different value inserted" + LogColor.RESET);
+			}
+
+			String actualFieldValueinTheUI_afterClear = hmpage_pom.clearField(fieldName);
+
+			softAssert.softAssertEquals(actualFieldValueinTheUI_afterClear, "", "UserId field Cleared Ater Typing");
+		}
+	}
+
+	//***********************************************************************************************************
+	@Given("I try with following credentials:")
+	public void i_try_with_following_credentials(DataTable dataTable) {
+
+
+		List<Map<String, String>>  credentials_List_fromFeature = dataTable.asMaps(String.class, String.class);
+
+		for(Map<String, String> row:credentials_List_fromFeature) {
+
+			String userID_value = row.get("UserID");
+			String password_value = row.get("Password");
+
+			String actual_User_FieldValueinTheUI =  hmpage_pom.passFieldValue(userID, "UserID");
+			String actual_Pass_FieldValueinTheUI =  hmpage_pom.passFieldValue(password, "Password");
+
+			String UserID_afterClear = hmpage_pom.clearField("UserID");
+			softAssert.softAssertEquals(UserID_afterClear, "", "UserId field Cleared Ater Typing");
+
+			String Password_afterClear = hmpage_pom.clearField("Password");
+			softAssert.softAssertEquals(Password_afterClear, "", "Password field Cleared Ater Typing");
+		}
+	}
+
+	//***********************************************************************************************************
+	@Then("Click on Login button with Valid Credentials")
+	public void click_on_login_button_with_valid_credentials() {
+
+
+		boolean afterLoginTitleMatched =	hmpage_pom.clickingOnLoginButton_with_Valid_Credentials();	  
+
+		softAssert.softAssertTrue(afterLoginTitleMatched, "Dashboard title matched after Login", 
+				"Dashboard title did Not match after Login");
+
+	}
+
+
+}

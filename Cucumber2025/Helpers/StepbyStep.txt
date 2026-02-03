@@ -1,0 +1,10 @@
+Look for Feature files Folder
+Create feature file Folder(if needed)
+create the feature File
+Find out which steps are Already in @before... Hooks
+Add the Test Scenario (test cases with steps)
+Create step definition, add loggers, copy and paste the UnImplemented Methods
+Create the Page Object Model (contains only action methods and Variables, sometimes returns booleans)
+After adding More loggers, and Action methods , we Do Soft Assertion at the end of Step Def. method
+We debug and confirm everything is working. (Avoid built in code blocks -- step return)
+Check assertion failure is working or not.
