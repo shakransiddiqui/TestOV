@@ -40,63 +40,84 @@ public class Homepage_POM extends CommonMethods {
 	public boolean clickOnButton(String buttonName) {
 
 		try {
-
-			logger.info("Looking for the Login Button");
-			boolean visible = isElementPresent(Login_button_by);
+			logger.info("Formatting the X path of Button: "+buttonName);
+			String formattedXpath = String.format(feature_buttons, buttonName);
+			logger.info("X path of Button: "+formattedXpath);
+			
+			waitForNetworkIdle();
+			logger.info("Looking for the Button: "+buttonName);
+			boolean visible = isElementPresent(By.xpath(formattedXpath));
 
 			if(visible) {
-				logger.info("Clicking on the Login Button");
-				clickAndDraw(Login_button);
-				logger.info("Clicked on the Login Button");
-				
-				return true;
-
-			}
-				
-			else {
-				return false;
-			}
-
-
+				logger.info("Finding the Button: "+buttonName);
+				WebElement button = driver.findElement(By.xpath(formattedXpath));
 		
-		} catch (Exception e) {
+				logger.info("Clicking on the Login Button: "+buttonName);
+				clickAndDraw(button);
+				logger.info("Clicked on the Login Button: "+buttonName);
 
-		logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
-		logger.error(LogColor.RED+e+LogColor.RESET);
-		return false;
-	}
-	}
-
-
-
-
-
-	public boolean verify_title_of_Page(String expectedTitle) {
-
-		try {
-			logger.info("Looking for the Login Button");
-			boolean visible = isElementPresent(Login_button_by);
-
-			if(visible) {
-				logger.info("Clicking on the Login Button");
-				clickAndDraw(Login_button);
-				logger.info("Clicked on the Login Button");
-
-
-				boolean isTitleMatched = verifyPageTitle(expectedTitle);
-
-				return isTitleMatched;
+				return true;
 			}
 			else {
 				return false;
-			}
-
-
+			}		
 		} catch (Exception e) {
-
 			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
 			logger.error(LogColor.RED+e+LogColor.RESET);
 			return false;
 		}
 	}
+
+	//	***************************************************************************************************************
+	public boolean verify_title_of_Page(String expectedTitle) {
+
+		try {
+			logger.info("Verifying the Page Title");
+			boolean isTitleMatched = verifyPageTitle(expectedTitle);
+
+			if(isTitleMatched) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
+	}
+	
+//	***************************************************************************************************************
+public boolean clickOnBackTwice(String expectedTitle) {
+try {
+	logger.info("Waiting for page to load fully");
+	waitForNetworkIdle();
+	
+	logger.info("Clicking on the Back Button");
+	driver.navigate().back();
+	
+	logger.info("Waiting for page to load fully");
+	waitForNetworkIdle();
+	
+	logger.info("Clicking on the Back Button");
+	driver.navigate().back();
+	
+	logger.info("Verifying the Page Title");
+	boolean isTitleMatched = verifyPageTitle(expectedTitle);
+	
+	if(isTitleMatched) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	} catch (Exception e) {
+
+		logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+		logger.error(LogColor.RED+e+LogColor.RESET);
+		return false;
+	}
+}
+
 }
