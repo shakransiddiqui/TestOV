@@ -1,4 +1,4 @@
-@Homepage
+@Homepage @passport
 Feature: Homepage_Feature
 
   @Tc_01 @homepage_to_login @passport-pos
