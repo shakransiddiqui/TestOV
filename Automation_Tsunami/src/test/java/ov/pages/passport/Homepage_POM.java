@@ -30,7 +30,7 @@ public class Homepage_POM extends CommonMethods {
 	By Login_button_by = By.xpath("//span[contains(text(), 'Log In')]");
 
 
-	//	******************By Locators****************************************************************************
+	//	******************Locator Format Template Strings****************************************************************************
 
 	private static final String feature_buttons = "//span[contains(text(), '%s')]";
 

@@ -12,6 +12,7 @@ import junit.framework.Assert;
 import ov.pages.passport.HomePage_Passport;
 import ov.utilities.CommonMethods;
 import ov.utilities.ConfigurationReader;
+import ov.utilities.CommonMethods.TestDataGenerator;
 import io.cucumber.java.en.*;
 
 
@@ -20,26 +21,34 @@ public class Login_stepD extends CommonMethods {
 
 	public static final Logger logger = LogManager.getLogger(Login_stepD.class);
 
-
-
-
 	//	***************************************************************************************************************
-	@When("User enters {string} in the username field")
-	public void user_enters_in_the_username_field(String string) {
+	@When("User enters {string} in the {string} field")
+	public void user_enters_in_the__field(String fieldValue, String fieldName) {
 
-	}
+		String expectedFieldValue = ConfigurationReader.getProperty(fieldValue);
 
-	
-	//	***************************************************************************************************************
-	@When("User enters {string} in the password field")
-	public void user_enters_in_the_password_field(String string) {
+		if ("DYNAMIC".equalsIgnoreCase(expectedFieldValue)) {
+			expectedFieldValue = TestDataGenerator.generateInvalidEmail();
+		}
 
+		logger.info(expectedFieldValue);
+		String ActualFieldValue = login_pom.passFieldValue(expectedFieldValue, fieldName);
+
+
+		softAssert.softAssertEquals(ActualFieldValue, expectedFieldValue, 
+				"Actual Field Value: "+ActualFieldValue+ " , and Expected Field Value: "+expectedFieldValue);
 	}
 
 	//	***************************************************************************************************************
 	@When("User clicks on the {string} button")
-	public void user_clicks_on_the_button(String string) {
+	public void user_clicks_on_the_button(String buttonName) {
 
+		logger.info("Click on Button : "+buttonName);
+		boolean ButtonIsClickable = login_pom.clickOnLogin(buttonName);
+	    
+		softAssert.softAssertTrue(ButtonIsClickable, 
+				buttonName+" Button is visible and clickable", 
+				buttonName+" Button is not clickable");
 	}
 
 	//	***************************************************************************************************************

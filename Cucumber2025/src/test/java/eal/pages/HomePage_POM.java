@@ -102,7 +102,6 @@ public class HomePage_POM extends CommonMethods{
 	public String passFieldValue(String UiFieldElement_Value_fromSD,String UiFieldElement_Name_fromSD) {
 
 		try {
-
 			String formatted_hm_UiFieldcontained_Elements = String.format(hm_UiFieldcontained_Elements, UiFieldElement_Name_fromSD);
 			logger.info(formatted_hm_UiFieldcontained_Elements);
 
