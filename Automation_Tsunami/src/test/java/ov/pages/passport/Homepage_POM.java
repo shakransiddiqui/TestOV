@@ -52,9 +52,9 @@ public class Homepage_POM extends CommonMethods {
 				logger.info("Finding the Button: "+buttonName);
 				WebElement button = driver.findElement(By.xpath(formattedXpath));
 		
-				logger.info("Clicking on the Login Button: "+buttonName);
+				logger.info("Clicking on the Button: "+buttonName);
 				clickAndDraw(button);
-				logger.info("Clicked on the Login Button: "+buttonName);
+				logger.info("Clicked on the Button: "+buttonName);
 
 				return true;
 			}

@@ -59,7 +59,6 @@ public class Login_POM extends CommonMethods {
 
 			logger.info("Passing value on the Field: "+fieldElement_Value);
 			safeSendKeys(login_field, fieldElement_Value);
-//			login_field.sendKeys(fieldElement_Value);
 			
 			logger.info("Making sure value is filled up on the Field: "+fieldElement_Name);
 			String actualFieldValue = login_field.getAttribute("value");
