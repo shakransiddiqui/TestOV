@@ -6,7 +6,7 @@ Feature: Login_Feature
     Then Navigates to the page with title of "Login_page_title"
 
   # Negative login test with various invalid, valid, and empty credentials
-  @Tc_02 @passport-neg
+  @Tc_03 @passport-neg
   Scenario Outline: Verify login fails with invalid, valid, or empty username and password combinations
     When User enters "<Email>" in the "Email address" field
     And User enters "<Password>" in the "Password" field

@@ -74,7 +74,7 @@ public class Login_POM extends CommonMethods {
 		}
 	}
 	
-	
+//	***************************************************************************************************************
 	public boolean clickOnLogin(String buttonName) {
 
 		try {
@@ -105,5 +105,12 @@ public class Login_POM extends CommonMethods {
 			return false;
 		}
 	}
+	
+//	***************************************************************************************************************
+	public boolean isLoginErrorVisible() {
+	    // implementation will come next
+	    return false;
+	}
+
 
 }
