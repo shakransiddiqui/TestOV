@@ -71,6 +71,9 @@ public class Homepage_POM extends CommonMethods {
 	public boolean verify_title_of_Page(String expectedTitle) {
 
 		try {
+			
+			waitForTitle(expectedTitle);
+			
 			logger.info("Verifying the Page Title");
 			boolean isTitleMatched = verifyPageTitle(expectedTitle);
 
@@ -90,13 +93,13 @@ public class Homepage_POM extends CommonMethods {
 //	***************************************************************************************************************
 public boolean clickOnBackTwice(String expectedTitle) {
 try {
-	logger.info("Waiting for page to load fully");
+	
 	waitForNetworkIdle();
 	
 	logger.info("Clicking on the Back Button");
 	driver.navigate().back();
 	
-	logger.info("Waiting for page to load fully");
+	
 	waitForNetworkIdle();
 	
 	logger.info("Clicking on the Back Button");

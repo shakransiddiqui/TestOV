@@ -41,8 +41,8 @@ public class Homepage_stepD extends CommonMethods {
 	}
 	
 //	***************************************************************************************************************
-	@Then("User navigates back to Homepage with title of {string}")
-	public void user_navigates_back_to_homepage(String pageTitle) {
+	@Then("User clicks back twice and navigates to Startup page with title of {string}")
+	public void user_navigates_back_to_startup_page(String pageTitle) {
 	    
 		logger.info("Getting the expected page title of : "+pageTitle);
 		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);

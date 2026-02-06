@@ -142,4 +142,44 @@ public class Login_POM extends CommonMethods {
 		}
 	}
 
+//	***************************************************************************************************************
+public boolean clickOnBackThrice(String expectedTitle) {
+try {
+	
+	waitForNetworkIdle();
+	
+	logger.info("Clicking on the Back Button");
+	driver.navigate().back();
+	
+
+	waitForNetworkIdle();
+	
+	logger.info("Clicking on the Back Button");
+	driver.navigate().back();
+	
+	
+	waitForNetworkIdle();
+	
+	logger.info("Clicking on the Back Button");
+	driver.navigate().back();
+	
+	
+	waitForTitle(expectedTitle);
+	
+	logger.info("Verifying the Page Title");
+	boolean isTitleMatched = verifyPageTitle(expectedTitle);
+	
+	if(isTitleMatched) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	} catch (Exception e) {
+
+		logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+		logger.error(LogColor.RED+e+LogColor.RESET);
+		return false;
+	}
+}
 }

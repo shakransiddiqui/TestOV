@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import io.cucumber.java.en.Given;
 import junit.framework.Assert;
 import ov.pages.passport.HomePage_Passport;
 import ov.utilities.CommonMethods;
@@ -82,6 +81,22 @@ public class Login_stepD extends CommonMethods {
 				"Navigated to Page and "+pageTitle+" Matched successfully", 
 				pageTitle+" Did Not Match");
 	}
+	
+//	***************************************************************************************************************
+	@Then("User clicks back thrice and navigates to Startup page with title of {string}")
+	public void user_navigates_back_to_startUp_page(String pageTitle) {
+	    
+		logger.info("Getting the expected page title of : "+pageTitle);
+		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
+		logger.info("Expected Title is: "+expectedPageTitle);
+		
+		logger.info("Navigating back to Homepage");
+		boolean TitleMatched = login_pom.clickOnBackThrice(expectedPageTitle);
+
+		softAssert.softAssertTrue(TitleMatched, 
+				"Navigated to Page and "+pageTitle+" Matched successfully", 
+				pageTitle+" Did Not Match");
+	}
 
 	//	***************************************************************************************************************
 	@Then("User should be redirected to the page with title of {string}")
@@ -105,7 +120,7 @@ public class Login_stepD extends CommonMethods {
 	public void user_logs_out() {
 		
 		logger.info("Logging out...");
-		boolean loggedOut = login_pom.header_pom.logout();
+		boolean loggedOut = header_pom.logout();
 	    
 		softAssert.softAssertTrue(loggedOut, 
 				"Log Out Successful", 
