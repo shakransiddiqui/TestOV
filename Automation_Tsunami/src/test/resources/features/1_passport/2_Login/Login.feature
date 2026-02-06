@@ -21,7 +21,6 @@ Feature: Login_Feature
       | PMvalidEmail | invalidPassword |
       | invalidEmail | PMvalidPassword |
       
-      
 #***************************************************************************
   # Negative login test with various empty credentials
   @Tc_002  @passport-neg
@@ -38,6 +37,7 @@ Feature: Login_Feature
       | EMPTY        | invalidPassword |
       | invalidEmail | EMPTY           |
       | EMPTY        | EMPTY           |
+      
 #**************************************************************************
   # Positive login test with valid credentials as Program Manager
   @Tc_03 @valid_login_and_logout_program_manager @Logout @passport-pos
