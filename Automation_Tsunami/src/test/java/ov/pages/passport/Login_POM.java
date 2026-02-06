@@ -32,6 +32,7 @@ public class Login_POM extends CommonMethods {
 
 
 	//	******************By Locators****************************************************************************
+	private static final By login_ERROR_by =By.cssSelector(".ulp-input-error-message, .ulp-validator-error");
 
 
 	
