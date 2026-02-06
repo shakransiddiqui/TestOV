@@ -33,8 +33,9 @@ public class Login_POM extends CommonMethods {
 
 	//	******************By Locators****************************************************************************
 
-	
 
+	
+	
 	//	******************Locator Format Template Strings****************************************************************************
 
 	private static final String login_fields ="//label[contains(text(), '%s')]/following-sibling::input";
@@ -107,10 +108,37 @@ public class Login_POM extends CommonMethods {
 	}
 	
 //	***************************************************************************************************************
-	public boolean isLoginErrorVisible() {
-	    // implementation will come next
-	    return false;
+	public boolean loginErrorVisible() {
+		try {
+			boolean isErrorVisible =  isElementPresent(login_ERROR_by);
+			
+			return isErrorVisible;
+		        
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
 	}
 
+	//	***************************************************************************************************************
+	public boolean verify_title_of_Page(String expectedTitle) {
+
+		try {
+			logger.info("Verifying the Page Title");
+			boolean isTitleMatched = verifyPageTitle(expectedTitle);
+
+			if(isTitleMatched) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
+	}
 
 }

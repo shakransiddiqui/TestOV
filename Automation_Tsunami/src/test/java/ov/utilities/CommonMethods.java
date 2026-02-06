@@ -76,6 +76,7 @@ import com.google.common.base.Function;
 
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.java.Scenario;
+import ov.pages.passport.Header_POM;
 import ov.pages.passport.Homepage_POM;
 import ov.pages.passport.Login_POM;
 
@@ -116,6 +117,7 @@ public class CommonMethods extends Driver {
 
 	public static Login_POM login_pom = new Login_POM();
 	public static Homepage_POM homepage_pom = new Homepage_POM();
+	public static Header_POM header_pom = new Header_POM();
 	
 	
 	// ================================
@@ -479,7 +481,7 @@ public class CommonMethods extends Driver {
 		Duration originalImplicitWait = driver.manage().timeouts().getImplicitWaitTimeout();
 		// Set implicit wait to zero
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(200)); // 1 second timeout
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(2000)); // 1 second timeout
 		try {
 			removeBorder(); // removes border from previous element
 			//		        wait.until(ExpectedConditions.presenceOfElementLocated(locator)); 

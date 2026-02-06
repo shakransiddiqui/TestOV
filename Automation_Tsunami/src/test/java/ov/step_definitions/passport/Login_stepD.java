@@ -54,19 +54,65 @@ public class Login_stepD extends CommonMethods {
 	//	***************************************************************************************************************
 	@Then("User should see a login error or validation message")
 	public void user_should_see_a_login_error_or_validation_message() {
+		
+		logger.info("Validating error/validation message.");
+		   boolean visible = login_pom.loginErrorVisible();
+		    softAssert.softAssertTrue(visible, "Expected login error/validation message is visible.",
+		            "Expected a login error/validation message, but none appeared.");
 
+		    if (visible) {
+		        logger.info("Errors shown: " + getElementsTextbyLocator(
+		                By.cssSelector(".ulp-input-error-message, .ulp-validator-error")
+		        ));
+		    }
 	}
 
 	//	***************************************************************************************************************
-	@Then("User should remain on the Login page")
-	public void user_should_remain_on_the_login_page() {
+	@Then("User should remain on the Login page with title of {string}")
+	public void user_should_remain_on_the_login_page(String pageTitle) {
 
+		logger.info("Getting the expected page title of : "+pageTitle);
+		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
+		logger.info("Expected Title is: "+expectedPageTitle);
+
+		logger.info("Navigating to the login page");
+		boolean TitleMatched = homepage_pom.verify_title_of_Page(expectedPageTitle);
+
+		softAssert.softAssertTrue(TitleMatched, 
+				"Navigated to Page and "+pageTitle+" Matched successfully", 
+				pageTitle+" Did Not Match");
 	}
 
 	//	***************************************************************************************************************
-	@Then("User should be redirected to the Community Dashboard")
-	public void user_should_be_redirected_to_the_community_dashboard() {
+	@Then("User should be redirected to the page with title of {string}")
+	public void user_should_be_redirected_to_the_page_with_title_of(String pageTitle) {
+		
+		logger.info("Getting the expected page title of : "+pageTitle);
+		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
+		logger.info("Expected Title is: "+expectedPageTitle);
+
+		logger.info("Navigating to the login page");
+		boolean TitleMatched = homepage_pom.verify_title_of_Page(expectedPageTitle);
+
+		softAssert.softAssertTrue(TitleMatched, 
+				"Navigated to Page and "+pageTitle+" Matched successfully", 
+				pageTitle+" Did Not Match");
 
 	}
-
+	
+	//*****************************************************************************************************************
+	@And("User logs out")
+	public void user_logs_out() {
+		
+		logger.info("Logging out...");
+		boolean loggedOut = login_pom.header_pom.logout();
+	    
+		softAssert.softAssertTrue(loggedOut, 
+				"Log Out Successful", 
+				"Log Out Not Successful");
+		
+	}
+	
+	
+	
 }

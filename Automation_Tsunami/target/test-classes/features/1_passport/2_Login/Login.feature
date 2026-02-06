@@ -12,7 +12,7 @@ Feature: Login_Feature
     And User enters "<Password>" in the "Password" field
     And User clicks on the "Log In" button
     Then User should see a login error or validation message
-    And User should remain on the Login page
+    And User should remain on the Login page with title of "Login_page_title"
 
     Examples: 
       | Email        | Password        |
@@ -23,10 +23,22 @@ Feature: Login_Feature
       | invalidEmail | EMPTY           |
       | EMPTY        | EMPTY           |
 
-  # Positive login test with valid credentials
-  @Tc_04 @passport-pos
-  Scenario: Verify user logs in successfully with valid credentials
-    When User enters "validUsername" in the "Email address" field
-    And User enters "validPassword" in the "Password" field
+  # Positive login test with valid credentials as Program Manager
+  @Tc_04 @valid_login_and_logout_program_manager @Logout @passport-pos
+  Scenario: Verify user logs in and out successfully with valid credentials as a Program Manager
+    When User enters "PMvalidUsername" in the "Email address" field
+    And User enters "PMvalidPassword" in the "Password" field
     And User clicks on the "Log In" button
-    Then User should be redirected to the Community Dashboard
+    Then User should be redirected to the page with title of "Organization_page_title"
+    And User logs out
+    Then User should be redirected to the page with title of "Startup_page_title"
+
+  # Positive login test with valid credentials as Startup Leader
+  @Tc_05 @valid_login_and_logout_startup_leader @Logout @passport-pos
+  Scenario: Verify user logs in and out successfully with valid credentials as a Startup Leader
+    When User enters "SLvalidUsername" in the "Email address" field
+    And User enters "SLvalidPassword" in the "Password" field
+    And User clicks on the "Log In" button
+    Then User should be redirected to the page with title of "Startup_page_title"
+    And User logs out
+    Then User should be redirected to the page with title of "Startup_page_title"
