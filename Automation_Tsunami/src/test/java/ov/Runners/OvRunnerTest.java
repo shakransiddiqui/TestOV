@@ -26,7 +26,7 @@ import io.cucumber.junit.CucumberOptions;
 		glue= {"ov.step_definitions","ov.Hooks"},
 		dryRun = false,
 		
-		tags = "@Signup",
+		tags = "@signup_with_empty_email",
 		
 		monochrome= true
 	
