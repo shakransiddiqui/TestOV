@@ -74,11 +74,11 @@ public class Login_stepD extends CommonMethods {
 		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
 		logger.info("Expected Title is: "+expectedPageTitle);
 
-		logger.info("Navigating to the login page");
+		
 		boolean TitleMatched = homepage_pom.verify_title_of_Page(expectedPageTitle);
 
 		softAssert.softAssertTrue(TitleMatched, 
-				"Navigated to Page and "+pageTitle+" Matched successfully", 
+				"Remained on Page and "+pageTitle+" Matched successfully", 
 				pageTitle+" Did Not Match");
 	}
 	
@@ -90,7 +90,6 @@ public class Login_stepD extends CommonMethods {
 		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
 		logger.info("Expected Title is: "+expectedPageTitle);
 		
-		logger.info("Navigating back to Homepage");
 		boolean TitleMatched = login_pom.clickOnBackThrice(expectedPageTitle);
 
 		softAssert.softAssertTrue(TitleMatched, 

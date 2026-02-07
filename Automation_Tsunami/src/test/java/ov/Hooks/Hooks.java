@@ -16,6 +16,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
 import  ov.utilities.CommonMethods;
+import ov.utilities.ConfigurationReader;
 import  ov.utilities.DBUtil;
 import  ov.utilities.Driver;
 import  ov.utilities.LogColor;
@@ -81,13 +82,8 @@ public class Hooks extends CommonMethods {
 		screenshotUtil = new ScreenshotUtil(driver, test);        // ✅ Create ScreenshotUtil
 
 		// Initialize softAssert and make it globally accessible
-//		softAssert = new SftAssert(driver, screenshotUtil);       // ✅ Local instance
-//		CommonMethods.softAssert = softAssert;                    // ✅ Global access
-		
-		//********************************UPDATED*****************************************************
-		softAssert = new SftAssert(driver, screenshotUtil);   // ✅ Local instance
-		CommonMethods.softAssert = softAssert;							// ✅ Global access
-		//********************************************************************************************
+		softAssert = new SftAssert(driver, screenshotUtil);       // ✅ Local instance
+		CommonMethods.softAssert = softAssert;                    // ✅ Global access
 	}
 
 	@BeforeStep
@@ -197,7 +193,6 @@ public class Hooks extends CommonMethods {
 		}
 		return null; // fallback to default
 	}
-
 
 
 }

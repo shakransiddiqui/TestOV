@@ -39,7 +39,7 @@ public class Login_POM extends CommonMethods {
 	
 	//	******************Locator Format Template Strings****************************************************************************
 
-	private static final String login_fields ="//label[contains(text(), '%s')]/following-sibling::input";
+	private static final String login_fields ="//label[contains(normalize-space(.), '%s')]/following::input[1]";
 	private static final String buttons ="//button[contains(text(), '%s')]";
 
 	
@@ -54,7 +54,7 @@ public class Login_POM extends CommonMethods {
 
 
 			logger.info("Finding the Field: "+fieldElement_Name);
-			WebElement login_field = driver.findElement(By.xpath(formattedXpath));
+			WebElement login_field = waitForElement(By.xpath(formattedXpath));
 
 			logger.info("Clicking on the Field: "+fieldElement_Name);
 			clickAndDraw(login_field);

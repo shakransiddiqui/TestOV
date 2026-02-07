@@ -48,7 +48,6 @@ public class Homepage_stepD extends CommonMethods {
 		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
 		logger.info("Expected Title is: "+expectedPageTitle);
 		
-		logger.info("Navigating back to Homepage");
 		boolean TitleMatched = homepage_pom.clickOnBackTwice(expectedPageTitle);
 
 		softAssert.softAssertTrue(TitleMatched, 
