@@ -1,4 +1,4 @@
-@Signup-pos @passport
+@Signup @Signup-pos @passport
 Feature: Positive tests on Sign Up Feature
 
   Background: 

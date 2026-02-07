@@ -24,9 +24,9 @@ import io.cucumber.junit.CucumberOptions;
 		},
 		features="src/test/resources/features",
 		glue= {"ov.step_definitions","ov.Hooks"},
-		dryRun = true,
+		dryRun = false,
 		
-		tags = "@Signup-neg",
+		tags = "@Signup",
 		
 		monochrome= true
 	
