@@ -79,6 +79,7 @@ import io.cucumber.java.Scenario;
 import ov.pages.passport.Header_POM;
 import ov.pages.passport.Homepage_POM;
 import ov.pages.passport.Login_POM;
+import ov.pages.passport.Signup_POM;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -118,6 +119,10 @@ public class CommonMethods extends Driver {
 	public static Login_POM login_pom = new Login_POM();
 	public static Homepage_POM homepage_pom = new Homepage_POM();
 	public static Header_POM header_pom = new Header_POM();
+	public static Signup_POM signup_pom = new Signup_POM();
+	
+	
+	
 	
 	
 	// ================================
@@ -863,6 +868,10 @@ public class CommonMethods extends Driver {
 	public class TestDataGenerator {
 
 		public static String generateInvalidEmail() {
+			return "wrongemail_" + Instant.now().toEpochMilli() + "@test.com";
+		}
+		
+		public static String generateTestEmail() {
 			return "testemail_" + Instant.now().toEpochMilli() + "@test.com";
 		}
 	}

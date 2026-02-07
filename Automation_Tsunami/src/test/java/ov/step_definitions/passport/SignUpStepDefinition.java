@@ -229,9 +229,6 @@ public class SignUpStepDefinition extends CommonMethods  {
 			 System.out.println("DEBUG: Exception caught - " + e.getMessage());
 			logger.info(e);
 		}
-
-
-
 	}
 
 	@Then("Verify that the user is redirected to the role selection page")
@@ -300,9 +297,6 @@ public class SignUpStepDefinition extends CommonMethods  {
 
 		softAssert.AssertAll();
 	}
-
-
-
 
 	@Then("Verify that the Startup information is displayed .")
 	public void verify_that_the_startup_information_is_displayed() {

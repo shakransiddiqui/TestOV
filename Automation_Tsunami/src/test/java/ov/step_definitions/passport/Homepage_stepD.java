@@ -13,7 +13,7 @@ public class Homepage_stepD extends CommonMethods {
 
 	
 //	***************************************************************************************************************
-	@Given("User clicks on {string} button")
+	@Given("User clicks on {string} button from Homepage")
 	public void user_clicks_on_button(String buttonName) {
 		
 		logger.info("Click on Button : "+buttonName);
