@@ -169,8 +169,11 @@ public class CommonMethods extends Driver {
 			// Handle timeout exception (optional, log or throw as needed)
 			logger.warn(
 					LogColor.RED + "Element with locator " + locator + " not found within timeout." + LogColor.RESET);
+			return null;
 		}
 
+		if (elementLocator == null) return null;
+		
 		// Check element visibility and enabled state only if necessary
 		if (!elementLocator.isDisplayed() || !elementLocator.isEnabled()) {
 			// Consider using a more specific ExpectedCondition or custom implementation
@@ -481,8 +484,8 @@ public class CommonMethods extends Driver {
 	 * -------------------------------------------------------------------------------------------------------------------------------------------
 	 **/
 	public boolean isElementPresent(By locator) {
-
 		// Save the current implicit wait
+
 		Duration originalImplicitWait = driver.manage().timeouts().getImplicitWaitTimeout();
 		// Set implicit wait to zero
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
@@ -848,6 +851,11 @@ public class CommonMethods extends Driver {
 	}
 
 	public void clickAndDraw(WebElement element) {
+		
+//		if (element == null) {
+//		    logger.error(LogColor.RED + "clickAndDraw failed because element is NULL" + LogColor.RESET);
+//		    throw new NoSuchElementException("Element is null in clickAndDraw()");
+//		}
 
 		removeBorder();
 		waitForClickablility(element);

@@ -47,7 +47,7 @@ Feature: Login_Feature
     And User clicks on the "Log In" button
     Then User should be redirected to the page with title of "Organization_page_title"
     And User logs out
-    Then User should be redirected to the page with title of "Startup_page_title"
+    Then User should be redirected to the page with title of "StartUp_page_title"
 
 #**************************************************************************
   # Positive login test with valid credentials as Startup Leader
@@ -56,6 +56,6 @@ Feature: Login_Feature
     When User enters "SLvalidEmail" in the "Email address" field
     And User enters "SLvalidPassword" in the "Password" field
     And User clicks on the "Log In" button
-    Then User should be redirected to the page with title of "Startup_page_title"
+    Then User should be redirected to the page with title of "StartUp_page_title"
     And User logs out
-    Then User should be redirected to the page with title of "Startup_page_title"
+    Then User should be redirected to the page with title of "StartUp_page_title"
