@@ -23,5 +23,6 @@ Feature: Program_Creation_Feature
   Scenario: Fill Out New Program Form with 2 industries
     Then User clicks on "Create a new program" button
     Then User should be redirected to the page with title of "CreateProgram_page_title"
-    Then User enters "programTitle" into the "Program Title" field
-    Then User enters "location" into the "Location" field
+    Then User enters "programTitle" into the "Program Title" field of Program Details
+    Then User enters "location" into the "Location" field of Program Details
+    

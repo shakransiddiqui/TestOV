@@ -30,14 +30,16 @@ public class ProgramCreation_POM extends CommonMethods {
 
 
 	//	******************Locator Format Template Strings****************************************************************************
-	
+
 	//All fields to fill for Program Details 
 	private static final String ProgramDetails_fields ="//label[contains(normalize-space(.), '%s')]/following::input[1]";
-		
+
+	private static final String ProgramDetails_Location_field ="//label[contains(normalize-space(.), '%s')]/following::input[3]";
+
 
 	// FIRST suggestion from Google dropdown (no text matching)
 	private static final String locationSuggestion = "(//div[contains(@class,'pac-container')]//div[contains(@class,'pac-item')])[1]";
-	
+
 
 
 	//	**************** Actions ***********************************************************************************
@@ -45,10 +47,20 @@ public class ProgramCreation_POM extends CommonMethods {
 	public String passFieldValue(String fieldElement_Value,String fieldElement_Name) {
 
 		try {
-			logger.info("Formatting the X path of Field: "+fieldElement_Name);
-			String formattedXpath = String.format(ProgramDetails_fields, fieldElement_Name);
-			logger.info(formattedXpath);
 
+			String formattedXpath ="null";
+
+			// SPECIAL handling for Location Field
+			if("Location".equalsIgnoreCase(fieldElement_Name)) {
+				logger.info("Formatting the X path of Field: "+fieldElement_Name);
+				formattedXpath = String.format(ProgramDetails_Location_field, fieldElement_Name);
+			}
+			else {
+				logger.info("Formatting the X path of Field: "+fieldElement_Name);
+				formattedXpath = String.format(ProgramDetails_fields, fieldElement_Name);
+			}
+
+			logger.info(formattedXpath);
 
 			logger.info("Finding the Field: "+fieldElement_Name);
 			WebElement field = driver.findElement(By.xpath(formattedXpath));
@@ -58,14 +70,14 @@ public class ProgramCreation_POM extends CommonMethods {
 
 			logger.info("Passing value on the Field: "+fieldElement_Value);
 			safeSendKeys(field, fieldElement_Value);
-			
+
 			// SPECIAL handling for Location autocomplete
 			if ("Location".equalsIgnoreCase(fieldElement_Name)) {
 
-			    logger.info("Selecting first location suggestion from dropdown");
-			    WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
-			    clickAndDraw(suggestion);
-			    suggestion.click();
+				logger.info("Selecting first location suggestion from dropdown");
+				WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
+				clickAndDraw(suggestion);
+				suggestion.click();
 			}
 
 			logger.info("Making sure value is filled up on the Field: "+fieldElement_Name);
