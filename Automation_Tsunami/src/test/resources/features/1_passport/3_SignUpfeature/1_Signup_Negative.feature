@@ -1,4 +1,4 @@
-@Signup @Signup-neg @passport
+@Signup @Signup-neg @passport @demo
 Feature: Negative tests on Sign Up Feature
 
   Background: 
@@ -75,4 +75,4 @@ Feature: Negative tests on Sign Up Feature
     Then User clicks on "Sign Up" button
     Then User should see a signup error or validation message
     Then User should remain on the Signup page with title of "Signup_page_title"
-    Then User clicks back twice and navigates to Startup page with title of "StartUp_page_title"
+    Then User clicks back thrice and navigates to Startup page with title of "StartUp_page_title"

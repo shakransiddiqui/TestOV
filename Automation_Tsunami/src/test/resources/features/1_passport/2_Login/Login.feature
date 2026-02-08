@@ -2,7 +2,7 @@
 Feature: Login_Feature
 
   Background: 
-    Given User clicks on "Log In" button
+    Given User clicks on "Log In" button from Homepage
     Then Navigates to the page with title of "Login_page_title"
 
   # Negative login test with various invalid and valid credentials
@@ -20,10 +20,10 @@ Feature: Login_Feature
       | invalidEmail | invalidPassword |
       | PMvalidEmail | invalidPassword |
       | invalidEmail | PMvalidPassword |
-      
-#***************************************************************************
+
+  #***************************************************************************
   # Negative login test with various empty credentials
-  @Tc_002  @passport-neg
+  @Tc_002 @passport-neg
   Scenario Outline: Verify login fails with empty email and password combinations
     When User enters "<Email>" in the "Email address" field
     And User enters "<Password>" in the "Password" field
@@ -37,8 +37,8 @@ Feature: Login_Feature
       | EMPTY        | invalidPassword |
       | invalidEmail | EMPTY           |
       | EMPTY        | EMPTY           |
-      
-#**************************************************************************
+
+  #**************************************************************************
   # Positive login test with valid credentials as Program Manager
   @Tc_03 @valid_login_and_logout_program_manager @Logout @passport-pos
   Scenario: Verify user logs in and out successfully with valid credentials as a Program Manager
@@ -49,7 +49,7 @@ Feature: Login_Feature
     And User logs out
     Then User should be redirected to the page with title of "StartUp_page_title"
 
-#**************************************************************************
+  #**************************************************************************
   # Positive login test with valid credentials as Startup Leader
   @Tc_04 @valid_login_and_logout_startup_leader @Logout @passport-pos
   Scenario: Verify user logs in and out successfully with valid credentials as a Startup Leader
