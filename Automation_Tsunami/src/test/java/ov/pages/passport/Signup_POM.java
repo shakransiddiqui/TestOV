@@ -34,7 +34,7 @@ public class Signup_POM extends CommonMethods {
 	//All fields to fill for SignUp
 	private static final String signup_fields ="//label[contains(normalize-space(.), '%s')]/following::input[1]";
 	
-	//All buttons to click for SignUp
+	//All buttons to click for SignUp and Program Creation
 	private static final String buttons ="//button[text()='%s']";
 	
 	//CheckBox of terms-Of-services
@@ -66,7 +66,7 @@ public class Signup_POM extends CommonMethods {
 
 
 			logger.info("Finding the Field: "+fieldElement_Name);
-			WebElement signup_field = driver.findElement(By.xpath(formattedXpath));
+			WebElement signup_field = waitForElement(By.xpath(formattedXpath));
 
 			logger.info("Clicking on the Field: "+fieldElement_Name);
 			clickAndDraw(signup_field);
@@ -79,7 +79,7 @@ public class Signup_POM extends CommonMethods {
 
 			    logger.info("Selecting first location suggestion from dropdown");
 			    WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
-			    clickAndDraw(suggestion);
+			    drawborder(suggestion);
 			    suggestion.click();
 			}
 
