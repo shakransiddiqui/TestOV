@@ -47,16 +47,17 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Alert;
 
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -89,19 +90,23 @@ import com.aventstack.extentreports.Status;
 
 public class CommonMethods extends Driver {
 
-	/** ------------------ Global Variables -------------------- **/
+
+	// ==========================================================================================================================
+	// ========================================   Global Variables   ==============================================================
+	// ==========================================================================================================================
+
 	public static WebDriver driver = Driver.getDriver();
-	
+
 	public static final int ELEMENT_WAIT_TIMEOUT_SECONDS = 40;
 	public static final int ELEMENT_POLLING_TIME_MILIS = 50;
 	public static final int PAGE_LOAD_TIMEOUT_SECONDS = 30;
 	public static final int JQUERY_LOAD_TIMEOUT_SECONDS = 30;
 	public static final int SESSION_TIMEOUT_MINUTES = 16;
-	
+
 	JavascriptExecutor js = (JavascriptExecutor) driver;
-	
+
 	WebDriverWait wait = null;
-	
+
 	public static final Logger logger = LogManager.getLogger(CommonMethods.class);
 
 
@@ -122,9 +127,9 @@ public class CommonMethods extends Driver {
 	public static Header_POM header_pom = new Header_POM();
 	public static Signup_POM signup_pom = new Signup_POM();
 	public static ProgramCreation_POM programCreation_pom = new ProgramCreation_POM();
-	
-	
-	
+
+
+
 	// ================================
 	// 🔹 Different Wait Methods
 	// ================================
@@ -173,7 +178,7 @@ public class CommonMethods extends Driver {
 		}
 
 		if (elementLocator == null) return null;
-		
+
 		// Check element visibility and enabled state only if necessary
 		if (!elementLocator.isDisplayed() || !elementLocator.isEnabled()) {
 			// Consider using a more specific ExpectedCondition or custom implementation
@@ -427,6 +432,8 @@ public class CommonMethods extends Driver {
 		 * logger.info("is element clickable ? : " +element.isEnabled()); }
 		 */
 	}
+
+
 	// Wait for an Alert to appear
 
 	public Alert waitForAlert() {
@@ -602,11 +609,10 @@ public class CommonMethods extends Driver {
 
 	}
 
-	/**
-	 * -------------------------------------------------------------------------------------------------------------------------------------------
-	 * -------------------------------------------------------- Java Script Utilities ------------------------------------------------------------
-	 * -------------------------------------------------------------------------------------------------------------------------------------------
-	 **/
+	// ==========================================================================================================================
+	// ========================================   Java Script Utilities   ==============================================================
+	// ==========================================================================================================================
+
 	public static void jsclick(WebDriver driver, WebElement element) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -732,7 +738,7 @@ public class CommonMethods extends Driver {
 			return false; 
 		}
 	}
-		
+
 	public static void scrollIntoView(WebDriver driver, WebElement element) {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -850,27 +856,208 @@ public class CommonMethods extends Driver {
 
 	}
 
+	//	public void clickAndDraw(WebElement element) {
+	//
+	//		removeBorder();
+	//		waitForClickablility(element);
+	//		hoverOver(element);
+	//		jsclick(driver, element);
+	//		waitForPageAndAjaxToLoad();
+	//
+	//	}
+
 	public void clickAndDraw(WebElement element) {
-		
-//		if (element == null) {
-//		    logger.error(LogColor.RED + "clickAndDraw failed because element is NULL" + LogColor.RESET);
-//		    throw new NoSuchElementException("Element is null in clickAndDraw()");
-//		}
 
-		removeBorder();
-		waitForClickablility(element);
-		// hoverAndClick(element);
-		hoverOver(element);
-		jsclick(driver, element);
-		waitForPageAndAjaxToLoad();
+		if (element == null) {
+			String msg = "clickAndDraw FAILED: WebElement is NULL";
+			logger.error(LogColor.RED + msg + LogColor.RESET);
+			throw new IllegalArgumentException(msg);
+		}
 
+		final int maxAttempts = 3;
+		final long retrySleepMs = 250;
+		Throwable lastError = null;
+
+		String desc;
+		try {
+			desc = String.format("<%s id='%s' class='%s' text='%s'>",
+					element.getTagName(),
+					element.getAttribute("id"),
+					element.getAttribute("class"),
+					element.getText() == null ? "" : element.getText().trim());
+		} catch (Exception e) {
+			desc = element.toString();
+		}
+
+		for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+			try {
+				logger.info(String.format("clickAndDraw(WebElement): attempt %d/%d on %s",
+						attempt, maxAttempts, desc));
+
+				// light prep
+				try { removeBorder(); } catch (Exception ignore) {}
+
+				waitForClickablility(element);
+				scrollScreen(element);
+				try { hoverOver(element); } catch (Exception ignore) {}
+				try { drawborder(element); } catch (Exception ignore) {}
+
+				// 1) Native click
+				try {
+					logger.info("clickAndDraw(WebElement): trying NATIVE click...");
+					element.click();
+					logger.info(LogColor.DarkGreen + "clickAndDraw(WebElement): NATIVE click success" + LogColor.RESET);
+					waitForPageAndAjaxToLoad();
+					return;
+				} catch (ElementClickInterceptedException e) {
+					lastError = e;
+					logger.warn("clickAndDraw(WebElement): native click intercepted: " + e.getMessage());
+				} catch (WebDriverException e) {
+					lastError = e;
+					logger.warn("clickAndDraw(WebElement): native click failed: " + e.getMessage());
+				}
+
+				// 2) Actions click
+				try {
+					logger.info("clickAndDraw(WebElement): trying ACTIONS click...");
+					new Actions(driver).moveToElement(element).pause(Duration.ofMillis(100)).click().perform();
+					logger.info(LogColor.DarkGreen + "clickAndDraw(WebElement): ACTIONS click success" + LogColor.RESET);
+					waitForPageAndAjaxToLoad();
+					return;
+				} catch (WebDriverException e) {
+					lastError = e;
+					logger.warn("clickAndDraw(WebElement): actions click failed: " + e.getMessage());
+				}
+
+				// 3) JS click
+				logger.info("clickAndDraw(WebElement): trying JS click...");
+				jsclick(driver, element);
+				logger.info(LogColor.DarkGreen + "clickAndDraw(WebElement): JS click success" + LogColor.RESET);
+				waitForPageAndAjaxToLoad();
+				return;
+
+			} catch (StaleElementReferenceException e) {
+				lastError = e;
+				logger.warn(String.format(
+						"clickAndDraw(WebElement): STALE on attempt %d/%d. Element=%s. " +
+								"Use clickAndDrawBy(By) for better stale recovery.",
+								attempt, maxAttempts, desc), e);
+				waitForMlsec(retrySleepMs);
+
+			} catch (TimeoutException e) {
+				lastError = e;
+				logger.error(LogColor.RED + "clickAndDraw(WebElement): element not clickable within timeout: " + desc
+						+ LogColor.RESET, e);
+				break;
+
+			} catch (RuntimeException e) {
+				lastError = e;
+				logger.warn(String.format("clickAndDraw(WebElement): failed on attempt %d/%d. Retrying... %s",
+						attempt, maxAttempts, desc), e);
+				waitForMlsec(retrySleepMs);
+			}
+		}
+
+		String finalMsg = "clickAndDraw(WebElement) FAILED after " + maxAttempts + " attempts on: " + desc +
+				" | LastError=" + (lastError == null ? "UNKNOWN" :
+					lastError.getClass().getSimpleName() + " - " + lastError.getMessage());
+
+		logger.error(LogColor.RED + finalMsg + LogColor.RESET, lastError);
+		throw new WebDriverException(finalMsg, lastError);
 	}
 
-	/**
-	 * -------------------------------------------------------------------------------------------------------------------------------------------
-	 * --------------------------------------------------------Different Reusable Methods--------------------------------------------------------
-	 * -------------------------------------------------------------------------------------------------------------------------------------------
-	 **/
+
+	public void clickAndDrawBy(By locator) {
+
+		if (locator == null) {
+			String msg = "clickAndDrawBy FAILED: locator is NULL";
+			logger.error(LogColor.RED + msg + LogColor.RESET);
+			throw new IllegalArgumentException(msg);
+		}
+
+		final int maxAttempts = 3;
+		final long retrySleepMs = 250;
+		Throwable lastError = null;
+
+		for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+			try {
+				logger.info(String.format("clickAndDrawBy: attempt %d/%d locator=%s",
+						attempt, maxAttempts, locator));
+
+				try { removeBorder(); } catch (Exception ignore) {}
+
+				WebDriverWait w = new WebDriverWait(driver, Duration.ofSeconds(ELEMENT_WAIT_TIMEOUT_SECONDS));
+				WebElement el = w.until(ExpectedConditions.elementToBeClickable(locator));
+
+				scrollScreen(el);
+				try { hoverOver(el); } catch (Exception ignore) {}
+				try { drawborder(el); } catch (Exception ignore) {}
+
+				// 1) Native
+				try {
+					logger.info("clickAndDrawBy: trying NATIVE click...");
+					el.click();
+					logger.info(LogColor.DarkGreen + "clickAndDrawBy: NATIVE click success" + LogColor.RESET);
+					waitForPageAndAjaxToLoad();
+					return;
+				} catch (ElementClickInterceptedException e) {
+					lastError = e;
+					logger.warn("clickAndDrawBy: native click intercepted: " + e.getMessage());
+				} catch (WebDriverException e) {
+					lastError = e;
+					logger.warn("clickAndDrawBy: native click failed: " + e.getMessage());
+				}
+
+				// 2) Actions
+				try {
+					logger.info("clickAndDrawBy: trying ACTIONS click...");
+					new Actions(driver).moveToElement(el).pause(Duration.ofMillis(100)).click().perform();
+					logger.info(LogColor.DarkGreen + "clickAndDrawBy: ACTIONS click success" + LogColor.RESET);
+					waitForPageAndAjaxToLoad();
+					return;
+				} catch (WebDriverException e) {
+					lastError = e;
+					logger.warn("clickAndDrawBy: actions click failed: " + e.getMessage());
+				}
+
+				// 3) JS
+				logger.info("clickAndDrawBy: trying JS click...");
+				jsclick(driver, el);
+				logger.info(LogColor.DarkGreen + "clickAndDrawBy: JS click success" + LogColor.RESET);
+				waitForPageAndAjaxToLoad();
+				return;
+
+			} catch (StaleElementReferenceException e) {
+				lastError = e;
+				logger.warn("clickAndDrawBy: STALE on attempt " + attempt + "/" + maxAttempts + ". Retrying...", e);
+				waitForMlsec(retrySleepMs);
+
+			} catch (TimeoutException e) {
+				lastError = e;
+				logger.error(LogColor.RED + "clickAndDrawBy: not clickable within timeout. locator=" + locator
+						+ LogColor.RESET, e);
+				break;
+
+			} catch (RuntimeException e) {
+				lastError = e;
+				logger.warn("clickAndDrawBy: failed on attempt " + attempt + "/" + maxAttempts + ". Retrying...", e);
+				waitForMlsec(retrySleepMs);
+			}
+		}
+
+		String finalMsg = "clickAndDrawBy FAILED after " + maxAttempts + " attempts. locator=" + locator +
+				" | LastError=" + (lastError == null ? "UNKNOWN" :
+					lastError.getClass().getSimpleName() + " - " + lastError.getMessage());
+
+		logger.error(LogColor.RED + finalMsg + LogColor.RESET, lastError);
+		throw new WebDriverException(finalMsg, lastError);
+	}
+
+
+
+	// ==========================================================================================================================
+	// ========================================   Different Reusable Methods   ====================================================
+	// ==========================================================================================================================
 
 	//To generate Unique Test Email for every Run:
 	public class TestDataGenerator {
@@ -878,7 +1065,7 @@ public class CommonMethods extends Driver {
 		public static String generateInvalidEmail() {
 			return "wrongemail_" + Instant.now().toEpochMilli() + "@test.com";
 		}
-		
+
 		public static String generateTestEmail() {
 			return "testemail_" + Instant.now().toEpochMilli() + "@test.com";
 		}
@@ -1019,6 +1206,7 @@ public class CommonMethods extends Driver {
 		waitForMlsec(500);
 
 	}
+	
 	//------------------------------------------ Screenshot Try -----------------------------------------//
 
 	public void captureAndAttachScreenshot(Scenario scenario, String screenshotName) {
@@ -1707,7 +1895,7 @@ public class CommonMethods extends Driver {
 		}
 
 		element.click();
-		
+
 		// Step 2: Clear existing text
 		element.clear();
 
@@ -1748,11 +1936,11 @@ public class CommonMethods extends Driver {
 		// Optional: Log success
 		logger.info("✅ Radio button successfully selected: " + element.toString());
 	}
-	
-	 // ============================================================
-    // Generic keyboard action utility
-    // ============================================================
-	
+
+	// ============================================================
+	// Generic keyboard action utility
+	// ============================================================
+
 	/**
 	 * Enum representing supported keyboard keys for automation.
 	 * 
@@ -1763,32 +1951,32 @@ public class CommonMethods extends Driver {
 	 */
 	public enum KeyboardKey {
 
-	    // Action keys
-	    ENTER,
-	    TAB,
+		// Action keys
+		ENTER,
+		TAB,
 
-	    // Modifier keys
-	    CTRL,
-	    ALT,
-	    SHIFT,
+		// Modifier keys
+		CTRL,
+		ALT,
+		SHIFT,
 
-	    // Letter keys (used for shortcuts)
-	    A,
-	    C,
-	    V,
-	    X,
-	    Z,
-	    Y
+		// Letter keys (used for shortcuts)
+		A,
+		C,
+		V,
+		X,
+		Z,
+		Y
 	}
-	
+
 	/**
 	 * Determines whether a key is a modifier key.
 	 * Modifier keys must be held down during shortcut execution.
 	 */
 	private static boolean isModifierKey(KeyboardKey key) {
-	    return key == KeyboardKey.CTRL
-	        || key == KeyboardKey.ALT
-	        || key == KeyboardKey.SHIFT;
+		return key == KeyboardKey.CTRL
+				|| key == KeyboardKey.ALT
+				|| key == KeyboardKey.SHIFT;
 	}
 
 	/**
@@ -1798,24 +1986,24 @@ public class CommonMethods extends Driver {
 	 */
 	private static CharSequence toSeleniumKey(KeyboardKey key) {
 
-	    switch (key) {
-	        case ENTER: return Keys.ENTER;
-	        case TAB:   return Keys.TAB;
-	        case CTRL:  return Keys.CONTROL;
-	        case ALT:   return Keys.ALT;
-	        case SHIFT: return Keys.SHIFT;
+		switch (key) {
+		case ENTER: return Keys.ENTER;
+		case TAB:   return Keys.TAB;
+		case CTRL:  return Keys.CONTROL;
+		case ALT:   return Keys.ALT;
+		case SHIFT: return Keys.SHIFT;
 
-	        // Letters must be strings, Selenium has no Keys.A / Keys.C etc
-	        case A: return "a";
-	        case C: return "c";
-	        case V: return "v";
-	        case X: return "x";
-	        case Z: return "z";
-	        case Y: return "y";
+		// Letters must be strings, Selenium has no Keys.A / Keys.C etc
+		case A: return "a";
+		case C: return "c";
+		case V: return "v";
+		case X: return "x";
+		case Z: return "z";
+		case Y: return "y";
 
-	        default:
-	            throw new IllegalArgumentException("Unsupported KeyboardKey: " + key);
-	    }
+		default:
+			throw new IllegalArgumentException("Unsupported KeyboardKey: " + key);
+		}
 	}
 
 	/**
@@ -1827,42 +2015,42 @@ public class CommonMethods extends Driver {
 	 */
 	public static void pressKeys(WebDriver driver, KeyboardKey... keys) {
 
-	    try {
-	        logger.info("Starting keyboard action execution");
+		try {
+			logger.info("Starting keyboard action execution");
 
-	        Actions actions = new Actions(driver);
+			Actions actions = new Actions(driver);
 
-	        // 1️⃣ Hold modifier keys
-	        for (KeyboardKey key : keys) {
-	            if (isModifierKey(key)) {
-	                logger.info("Holding modifier key: " + key);
-	                actions.keyDown((Keys) toSeleniumKey(key));
-	            }
-	        }
+			// 1️⃣ Hold modifier keys
+			for (KeyboardKey key : keys) {
+				if (isModifierKey(key)) {
+					logger.info("Holding modifier key: " + key);
+					actions.keyDown((Keys) toSeleniumKey(key));
+				}
+			}
 
-	        // 2️⃣ Send non-modifier keys (letters / ENTER / TAB)
-	        for (KeyboardKey key : keys) {
-	            if (!isModifierKey(key)) {
-	                logger.info("Sending key: " + key);
-	                actions.sendKeys(toSeleniumKey(key));
-	            }
-	        }
+			// 2️⃣ Send non-modifier keys (letters / ENTER / TAB)
+			for (KeyboardKey key : keys) {
+				if (!isModifierKey(key)) {
+					logger.info("Sending key: " + key);
+					actions.sendKeys(toSeleniumKey(key));
+				}
+			}
 
-	        // 3️⃣ Release modifier keys
-	        for (KeyboardKey key : keys) {
-	            if (isModifierKey(key)) {
-	                logger.info("Releasing modifier key: " + key);
-	                actions.keyUp((Keys) toSeleniumKey(key));
-	            }
-	        }
+			// 3️⃣ Release modifier keys
+			for (KeyboardKey key : keys) {
+				if (isModifierKey(key)) {
+					logger.info("Releasing modifier key: " + key);
+					actions.keyUp((Keys) toSeleniumKey(key));
+				}
+			}
 
-	        actions.perform();
-	        logger.info("Keyboard action executed successfully");
+			actions.perform();
+			logger.info("Keyboard action executed successfully");
 
-	    } catch (Exception e) {
-	        logger.error("Keyboard action execution failed", e);
-	        throw e; // Fail fast – keyboard failures should not be hidden
-	    }
+		} catch (Exception e) {
+			logger.error("Keyboard action execution failed", e);
+			throw e; // Fail fast – keyboard failures should not be hidden
+		}
 	}
 
 

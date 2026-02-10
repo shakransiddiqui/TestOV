@@ -2,11 +2,11 @@ package ov.step_definitions.passport;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 
 import io.cucumber.java.en.*;
 import ov.utilities.CommonMethods;
 import ov.utilities.ConfigurationReader;
-import ov.utilities.CommonMethods.*;
 
 public class ProgramCreation_stepD extends CommonMethods{
 
@@ -29,6 +29,25 @@ public class ProgramCreation_stepD extends CommonMethods{
 
 		String ActualFieldValue = programCreation_pom.passFieldValue(expectedFieldValue, fieldName);
 
+		// ✅ If expected is EMPTY, just verify it is empty/unselected and stop here
+		if (expectedFieldValue == null) expectedFieldValue = "";
+
+		if (expectedFieldValue.isBlank()) {
+
+			boolean ok =
+					ActualFieldValue == null
+					|| ActualFieldValue.isBlank()
+					|| "null".equalsIgnoreCase(ActualFieldValue)
+					|| ActualFieldValue.toLowerCase().contains("select"); // helps for Program Type placeholder
+
+			softAssert.softAssertTrue(
+					ok,
+					"Field left EMPTY as expected: " + fieldName + " | Actual: " + ActualFieldValue,
+					"Field was expected EMPTY but has value: " + ActualFieldValue
+					);
+
+			return; // IMPORTANT: stop here so it doesn't go into Location/Description/equals checks
+		}
 		if ("Location".equalsIgnoreCase(fieldName)) {
 
 			softAssert.softAssertTrue(
@@ -73,6 +92,21 @@ public class ProgramCreation_stepD extends CommonMethods{
 				"Selected industries count mismatch. Expected: " + count + " | Actual: " + selected);
 	}
 
+	//**********************************************************************************
+	@Then("User closes the industries dropdown")
+	public void user_closes_the_industries_dropdown() {
+
+		logger.info("Closing Industries dropdown...");
+
+		boolean closed = programCreation_pom.closeIndustriesDropdown();
+
+		softAssert.softAssertTrue(
+				closed,
+				"Industries dropdown is closed.",
+				"Industries dropdown is STILL open (it may be blocking Save & Continue)."
+				);
+	}
+
 
 	//	***************************************************************************************************************
 	@Then("User should see {string}")
@@ -98,5 +132,42 @@ public class ProgramCreation_stepD extends CommonMethods{
 				"Selected perks count matched: " + actual,
 				"Selected perks count mismatch. Expected: " + expected + " | Actual: " + actual);
 	}
+
+	//	***************************************************************************************************************
+	@Then("{string} should be highlighted as missing on Program Details")
+	public void should_be_highlighted_as_missing_on_program_details(String missingField) {
+
+		logger.info("Checking if missing field is highlighted (missingFields class): " + missingField);
+
+		By missingLabel = By.xpath(
+				"//label[contains(@class,'missingFields') and contains(normalize-space(.),'" + missingField + "')]"
+				);
+
+		boolean markedMissing = isElementPresent(missingLabel);
+
+		softAssert.softAssertTrue(
+				markedMissing,
+				"Field is highlighted as missing: " + missingField,
+				"Field was NOT highlighted as missing: " + missingField
+				);
+	}
+
+
+	//	***************************************************************************************************************
+	@Then("User should remain on the Create Program page with title of {string}")
+	public void user_should_remain_on_the_login_page(String pageTitle) {
+
+		logger.info("Getting the expected page title of : "+pageTitle);
+		String expectedPageTitle = ConfigurationReader.getProperty(pageTitle);
+		logger.info("Expected Title is: "+expectedPageTitle);
+
+
+		boolean TitleMatched = homepage_pom.verify_title_of_Page(expectedPageTitle);
+
+		softAssert.softAssertTrue(TitleMatched, 
+				"Remained on Page and "+pageTitle+" Matched successfully", 
+				pageTitle+" Did Not Match");
+	}
+
 
 }

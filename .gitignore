@@ -1,2 +1,17 @@
 /.metadata/
 Results/
+target/
+screenshot/
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+logs/target/
+=======
+logs/
+>>>>>>> Stashed changes
+=======
+logs/
+>>>>>>> Stashed changes
+
+# build output
+**/target/
+.cucumber/

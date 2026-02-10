@@ -31,7 +31,7 @@ public class Homepage_POM extends CommonMethods {
 
 	//	******************Locator Format Template Strings****************************************************************************
 
-	private static final String feature_buttons = "//span[contains(text(), '%s')]";
+	private static final String buttons = "//span[contains(text(), '%s')]";
 
 
 	//	****************Actions***********************************************************************************
@@ -40,19 +40,21 @@ public class Homepage_POM extends CommonMethods {
 
 		try {
 			logger.info("Formatting the X path of Button: "+buttonName);
-			String formattedXpath = String.format(feature_buttons, buttonName);
+			String formattedXpath = String.format(buttons, buttonName);
 			logger.info("X path of Button: "+formattedXpath);
+
+			By byLocator = By.xpath(formattedXpath);
 			
 			waitForNetworkIdle();
 			logger.info("Looking for the Button: "+buttonName);
-			boolean visible = isElementPresent(By.xpath(formattedXpath));
+			boolean visible = isElementPresent(byLocator);
 
 			if(visible) {
-				logger.info("Finding the Button: "+buttonName);
+				
 				WebElement button = driver.findElement(By.xpath(formattedXpath));
-		
+
 				logger.info("Clicking on the Button: "+buttonName);
-				clickAndDraw(button);
+				clickAndDrawBy(byLocator);
 				logger.info("Clicked on the Button: "+buttonName);
 
 				return true;
@@ -60,6 +62,7 @@ public class Homepage_POM extends CommonMethods {
 			else {
 				return false;
 			}		
+
 		} catch (Exception e) {
 			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
 			logger.error(LogColor.RED+e+LogColor.RESET);

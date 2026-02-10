@@ -1,4 +1,4 @@
-@Signup @Signup-pos @passport   @demo
+@Signup @Signup-pos @passport @passport-pos     @demo
 Feature: Positive tests on Sign Up Feature
 
   Background: 
@@ -12,7 +12,7 @@ Feature: Positive tests on Sign Up Feature
     Then User clicks on "Sign Up" button
     And User should see "Tell about your startup" on top
 
-  @Tc_05 @SignUp_as_Startup_Leader   @passport-pos
+  @Tc_05 @SignUp_as_Startup_Leader
   Scenario: Verify user successfully creates an account as a Startup Leader.
     Then User chooses "Startup Leader"
     Then User clicks on "Continue" button
@@ -24,7 +24,7 @@ Feature: Positive tests on Sign Up Feature
     And User logs out
     Then User should be redirected to the page with title of "StartUp_page_title"
 
-  @Tc_06 @SignUp_as_Program_Manager   @passport-pos
+  @Tc_06 @SignUp_as_Program_Manager
   Scenario: Verify user successfully creates an account as a Program Manager.
     Then User chooses "Program Manager"
     Then User clicks on "Continue" button

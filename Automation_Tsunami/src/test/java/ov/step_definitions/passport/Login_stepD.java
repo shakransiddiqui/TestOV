@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import ov.pages.passport.HomePage_Passport;
 import ov.utilities.CommonMethods;
 import ov.utilities.ConfigurationReader;
+import ov.utilities.LogColor;
 import ov.utilities.CommonMethods.TestDataGenerator;
 import io.cucumber.java.en.*;
 

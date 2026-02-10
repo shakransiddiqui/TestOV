@@ -26,7 +26,7 @@ import io.cucumber.junit.CucumberOptions;
 		glue= {"ov.step_definitions","ov.Hooks"},
 		dryRun = false,
 		
-		tags = "@Tc_07 or @Tc_08",
+		tags = "@demo",
 		
 		monochrome= true
 	
