@@ -12,7 +12,7 @@ Feature: Negative tests on Program Creation Feature
     Then User should be redirected to the page with title of "CreateProgram_page_title"
 
   @Tc_009
-  Scenario Outline: Program Details should highlight missing required fields when <Case>
+  Scenario Outline: Verify Program Details highlights missing required fields when <Case>
     When User enters "<programTitle>" into the "Program Title" field of Program Details
     And User enters "<location>" into the "Location" field of Program Details
     And User enters "<programType>" into the "Program Type" field of Program Details

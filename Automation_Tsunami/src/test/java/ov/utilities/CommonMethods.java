@@ -77,6 +77,7 @@ import com.google.common.base.Function;
 
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.java.Scenario;
+import ov.pages.passport.ApplicationCreation_POM;
 import ov.pages.passport.Header_POM;
 import ov.pages.passport.Homepage_POM;
 import ov.pages.passport.Login_POM;
@@ -127,6 +128,7 @@ public class CommonMethods extends Driver {
 	public static Header_POM header_pom = new Header_POM();
 	public static Signup_POM signup_pom = new Signup_POM();
 	public static ProgramCreation_POM programCreation_pom = new ProgramCreation_POM();
+	public static ApplicationCreation_POM applicationCreation_pom = new ApplicationCreation_POM();
 
 
 

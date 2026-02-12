@@ -1,4 +1,4 @@
-@Application_Creation
+@ApplicationCreation
 Feature: Application_Creation_Feature
 
   Background: 

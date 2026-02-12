@@ -66,7 +66,7 @@ public class ProgramCreation_POM extends CommonMethods {
 	private static final By INDUSTRY_CHECKED = By.cssSelector("ul.dropdown-list input[type='checkbox']:checked");
 
 	//For Perks
-	private static final String perksPage_text = "//span[contains(text(), '%s')]";
+	private static final String page_TEXT = "//span[contains(text(), '%s')]";
 	private static final By PERK_CARDS =
 			By.cssSelector("div.rewards-perk-item");   // the whole card
 
@@ -364,7 +364,7 @@ public class ProgramCreation_POM extends CommonMethods {
 
 		try {
 
-			String formattedXpath = String.format(perksPage_text, textElement);
+			String formattedXpath = String.format(page_TEXT, textElement);
 			logger.info(formattedXpath);
 
 			By text_by = By.xpath(formattedXpath);

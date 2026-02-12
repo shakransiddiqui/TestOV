@@ -12,3 +12,4 @@ Feature: Homepage Feature
     Given User clicks on "Sign Up" button from Homepage
     Then Navigates to the page with title of "Signup_page_title"
     Then User clicks back twice and navigates to Startup page with title of "StartUp_page_title"
+    
