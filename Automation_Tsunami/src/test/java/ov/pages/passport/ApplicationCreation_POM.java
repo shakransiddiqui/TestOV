@@ -32,9 +32,6 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//Application Title field
 	private static final String CREATE_APP_FIELDS = "//label[contains(normalize-space(.), '%s')]/following::input[1]";
 
-	// This grabs the option "card" by class, and checks the combined text inside it
-	private static final String OPTION_CARD = "//div[contains(@class,'SelectOption') and contains(normalize-space(.), '%s')][1]";
-
 	// URL proof: after Save & Continue it includes application=<id>
 	private static final String BUILDER_URL_MUST_CONTAIN = "application=";
 
@@ -63,6 +60,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 			String.format(CATEGORY_CONTAINER_BY_HEADER, "Additional Questions");
 
 
+	// “Current open question form” inside Additional Questions
+	// (there is typically only 1 open editor at a time)
+	private static final String AQ_OPEN_FORM =
+			AQ_CATEGORY + "//*[contains(@class,'question-base-container') or contains(@class,'QuestionBaseForm')][1]";
 
 	//	******************By Locators****************************************************************************
 
@@ -94,6 +95,21 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// Add New Question button (enabled state) inside Additional Questions category
 	private static final By AQ_ADD_NEW_QUESTION_BTN_ENABLED =
 			By.xpath(AQ_CATEGORY + "//button[contains(@class,'section-add-question-btn') and not(@disabled)][1]");
+
+
+	// Add Option button
+	private static final By AQ_ADD_OPTION_BTN =
+			By.xpath(AQ_OPEN_FORM + "//div[contains(@class,'add-option-btn-container')]//button[contains(@class,'add-new-option-btn')][1]");
+
+	// Option input (appears after clicking ADD OPTION)
+	// We exclude the main question input by excluding placeholder 'Write Question Here'
+	private static final By AQ_LAST_OPTION_INPUT =
+			By.xpath("(" + AQ_OPEN_FORM + "//div[contains(@class,'choice-options-container')]//input)[last()]");
+
+	// Optional: choose “Radio” display style (if you want it consistent)
+	// This clicks the “Radio” label (works even if input is hidden)
+	private static final By AQ_DISPLAY_AS_RADIO =
+			By.xpath(AQ_OPEN_FORM + "//*[normalize-space()='Display As']/following::*[normalize-space()='Radio'][1]");
 
 
 	//	****************Actions***********************************************************************************
@@ -280,10 +296,6 @@ public class ApplicationCreation_POM extends CommonMethods {
 		}
 	}
 
-
-
-	//	***************************************************************************************************************
-
 	//	***************************************************************************************************************
 	public int addAdditionalQuestions(List<Map<String, String>> rows) {
 
@@ -331,6 +343,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 		return success;
 	}
 
+
+
+	//	***************************************************************************************************************
+	// Helper Methods (private)  to call inside Public methods
 	//	***************************************************************************************************************
 	private boolean openNewAdditionalQuestionForm() {
 		try {
@@ -382,6 +398,12 @@ public class ApplicationCreation_POM extends CommonMethods {
 			Select sel = new Select(selectEl);
 			sel.selectByVisibleText(type);
 
+			// ✅ Single Choice requires options before Save will work
+			if ("Single Choice".equalsIgnoreCase(type)) {
+				boolean ok = addChoiceOptions(Arrays.asList("Option 1", "Option 2"));
+				if (!ok) return false;
+			}
+
 			// 4) Required checkbox
 			WebElement req = waitForElement(AQ_REQUIRED_CHECKBOX);
 			if (req == null) return false;
@@ -405,4 +427,42 @@ public class ApplicationCreation_POM extends CommonMethods {
 		}
 	}
 
+
+	//	***************************************************************************************************************
+	private boolean addChoiceOptions(List<String> options) {
+		try {
+			logger.info("Adding choice options. Count=" + options.size());
+
+			// Wait until ADD OPTION exists (only appears for choice question types)
+			WebElement addBtn = waitForElement(AQ_ADD_OPTION_BTN);
+			if (addBtn == null) return false;
+
+			// Optional: choose Radio display style (safe click)
+			try {
+				WebElement radioDisplay = waitForElement(AQ_DISPLAY_AS_RADIO);
+				if (radioDisplay != null) clickAndDraw(radioDisplay);
+			} catch (Exception ignore) {}
+
+			for (String opt : options) {
+
+				WebElement addBtn2 = waitForElement(AQ_ADD_OPTION_BTN);
+				if (addBtn2 == null) return false;
+				clickAndDraw(addBtn2);
+
+				WebElement optionInput = waitForElement(AQ_LAST_OPTION_INPUT);
+				if (optionInput == null) return false;
+
+				clickAndDraw(optionInput);
+				safeSendKeys(optionInput, opt);
+
+				logger.info("Added option: " + opt);
+			}
+
+			return true;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "addChoiceOptions failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
 }

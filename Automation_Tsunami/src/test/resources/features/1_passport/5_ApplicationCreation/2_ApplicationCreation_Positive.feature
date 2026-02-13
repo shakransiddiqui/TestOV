@@ -38,3 +38,4 @@ Feature: Positive tests on Application Creation Feature
       | Number           | How many paying customers do you have?   | Whole number only (no commas).           | Yes      |
       | Date             | When did you found the company?          | Pick a valid founding date.              | No       |
       | Email            | What is your main contact email address? | Valid format (name@domain).              | Yes      |
+      | Single Choice    | What is your primary business model?     | Choose one option.                       | Yes      |
