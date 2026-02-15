@@ -111,6 +111,40 @@ public class ApplicationCreation_POM extends CommonMethods {
 	private static final By AQ_FILE_TYPE_SELECT =
 			By.xpath(AQ_OPEN_FORM + "//label[contains(normalize-space(.),'Select File Type')]/following::select[1]");
 
+	// Builder footer Save & Continue (NOT preview applicant one)
+	private static final By BUILDER_SAVE_AND_CONTINUE_BTN =
+			By.cssSelector("footer.create-application-footer button[aria-label='Save & Continue']");
+
+
+	// ===================== PREVIEW (Applicant view) =====================
+
+	// Preview button on Builder (top right)
+	private static final By BUILDER_PREVIEW_APPLICATION_BTN =
+			By.cssSelector("button.TBaseButton.primary.preview-btn[aria-label='Preview Application']");
+
+	// Back to Application button on Preview page (top right)
+	private static final By PREVIEW_BACK_TO_APPLICATION_BTN =
+			By.cssSelector("button.TBaseButton.primary.preview-btn[aria-label='Back to Application']");
+
+	// Preview container root (very important: scopes applicant buttons)
+	private static final String PREVIEW_ROOT_XP = "//div[contains(@class,'ApplicantFormOV')]";
+	private static final By PREVIEW_ROOT = By.xpath(PREVIEW_ROOT_XP);
+
+	// Tabs (active state proof)
+	private static final By PREVIEW_TAB_STANDARD_ACTIVE =
+			By.xpath(PREVIEW_ROOT_XP
+					+ "//span[contains(@class,'tab-text') and normalize-space()='Standard Questions']"
+					+ "/parent::*[contains(concat(' ', normalize-space(@class), ' '), ' active ')]");
+
+	private static final By PREVIEW_TAB_ADDITIONAL_ACTIVE =
+			By.xpath(PREVIEW_ROOT_XP
+					+ "//span[contains(@class,'tab-text') and normalize-space()='Additional Questions']"
+					+ "/parent::*[contains(concat(' ', normalize-space(@class), ' '), ' active ')]");
+
+	// Applicant (Preview) Save & Continue button (inside ApplicantFormOV)
+	private static final By PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN =
+			By.cssSelector("div.ApplicantFormOV button.save-form-btn[aria-label='Save & Continue']");
+
 
 	//	***************************************************************************************************************
 	//	Main Actions Methods to call from Step Definitions:
@@ -299,6 +333,80 @@ public class ApplicationCreation_POM extends CommonMethods {
 		}
 
 		return success;
+	}
+
+	//	***************************************************************************************************************
+	public boolean clickBuilderSaveAndContinue() {
+		try {
+			WebElement btn = waitForElement(BUILDER_SAVE_AND_CONTINUE_BTN);
+			if (btn == null) return false;
+
+			clickAndDraw(btn);
+			waitForPageAndAjaxToLoad();
+			return true;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "clickBuilderSaveAndContinue failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean clickPreviewApplicationOnBuilder() {
+		try {
+			clickAndDrawBy(BUILDER_PREVIEW_APPLICATION_BTN);
+			waitForPageAndAjaxToLoad();
+
+			WebElement backBtn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN); // waits up to 40s
+			return backBtn != null;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "clickPreviewApplicationOnBuilder failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean isOnPreviewApplicationPage() {
+		try {
+			if (waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN) == null) return false;
+			if (waitForElement(PREVIEW_ROOT) == null) return false;
+
+			return isElementPresent(PREVIEW_TAB_STANDARD_ACTIVE) || isElementPresent(PREVIEW_TAB_ADDITIONAL_ACTIVE);
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "isOnPreviewApplicationPage failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean isStandardQuestionsTabActiveOnPreview() {
+		try {
+			return isElementPresent(PREVIEW_TAB_STANDARD_ACTIVE);
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "isStandardQuestionsTabActiveOnPreview failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean applicantClickSaveAndContinueOnPreview() {
+		try {
+			WebElement btn = waitForElement(PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN);
+			if (btn == null) return false;
+
+			clickAndDraw(btn);
+			waitForPageAndAjaxToLoad();
+
+			// Proof: Additional Questions tab becomes ACTIVE after applicant Save & Continue
+			WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
+			return aqActive != null;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "applicantClickSaveAndContinueOnPreview failed: " + e + LogColor.RESET, e);
+			return false;
+		}
 	}
 
 	//	***************************************************************************************************************

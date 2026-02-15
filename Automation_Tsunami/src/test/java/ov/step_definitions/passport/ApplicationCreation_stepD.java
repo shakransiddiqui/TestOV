@@ -150,4 +150,75 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
+	//	***************************************************************************************************************
+	@Then("User clicks on {string} button on the Application Builder page")
+	public void user_clicks_on_button_on_the_application_builder_page(String buttonText) {
+
+		logger.info("Clicking on Builder page button: " + buttonText);
+
+		boolean clicked = false;
+
+		if ("Preview Application".equalsIgnoreCase(buttonText)) {
+		    clicked = applicationCreation_pom.clickPreviewApplicationOnBuilder();
+
+		} else if ("Save & Continue".equalsIgnoreCase(buttonText)) {
+		    clicked = applicationCreation_pom.clickBuilderSaveAndContinue();
+
+		} else {
+		    logger.warn("Unsupported builder button in this step: " + buttonText);
+		    clicked = false;
+		}
+
+		softAssert.softAssertTrue(
+				clicked,
+				"Clicked on Builder button: " + buttonText,
+				"Failed to click on Builder button: " + buttonText
+				);
+	}
+
+	//	***************************************************************************************************************
+	@Then("User should be on the Preview Application page")
+	public void user_should_be_on_the_preview_application_page() {
+
+		logger.info("Verifying Preview Application page is displayed...");
+
+		boolean onPreview = applicationCreation_pom.isOnPreviewApplicationPage();
+		boolean standardActive = applicationCreation_pom.isStandardQuestionsTabActiveOnPreview();
+
+		softAssert.softAssertTrue(
+				onPreview,
+				"Preview Application page loaded successfully.",
+				"Preview Application page NOT loaded."
+				);
+
+		softAssert.softAssertTrue(
+				standardActive,
+				"Standard Questions tab is active on Preview (expected first screen).",
+				"Standard Questions tab is NOT active on Preview."
+				);
+	}
+	
+	
+	// ***************************************************************************************************************
+	@Then("Applicant clicks on {string} button on the Preview Application page")
+	public void applicant_clicks_on_button_on_the_preview_application_page(String buttonText) {
+
+	    logger.info("Applicant clicking on Preview page button: " + buttonText);
+
+	    boolean clicked = false;
+
+	    if ("Save & Continue".equalsIgnoreCase(buttonText)) {
+	        clicked = applicationCreation_pom.applicantClickSaveAndContinueOnPreview();
+	    } else {
+	        logger.warn("Unsupported preview applicant button in this step: " + buttonText);
+	        clicked = false;
+	    }
+
+	    softAssert.softAssertTrue(
+	            clicked,
+	            "Applicant clicked on Preview button: " + buttonText,
+	            "Applicant FAILED to click on Preview button: " + buttonText
+	    );
+	}
+
 }

@@ -33,28 +33,28 @@ public class Signup_POM extends CommonMethods {
 
 	//All fields to fill for SignUp
 	private static final String signup_fields ="//label[contains(normalize-space(.), '%s')]/following::input[1]";
-	
+
 	//All buttons to click for SignUp and Program Creation
-	private static final String buttons ="//button[text()='%s']";
-	
+	private static final String buttons = "//button[text()='%s']";
+
 	//CheckBox of terms-Of-services
 	private static final String checkboxLabelXpath = "//label[@for='%s']";
 	private static final String checkboxInputXpath = "//input[@id='%s']";
-	
+
 	//All role to choose for SignUp
 	private static final String signupRoles = "//label[contains(text(), '%s')]";
-	
+
 	//All page Sub Headers for SignUp
 	private static final String rolePage_subheader = "//p[contains(text(), '%s')]";
-	
+
 	// FIRST suggestion from Google dropdown (no text matching)
 	private static final String locationSuggestion = "(//div[contains(@class,'pac-container')]//div[contains(@class,'pac-item')])[1]";
-	
+
 	//All error texts for SignUp
 	private static final By SIGNUP_ERROR_BY = By.cssSelector(".ulp-input-error-message, .ulp-validator-error, #prompt-alert");
-	
-	
-	
+
+
+
 	//	****************Actions***********************************************************************************
 
 	public String passFieldValue(String fieldElement_Value,String fieldElement_Name) {
@@ -73,14 +73,14 @@ public class Signup_POM extends CommonMethods {
 
 			logger.info("Passing value on the Field: "+fieldElement_Value);
 			safeSendKeys(signup_field, fieldElement_Value);
-			
+
 			// SPECIAL handling for Location autocomplete
 			if ("Location".equalsIgnoreCase(fieldElement_Name)) {
 
-			    logger.info("Selecting first location suggestion from dropdown");
-			    WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
-			    drawborder(suggestion);
-			    suggestion.click();
+				logger.info("Selecting first location suggestion from dropdown");
+				WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
+				drawborder(suggestion);
+				suggestion.click();
 			}
 
 			logger.info("Making sure value is filled up on the Field: "+fieldElement_Name);
@@ -96,7 +96,7 @@ public class Signup_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean clickTermsOfService(String checkboxId) {
 
 		try {  
@@ -140,22 +140,22 @@ public class Signup_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean clickOnButton(String buttonName) {
 
 		try {
 			logger.info("Formatting the X path of Button: "+buttonName);
-			String formattedXpath = String.format(buttons, buttonName);
+			String formattedXpath = String.format(buttons, buttonName, buttonName);
 			logger.info("X path of Button: "+formattedXpath);
 
 			By byLocator = By.xpath(formattedXpath);
-			
+
 			waitForNetworkIdle();
 			logger.info("Looking for the Button: "+buttonName);
 			boolean visible = isElementPresent(byLocator);
 
 			if(visible) {
-				
+
 				WebElement button = driver.findElement(By.xpath(formattedXpath));
 
 				logger.info("Clicking on the Button: "+buttonName);
@@ -175,16 +175,16 @@ public class Signup_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean visibilityOfRolePage(String textElement) {
 
 		try {
-			
+
 			String formattedXpath = String.format(rolePage_subheader, textElement);
 			logger.info(formattedXpath);
-			
+
 			By rolePage_subheader_by = By.xpath(formattedXpath);
-			
+
 			waitForElement(rolePage_subheader_by);
 
 			boolean headerVisible = isElementPresent(rolePage_subheader_by);
@@ -203,7 +203,7 @@ public class Signup_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean chooseSignUpRole(String roleName) {
 
 		try {
@@ -232,33 +232,33 @@ public class Signup_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean signupErrorVisible() {
-	    try {
-	        logger.info("Checking if signup error/validation message is visible...");
+		try {
+			logger.info("Checking if signup error/validation message is visible...");
 
-	        boolean visible = isElementPresent(SIGNUP_ERROR_BY);
+			boolean visible = isElementPresent(SIGNUP_ERROR_BY);
 
-	        if (visible) {
-	            logger.info(LogColor.DarkGreen + "Signup error/validation message is visible." + LogColor.RESET);
+			if (visible) {
+				logger.info(LogColor.DarkGreen + "Signup error/validation message is visible." + LogColor.RESET);
 
-	            // optional: log the actual texts (field errors + banner)
-	            logger.info("Errors shown: " + getElementsTextbyLocator(
-	                    By.cssSelector(".ulp-input-error-message, .ulp-validator-error, #prompt-alert p")
-	            ));
-	        } else {
-	            logger.warn(LogColor.RED + "No signup error/validation message was detected." + LogColor.RESET);
-	        }
+				// optional: log the actual texts (field errors + banner)
+				logger.info("Errors shown: " + getElementsTextbyLocator(
+						By.cssSelector(".ulp-input-error-message, .ulp-validator-error, #prompt-alert p")
+						));
+			} else {
+				logger.warn(LogColor.RED + "No signup error/validation message was detected." + LogColor.RESET);
+			}
 
-	        return visible;
+			return visible;
 
-	    } catch (Exception e) {
-	        logger.error(LogColor.RED + "Problem in Try Block" + LogColor.RESET);
-	        logger.error(LogColor.RED + e + LogColor.RESET);
-	        return false;
-	    }
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "Problem in Try Block" + LogColor.RESET);
+			logger.error(LogColor.RED + e + LogColor.RESET);
+			return false;
+		}
 	}
-	
-	
+
+
 }
 
