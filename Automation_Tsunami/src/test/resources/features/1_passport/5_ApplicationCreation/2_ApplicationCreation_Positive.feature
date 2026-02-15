@@ -32,8 +32,18 @@ Feature: Positive tests on Application Creation Feature
     And User clicks on "Add New Question" in Additional Questions section
     Then User should see the New Question form
     And User fills the Additional Questions form with the following data
-      | Type    | Question                                   | Instruction                               | Required |
-      | Address | What is your company headquarters address? | Street, City, State, Postal Code, Country | Yes      |
+      | Type             | Question                                     | Instruction                               | Required |
+      | Single-Line Text | What is your company's tagline?              | Short, single line (≤100 chars).          | Yes      |
+      | Multi-Line Text  | Describe your product in one paragraph.      | 3–5 sentences; problem, solution, users.  | No       |
+      | Number           | How many paying customers do you have today? | Whole number only (no commas).            | Yes      |
+      | Date             | When did you found the company?              | Pick a valid founding date.               | No       |
+      | Email            | What is your main contact email address?     | Valid format (name@domain).               | Yes      |
+      | Single Choice    | What is your primary business model?         | Choose one option.                        | Yes      |
+      | Multiple Choice  | Which platforms do you support?              | Select all that apply.                    | Yes      |
+      | File             | Upload your current pitch deck.              | PDF only, max 25 MB.                      | Yes      |
+      | Phone Number     | What is your main contact phone number?      | Include country code if outside US.       | Yes      |
+      | Website/URL      | What is your company website?                | Full URL, e.g., https://example.com       | Yes      |
+      | Address          | What is your company headquarters address?   | Street, City, State, Postal Code, Country | Yes      |
     And User clicks on "Save & Continue" button on the Application Builder page
     And User clicks on "Preview Application" button on the Application Builder page
     Then User should be on the Preview Application page

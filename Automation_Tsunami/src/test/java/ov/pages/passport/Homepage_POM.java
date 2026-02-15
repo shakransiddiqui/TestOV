@@ -45,7 +45,8 @@ public class Homepage_POM extends CommonMethods {
 
 			By byLocator = By.xpath(formattedXpath);
 			
-			waitForNetworkIdle();
+			waitForElement(byLocator);
+
 			logger.info("Looking for the Button: "+buttonName);
 			boolean visible = isElementPresent(byLocator);
 

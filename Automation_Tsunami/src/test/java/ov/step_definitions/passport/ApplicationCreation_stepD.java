@@ -159,14 +159,14 @@ public class ApplicationCreation_stepD extends CommonMethods {
 		boolean clicked = false;
 
 		if ("Preview Application".equalsIgnoreCase(buttonText)) {
-		    clicked = applicationCreation_pom.clickPreviewApplicationOnBuilder();
+			clicked = applicationCreation_pom.clickPreviewApplicationOnBuilder();
 
 		} else if ("Save & Continue".equalsIgnoreCase(buttonText)) {
-		    clicked = applicationCreation_pom.clickBuilderSaveAndContinue();
+			clicked = applicationCreation_pom.clickBuilderSaveAndContinue();
 
 		} else {
-		    logger.warn("Unsupported builder button in this step: " + buttonText);
-		    clicked = false;
+			logger.warn("Unsupported builder button in this step: " + buttonText);
+			clicked = false;
 		}
 
 		softAssert.softAssertTrue(
@@ -197,28 +197,94 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Standard Questions tab is NOT active on Preview."
 				);
 	}
-	
-	
+
+
 	// ***************************************************************************************************************
 	@Then("Applicant clicks on {string} button on the Preview Application page")
 	public void applicant_clicks_on_button_on_the_preview_application_page(String buttonText) {
 
-	    logger.info("Applicant clicking on Preview page button: " + buttonText);
+		logger.info("Applicant clicking on Preview page button: " + buttonText);
 
-	    boolean clicked = false;
+		boolean clicked = false;
 
-	    if ("Save & Continue".equalsIgnoreCase(buttonText)) {
-	        clicked = applicationCreation_pom.applicantClickSaveAndContinueOnPreview();
-	    } else {
-	        logger.warn("Unsupported preview applicant button in this step: " + buttonText);
-	        clicked = false;
-	    }
+		if ("Save & Continue".equalsIgnoreCase(buttonText)) {
+			clicked = applicationCreation_pom.applicantClickSaveAndContinueOnPreview();
+		} else {
+			logger.warn("Unsupported preview applicant button in this step: " + buttonText);
+			clicked = false;
+		}
 
-	    softAssert.softAssertTrue(
-	            clicked,
-	            "Applicant clicked on Preview button: " + buttonText,
-	            "Applicant FAILED to click on Preview button: " + buttonText
-	    );
+		softAssert.softAssertTrue(
+				clicked,
+				"Applicant clicked on Preview button: " + buttonText,
+				"Applicant FAILED to click on Preview button: " + buttonText
+				);
 	}
 
+	// ***************************************************************************************************************
+	@Then("Applicant should be on the Preview Additional Questions section")
+	public void applicant_should_be_on_the_preview_additional_questions_section() {
+
+		logger.info("Verifying applicant is on Preview Additional Questions section...");
+
+		boolean onAQ = applicationCreation_pom.isAdditionalQuestionsTabActiveOnPreview();
+
+		softAssert.softAssertTrue(
+				onAQ,
+				"Applicant is on Preview Additional Questions section (AQ tab is active).",
+				"Applicant is NOT on Preview Additional Questions section (AQ tab not active)."
+				);
+	}
+
+	// ***************************************************************************************************************
+	@Then("Applicant should see {string} and {string} buttons on the Preview Additional Questions section")
+	public void applicant_should_see_back_and_submit_buttons(String backText, String submitText) {
+
+		logger.info("Verifying applicant sees buttons on Preview AQ: " + backText + " and " + submitText);
+
+		boolean visible = applicationCreation_pom.areBackAndSubmitVisibleOnPreviewAQ();
+
+		softAssert.softAssertTrue(
+				visible,
+				"Back and Submit buttons are visible on Preview Additional Questions section.",
+				"Back and/or Submit buttons are NOT visible on Preview Additional Questions section."
+				);
+	}
+
+	// ***************************************************************************************************************
+	@Then("Applicant should see all added Additional Questions on the Preview page")
+	public void applicant_should_see_all_added_additional_questions_on_preview() {
+
+		logger.info("Verifying all added Additional Questions are visible on Preview...");
+
+		boolean ok = applicationCreation_pom.areAllAddedAQVisibleOnPreview();
+
+		softAssert.softAssertTrue(
+				ok,
+				"All added Additional Questions are visible on Preview.",
+				"Some added Additional Questions are missing on Preview."
+				);
+	}
+
+	// ***************************************************************************************************************
+	@Then("User clicks on {string} button on the Preview Application page")
+	public void user_clicks_on_button_on_the_preview_application_page(String buttonText) {
+
+		logger.info("User clicking on Preview page button: " + buttonText);
+
+		boolean clicked = false;
+
+		if ("Back to Application".equalsIgnoreCase(buttonText)) {
+			clicked = applicationCreation_pom.clickBackToApplicationOnPreview();
+		} else {
+			logger.warn("Unsupported preview page button in this step: " + buttonText);
+			clicked = false;
+		}
+
+		softAssert.softAssertTrue(
+				clicked,
+				"Clicked on Preview page button: " + buttonText,
+				"Failed to click on Preview page button: " + buttonText
+				);
+	}
 }

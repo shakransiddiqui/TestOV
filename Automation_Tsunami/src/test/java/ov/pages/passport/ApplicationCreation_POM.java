@@ -17,6 +17,8 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 	public static final Logger logger = LogManager.getLogger(ApplicationCreation_POM.class);
 
+	private final List<String> addedAQQuestions = new ArrayList<>();
+
 	public ApplicationCreation_POM() {
 		PageFactory.initElements(driver, this);
 	}
@@ -144,6 +146,15 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// Applicant (Preview) Save & Continue button (inside ApplicantFormOV)
 	private static final By PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN =
 			By.cssSelector("div.ApplicantFormOV button.save-form-btn[aria-label='Save & Continue']");
+
+	// Preview AQ footer buttons (inside ApplicantFormOV)
+	private static final By PREVIEW_APPLICANT_BACK_BTN =
+			By.cssSelector("div.ApplicantFormOV button.save-form-btn[aria-label='Back']");
+
+	// Submit is DISABLED until required fields are filled, so DO NOT use waitForElement() on it.
+	// We locate it by visible text (most reliable) inside ApplicantFormOV.
+	private static final By PREVIEW_APPLICANT_SUBMIT_BTN =
+			By.xpath(PREVIEW_ROOT_XP + "//button[contains(@class,'save-form-btn') and normalize-space()='Submit']");
 
 
 	//	***************************************************************************************************************
@@ -320,6 +331,8 @@ public class ApplicationCreation_POM extends CommonMethods {
 				if (added) {
 					success++;
 
+					addedAQQuestions.add(question == null ? "" : question.trim());
+
 					if (i < rows.size() - 1) {
 						boolean opened = openNewAdditionalQuestionForm();
 						if (!opened) break;
@@ -383,7 +396,9 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean isStandardQuestionsTabActiveOnPreview() {
 		try {
-			return isElementPresent(PREVIEW_TAB_STANDARD_ACTIVE);
+			// Strong proof: SQ tab is ACTIVE (wait up to 40s)
+			WebElement sqActive = waitForElement(PREVIEW_TAB_STANDARD_ACTIVE);
+			return sqActive != null;
 		} catch (Exception e) {
 			logger.error(LogColor.RED + "isStandardQuestionsTabActiveOnPreview failed: " + e + LogColor.RESET, e);
 			return false;
@@ -405,6 +420,85 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 		} catch (Exception e) {
 			logger.error(LogColor.RED + "applicantClickSaveAndContinueOnPreview failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	// ***************************************************************************************************************
+	public boolean isAdditionalQuestionsTabActiveOnPreview() {
+		try {
+			// Strong proof: AQ tab is ACTIVE (wait up to 40s)
+			WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
+			return aqActive != null;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "isAdditionalQuestionsTabActiveOnPreview failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	// ***************************************************************************************************************
+	public boolean areBackAndSubmitVisibleOnPreviewAQ() {
+		try {
+			// First make sure we are actually on AQ
+			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) return false;
+
+			boolean backVisible = waitUpToForVisible(PREVIEW_APPLICANT_BACK_BTN, 10);
+			boolean submitVisible = waitUpToForVisible(PREVIEW_APPLICANT_SUBMIT_BTN, 10);
+
+			return backVisible && submitVisible;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "areBackAndSubmitVisibleOnPreviewAQ failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	// ***************************************************************************************************************
+	public boolean areAllAddedAQVisibleOnPreview() {
+		try {
+			// make sure we are on Preview AQ screen
+			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) return false;
+
+			int missing = 0;
+
+			for (String q : addedAQQuestions) {
+				if (q == null || q.isBlank()) continue;
+
+				// short dynamic XPath: search question text anywhere inside ApplicantFormOV
+				By qBy = By.xpath(PREVIEW_ROOT_XP + "//*[contains(normalize-space(.), " + xpathLiteral(q) + ")]");
+
+				// use your existing waitUpToForVisible helper (10s)
+				boolean found = waitUpToForVisible(qBy, 10);
+
+				if (!found) {
+					missing++;
+					logger.warn(LogColor.RED + "Missing question on Preview AQ: " + q + LogColor.RESET);
+				}
+			}
+
+			return missing == 0;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "areAllAddedAQVisibleOnPreview failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	// ***************************************************************************************************************
+	public boolean clickBackToApplicationOnPreview() {
+		try {
+			WebElement btn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN);
+			if (btn == null) return false;
+
+			clickAndDraw(btn);
+			waitForPageAndAjaxToLoad();
+
+			// Proof we returned to Builder: Preview Application button should re-appear
+			return waitForElement(BUILDER_PREVIEW_APPLICATION_BTN) != null;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "clickBackToApplicationOnPreview failed: " + e + LogColor.RESET, e);
 			return false;
 		}
 	}
@@ -560,5 +654,31 @@ public class ApplicationCreation_POM extends CommonMethods {
 			logger.error(LogColor.RED + "selectFileType failed: " + e + LogColor.RESET, e);
 			return false;
 		}
+	}
+
+	// ***************************************************************************************************************
+	private boolean waitUpToForVisible(By locator, int seconds) {
+		long end = System.currentTimeMillis() + (seconds * 1000L);
+		while (System.currentTimeMillis() < end) {
+			if (isElementPresent(locator)) return true;   // your 2s visibility wait
+			waitForMlsec(200);
+		}
+		return false;
+	}
+
+	// ***************************************************************************************************************
+	private static String xpathLiteral(String s) {
+		if (s == null) return "''";
+		if (s.contains("'")) {
+			String[] parts = s.split("'");
+			StringBuilder sb = new StringBuilder("concat(");
+			for (int i = 0; i < parts.length; i++) {
+				sb.append("'").append(parts[i]).append("'");
+				if (i < parts.length - 1) sb.append(",\"'\",");
+			}
+			sb.append(")");
+			return sb.toString();
+		}
+		return "'" + s + "'";
 	}
 }
