@@ -1,10 +1,13 @@
 package ov.pages.passport;
 
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -118,6 +121,32 @@ public class ApplicationCreation_POM extends CommonMethods {
 			By.cssSelector("footer.create-application-footer button[aria-label='Save & Continue']");
 
 
+	// ===================== PUBLISH (Dates) =====================
+	private static final By PUBLISH_OPEN_DATETIME = By.id("date-time-start");
+	private static final By PUBLISH_CLOSE_DATETIME = By.id("date-time-end");
+
+
+	// ===================== PUBLISH (Copy Link) =====================
+	private static final By PUBLISH_COPY_APP_LINK_BTN =
+			By.cssSelector("button.copy-link-button[aria-label='Copy Application Link']");
+
+	// After click: shows Link Copied (disabled + copy-msg)
+	private static final By PUBLISH_LINK_COPIED_STATE =
+			By.cssSelector("button.copy-link-button.copy-msg[aria-label='Copy Application Link'][disabled]");
+
+
+	// ===================== PUBLISH (Invite Applicants) =====================
+	private static final By PUBLISH_INVITE_EMAIL_INPUT = By.id("email-add");
+
+	// enabled Add button (after valid email typed)
+	private static final By PUBLISH_ADD_EMAIL_BTN =
+		    By.cssSelector("button.add-email-btn[aria-label*='Add']");
+
+	// Invite table container (where emails appear)
+	private static final String INVITE_TABLE_XP = "//div[contains(@class,'invite-table-container')]";
+
+
+
 	// ===================== PREVIEW (Applicant view) =====================
 
 	// Preview button on Builder (top right)
@@ -155,6 +184,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// We locate it by visible text (most reliable) inside ApplicantFormOV.
 	private static final By PREVIEW_APPLICANT_SUBMIT_BTN =
 			By.xpath(PREVIEW_ROOT_XP + "//button[contains(@class,'save-form-btn') and normalize-space()='Submit']");
+
 
 
 	//	***************************************************************************************************************
@@ -468,7 +498,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 				// short dynamic XPath: search question text anywhere inside ApplicantFormOV
 				By qBy = By.xpath(PREVIEW_ROOT_XP + "//*[contains(normalize-space(.), " + xpathLiteral(q) + ")]");
 
-				// use your existing waitUpToForVisible helper (10s)
+				// using existing waitUpToForVisible helper (10s)
 				boolean found = waitUpToForVisible(qBy, 10);
 
 				if (!found) {
@@ -500,6 +530,126 @@ public class ApplicationCreation_POM extends CommonMethods {
 		} catch (Exception e) {
 			logger.error(LogColor.RED + "clickBackToApplicationOnPreview failed: " + e + LogColor.RESET, e);
 			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	/*
+	 * To set both Open Date=Now and Close Date=Now+5years this method can be used:
+	 */
+
+	//	public boolean setPublishOpenNowAndClosePlusOneMonth() {
+	//		try {
+	//			LocalDateTime now = LocalDateTime.now()
+	//					.plusMinutes(2)       // small buffer to avoid min-time edge
+	//					.withSecond(0).withNano(0);
+	//
+	//			LocalDateTime close = now.plusYears(5);
+	//
+	//			DateTimeFormatter fmt =
+	//					DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+	//
+	//			waitForElement(PUBLISH_OPEN_DATETIME);
+	//
+	//			boolean openOk = jsSetDateTimeLocal(PUBLISH_OPEN_DATETIME, now.format(fmt));
+	//
+	//			waitForElement(PUBLISH_CLOSE_DATETIME);
+	//
+	//			boolean closeOk = jsSetDateTimeLocal(PUBLISH_CLOSE_DATETIME, close.format(fmt));
+	//
+	//			return openOk && closeOk;
+	//
+	//		} catch (Exception e) {
+	//			logger.error(LogColor.RED + "setPublishOpenNowAndClosePlusOneMonth failed: " + e + LogColor.RESET, e);
+	//			return false;
+	//		}
+	//	}
+
+	//	***************************************************************************************************************
+	public boolean setPublishOpenDateToNow() {
+		try {
+			LocalDateTime open = LocalDateTime.now()
+					.plusMinutes(2)              // small buffer to avoid min edge
+					.withSecond(0).withNano(0);
+
+			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
+			boolean openOk = jsSetDateTimeLocal(PUBLISH_OPEN_DATETIME, open.format(fmt));
+
+			// Do NOT set Close Date (leave it blank)
+			return openOk;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "setPublishOpenDateToNow failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+
+	//	***************************************************************************************************************
+	public boolean copyApplicationLinkAndSeeCopied() {
+		try {
+			WebElement btn = waitForElement(PUBLISH_COPY_APP_LINK_BTN); // enabled state (good)
+			if (btn == null) return false;
+
+			clickAndDraw(btn);
+			waitForPageAndAjaxToLoad();
+
+			// Must NOT use waitForElement here because copied state is disabled
+			boolean copied = waitUpToForVisible(PUBLISH_LINK_COPIED_STATE, 5);
+
+			// Fallback: sometimes text changes but class may differ
+			if (!copied) {
+				By copiedByText = By.xpath("//button[contains(@class,'copy-link-button') and normalize-space()='Link Copied']");
+				copied = waitUpToForVisible(copiedByText, 5);
+			}
+
+			return copied;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "copyApplicationLinkAndSeeCopied failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public String addRandomInviteEmailAndVerifyListed() {
+		try {
+			String email = TestDataGenerator.generateTestEmail(); // from CommonMethods
+
+			WebElement input = waitForElement(PUBLISH_INVITE_EMAIL_INPUT);
+			if (input == null) return null;
+
+			clickAndDraw(input);
+			safeSendKeys(input, email);
+
+			WebElement addBtn = waitForElement(PUBLISH_ADD_EMAIL_BTN);
+			if (addBtn == null) return null;
+
+			// Wait until the button becomes enabled (because it starts disabled)
+			long end = System.currentTimeMillis() + 10000;
+			while (!addBtn.isEnabled() && System.currentTimeMillis() < end) {
+			    waitForMlsec(200);
+			    addBtn = driver.findElement(PUBLISH_ADD_EMAIL_BTN);
+			}
+
+			if (!addBtn.isEnabled()) return null;
+			
+			clickAndDraw(addBtn);
+			waitForPageAndAjaxToLoad();
+
+			By addedEmail = By.xpath(
+					INVITE_TABLE_XP
+					+ "//span[contains(@class,'td-value') and normalize-space()=" + xpathLiteral(email) + "]"
+					);
+
+			boolean visible = waitUpToForVisible(addedEmail, 10);
+
+			return visible ? email : null;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "addRandomInviteEmailAndVerifyListed failed: " + e + LogColor.RESET, e);
+			return null;
 		}
 	}
 
@@ -681,4 +831,28 @@ public class ApplicationCreation_POM extends CommonMethods {
 		}
 		return "'" + s + "'";
 	}
+
+	//	***************************************************************************************************************
+	private boolean jsSetDateTimeLocal(By inputBy, String value) {
+		try {
+			WebElement el = waitForElement(inputBy);
+			if (el == null) return false;
+
+			// value format must be: yyyy-MM-ddTHH:mm
+			String script =
+					"arguments[0].value = arguments[1];" +
+							"arguments[0].dispatchEvent(new Event('input', {bubbles:true}));" +
+							"arguments[0].dispatchEvent(new Event('change', {bubbles:true}));";
+			((JavascriptExecutor) driver).executeScript(script, el, value);
+
+			String actual = el.getAttribute("value");
+			return actual != null && actual.startsWith(value);
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "jsSetDateTimeLocal failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+
 }

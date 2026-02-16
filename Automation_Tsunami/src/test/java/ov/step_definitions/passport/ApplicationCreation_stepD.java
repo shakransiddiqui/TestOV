@@ -287,4 +287,64 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Failed to click on Preview page button: " + buttonText
 				);
 	}
+
+	//	***************************************************************************************************************
+	//	@Then("User sets the Publish Open Date to now and Close Date to one month from now")
+	//	public void user_sets_publish_open_date_now_and_close_date_one_month() {
+	//
+	//		logger.info("Setting Publish Open Date=now and Close Date=now+1 month...");
+	//		
+	//		boolean ok = applicationCreation_pom.setPublishOpenDateToNow();
+	//
+	//		softAssert.softAssertTrue(
+	//				ok,
+	//				"Publish Open & Close dates were set successfully.",
+	//				"Failed to set Publish Open and/or Close date."
+	//				);
+	//	}
+
+	@Then("User sets the Publish Open Date to now")
+	public void user_sets_the_publish_open_date_to_now() {
+
+		logger.info("Setting Publish Open Date=now ...");
+
+		boolean ok = applicationCreation_pom.setPublishOpenDateToNow();
+
+		softAssert.softAssertTrue(
+				ok,
+				"Publish Open date was set successfully.",
+				"Failed to set Publish Open date."
+				);
+	}
+
+
+	//	***************************************************************************************************************
+	@Then("User copies the Application Link on the Publish page")
+	public void user_copies_the_application_link_on_the_publish_page() {
+
+		logger.info("Copying Application Link and verifying 'Link Copied'...");
+
+		boolean ok = applicationCreation_pom.copyApplicationLinkAndSeeCopied();
+
+		softAssert.softAssertTrue(
+				ok,
+				"Application Link copied successfully (Link Copied displayed).",
+				"Failed to copy Application Link (Link Copied not displayed)."
+				);
+	}
+
+	//	***************************************************************************************************************
+	@Then("User adds a random invite email and verifies it appears in the list")
+	public void user_adds_random_invite_email_and_verifies_it_appears() {
+
+		logger.info("Adding a random invite email and verifying it appears in the list...");
+
+		String email = applicationCreation_pom.addRandomInviteEmailAndVerifyListed();
+
+		softAssert.softAssertTrue(
+				email != null,
+				"Invite email added and listed successfully: " + email,
+				"Failed to add invite email or email not listed."
+				);
+	}
 }
