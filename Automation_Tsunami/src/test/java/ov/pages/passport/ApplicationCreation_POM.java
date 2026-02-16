@@ -20,13 +20,18 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 	public static final Logger logger = LogManager.getLogger(ApplicationCreation_POM.class);
 
-	private final List<String> addedAQQuestions = new ArrayList<>();
-
 	public ApplicationCreation_POM() {
 		PageFactory.initElements(driver, this);
 	}
 
-	//	*****************X-path Locators****************************************************************
+
+	//	*****************Objects and Variables****************************************************************
+
+	private final List<String> addedAQQuestions = new ArrayList<>();
+
+	private String lastInvitedEmail;
+
+
 
 
 
@@ -140,12 +145,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 	// enabled Add button (after valid email typed)
 	private static final By PUBLISH_ADD_EMAIL_BTN =
-		    By.cssSelector("button.add-email-btn[aria-label*='Add']");
+			By.cssSelector("button.add-email-btn");
 
 	// Invite table container (where emails appear)
 	private static final String INVITE_TABLE_XP = "//div[contains(@class,'invite-table-container')]";
 
+	// Find the email row by email text
+	private By inviteEmailCellBy(String email) {
+		return By.xpath(INVITE_TABLE_XP
+				+ "//span[contains(@class,'td-value') and normalize-space()=" + xpathLiteral(email) + "]");
+	}
 
+	// Trash icon inside the same row
+	// Delete (trash) clickable span inside same row
+	private By inviteDeleteIconBy(String email) {
+		return By.xpath(INVITE_TABLE_XP
+				+ "//span[contains(@class,'td-value') and normalize-space()=" + xpathLiteral(email) + "]"
+				+ "/ancestor::tr[1]//span[contains(@class,'table-action-remove')]");
+	}
+	
 
 	// ===================== PREVIEW (Applicant view) =====================
 
@@ -185,6 +203,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 	private static final By PREVIEW_APPLICANT_SUBMIT_BTN =
 			By.xpath(PREVIEW_ROOT_XP + "//button[contains(@class,'save-form-btn') and normalize-space()='Submit']");
 
+	
+	// ===================== PUBLISH (Complete) =====================
+	private static final By PUBLISH_COMPLETE_BTN =
+	        By.xpath("//button[normalize-space()='Complete' or @aria-label='Complete']");
 
 
 	//	***************************************************************************************************************
@@ -623,19 +645,13 @@ public class ApplicationCreation_POM extends CommonMethods {
 			clickAndDraw(input);
 			safeSendKeys(input, email);
 
-			WebElement addBtn = waitForElement(PUBLISH_ADD_EMAIL_BTN);
-			if (addBtn == null) return null;
+			// IMPORTANT: trigger blur/validation so Add enables
+			input.sendKeys(Keys.TAB);
+			waitForMlsec(200);
 
-			// Wait until the button becomes enabled (because it starts disabled)
-			long end = System.currentTimeMillis() + 10000;
-			while (!addBtn.isEnabled() && System.currentTimeMillis() < end) {
-			    waitForMlsec(200);
-			    addBtn = driver.findElement(PUBLISH_ADD_EMAIL_BTN);
-			}
+			// clickAndDrawBy waits until button becomes clickable (enabled)
+			clickAndDrawBy(PUBLISH_ADD_EMAIL_BTN);
 
-			if (!addBtn.isEnabled()) return null;
-			
-			clickAndDraw(addBtn);
 			waitForPageAndAjaxToLoad();
 
 			By addedEmail = By.xpath(
@@ -645,7 +661,11 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 			boolean visible = waitUpToForVisible(addedEmail, 10);
 
-			return visible ? email : null;
+			if (visible) {
+				lastInvitedEmail = email;
+				return email;
+			}
+			return null;
 
 		} catch (Exception e) {
 			logger.error(LogColor.RED + "addRandomInviteEmailAndVerifyListed failed: " + e + LogColor.RESET, e);
@@ -653,6 +673,83 @@ public class ApplicationCreation_POM extends CommonMethods {
 		}
 	}
 
+	//	***************************************************************************************************************
+	public boolean deleteLastInvitedEmailAndVerifyRemoved() {
+		try {
+			if (lastInvitedEmail == null || lastInvitedEmail.isBlank()) {
+				logger.warn("No lastInvitedEmail stored. Add an email before deleting.");
+				return false;
+			}
+
+			By cellBy = inviteEmailCellBy(lastInvitedEmail);
+			if (!waitUpToForVisible(cellBy, 5)) {
+				logger.warn("Email not present to delete: " + lastInvitedEmail);
+				return false;
+			}
+
+			// Click trash icon
+			By trashBy = inviteDeleteIconBy(lastInvitedEmail);
+
+			// hover on row/cell first (some UIs only enable actions on hover)
+			try { hoverOver(cellBy); } catch (Exception ignore) {}
+
+			WebElement trash = waitForElement(trashBy);   // presence/visible wait (NOT clickable wait)
+			if (trash == null) return false;
+
+			scrollScreen(trash);
+
+			// Force click (bypass elementToBeClickable issues)
+			jsclick(driver, trash);
+
+			waitForPageAndAjaxToLoad();
+
+			// If an alert appears, accept it (works only if browser alert is used)
+			try { acceptAlert(); } catch (Exception ignore) {}
+
+			// Verify email disappears
+			long end = System.currentTimeMillis() + 10000;
+			while (System.currentTimeMillis() < end) {
+				if (!isElementPresent(cellBy)) {
+					return true;
+				}
+				waitForMlsec(200);
+			}
+
+			return false;
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "deleteLastInvitedEmailAndVerifyRemoved failed: " + e + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+//	***************************************************************************************************************
+	public boolean clickCompleteOnPublish() {
+	    try {
+	        WebElement btn = waitForElement(PUBLISH_COMPLETE_BTN);
+	        if (btn == null) return false;
+
+	        scrollScreen(btn);
+	        clickAndDraw(btn);
+	        waitForPageAndAjaxToLoad();
+
+	        // Proof of completion:
+	        // Option A (recommended): URL no longer contains editapplication
+	        String url = driver.getCurrentUrl();
+	        if (url != null && !url.toLowerCase().contains("editapplication")) {
+	            return true;
+	        }
+
+	        // Option B: button disappears or becomes disabled/loading
+	        boolean stillThere = isElementPresent(PUBLISH_COMPLETE_BTN);
+	        return !stillThere;
+
+	    } catch (Exception e) {
+	        logger.error(LogColor.RED + "clickCompleteOnPublish failed: " + e + LogColor.RESET, e);
+	        return false;
+	    }
+	}
+	
 	//	***************************************************************************************************************
 	//	Helper Methods
 	//	***************************************************************************************************************

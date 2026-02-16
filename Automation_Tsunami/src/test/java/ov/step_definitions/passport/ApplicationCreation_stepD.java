@@ -347,4 +347,41 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Failed to add invite email or email not listed."
 				);
 	}
+
+	//	***************************************************************************************************************
+	@Then("User deletes the last added invite email and verifies it is removed")
+	public void user_deletes_last_added_invite_email_and_verifies_removed() {
+
+		logger.info("Deleting last added invite email and verifying it is removed...");
+
+		boolean ok = applicationCreation_pom.deleteLastInvitedEmailAndVerifyRemoved();
+
+		softAssert.softAssertTrue(
+				ok,
+				"Invite email deleted and removed from list.",
+				"Failed to delete invite email or it still appears in the list."
+				);
+	}
+	
+//	***************************************************************************************************************
+	@Then("User clicks on {string} button on the Publish page")
+	public void user_clicks_on_button_on_the_publish_page(String buttonText) {
+
+	    logger.info("Clicking on Publish page button: " + buttonText);
+
+	    boolean clicked = false;
+
+	    if ("Complete".equalsIgnoreCase(buttonText)) {
+	        clicked = applicationCreation_pom.clickCompleteOnPublish();
+	    } else {
+	        logger.warn("Unsupported Publish button in this step: " + buttonText);
+	        clicked = false;
+	    }
+
+	    softAssert.softAssertTrue(
+	            clicked,
+	            "Clicked on Publish button: " + buttonText,
+	            "Failed to click on Publish button: " + buttonText
+	    );
+	}
 }
