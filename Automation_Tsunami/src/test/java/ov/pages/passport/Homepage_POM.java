@@ -51,8 +51,6 @@ public class Homepage_POM extends CommonMethods {
 			boolean visible = isElementPresent(byLocator);
 
 			if(visible) {
-				
-				WebElement button = driver.findElement(By.xpath(formattedXpath));
 
 				logger.info("Clicking on the Button: "+buttonName);
 				clickAndDrawBy(byLocator);

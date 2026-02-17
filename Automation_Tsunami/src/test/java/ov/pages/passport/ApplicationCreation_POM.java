@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 import ov.utilities.CommonMethods;
 import ov.utilities.LogColor;
 
+
 public class ApplicationCreation_POM extends CommonMethods {
 
 	public static final Logger logger = LogManager.getLogger(ApplicationCreation_POM.class);
@@ -98,6 +99,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 	private static final By AQ_REQUIRED_CHECKBOX =
 			By.xpath(AQ_CATEGORY + "//input[contains(@class,'required-question-input')][1]");
 
+	//Save button:
 	private static final By AQ_SAVE_BUTTON =
 			By.xpath(AQ_CATEGORY + "//button[contains(@class,'question-save-action-btn') and (normalize-space()='Save' or @aria-label='SAVE')][1]");
 
@@ -120,6 +122,40 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// File type dropdown that appears only when Answer Type = File
 	private static final By AQ_FILE_TYPE_SELECT =
 			By.xpath(AQ_OPEN_FORM + "//label[contains(normalize-space(.),'Select File Type')]/following::select[1]");
+
+
+	// AQ required message under the open question form
+	private static final By AQ_REQUIRED_MSG_OPEN_FORM =
+			By.xpath(AQ_OPEN_FORM + "//span[contains(@class,'input-error-message-container')][1]");
+
+	// Delete icon for the currently open Additional Question (trash button)
+	private static final By AQ_DELETE_ICON_BTN =
+			By.cssSelector("button.circle-button.warn.hideShadow");
+
+	// popup container (best proof)
+	private static final By AQ_DELETE_POPUP =
+			By.cssSelector("div.form-build-modal-question-v2");
+
+	// Anchor the delete popup by its title text (stable)
+	private static final String DELETE_POPUP_XP =
+			"//*[contains(@class,'form-build-modal-question-v2') and .//div[normalize-space()='Delete Question']]";
+
+	private static final By DELETE_POPUP = By.xpath(DELETE_POPUP_XP);
+
+	//Delete AQ PopUp Buttons:
+	private static final String AQ_Delete_popUp_buttons = "//button[text()='%s']";
+
+
+
+	// Anchor: the question input inside Additional Questions editor (the one currently visible)
+	private static final By AQ_QUESTION_INPUT_OPEN =
+			By.xpath(AQ_CATEGORY + "//input[@placeholder='Write Question Here'][1]");
+
+	// Save button relative to that question input (go to nearest QuestionFooter then find Save)
+	private static final String AQ_SAVE_BTN_RELATIVE_TO_INPUT =
+			"./ancestor::main[contains(@class,'FormBuilderQuestionV2') or contains(@class,'FormBuilderQuestion')][1]"
+					+ "//button[contains(@class,'question-save-action-btn') and (@aria-label='Save' or normalize-space()='Save')][1]";
+
 
 	// Builder footer Save & Continue (NOT preview applicant one)
 	private static final By BUILDER_SAVE_AND_CONTINUE_BTN =
@@ -163,7 +199,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 				+ "//span[contains(@class,'td-value') and normalize-space()=" + xpathLiteral(email) + "]"
 				+ "/ancestor::tr[1]//span[contains(@class,'table-action-remove')]");
 	}
-	
+
 
 	// ===================== PREVIEW (Applicant view) =====================
 
@@ -203,10 +239,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 	private static final By PREVIEW_APPLICANT_SUBMIT_BTN =
 			By.xpath(PREVIEW_ROOT_XP + "//button[contains(@class,'save-form-btn') and normalize-space()='Submit']");
 
-	
+
 	// ===================== PUBLISH (Complete) =====================
 	private static final By PUBLISH_COMPLETE_BTN =
-	        By.xpath("//button[normalize-space()='Complete' or @aria-label='Complete']");
+			By.xpath("//button[normalize-space()='Complete' or @aria-label='Complete']");
 
 
 	//	***************************************************************************************************************
@@ -215,67 +251,99 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 	public String passFieldValue(String fieldValue, String fieldName) {
 		try {
+			logger.info("[passFieldValue] START fieldName='" + fieldName + "' value='" + fieldValue + "'");
+
 			if (fieldValue == null) fieldValue = "";
 
 			String formattedXpath = String.format(CREATE_APP_FIELDS, fieldName);
-			logger.info("Create Application Field XPath: " + formattedXpath);
+			logger.info("[passFieldValue] Field XPath=" + formattedXpath);
 
 			WebElement field = waitForElement(By.xpath(formattedXpath));
+			if (field == null) {
+				logger.warn("[passFieldValue] Field NOT found for: " + fieldName);
+				return "null";
+			}
+
+			logger.info("[passFieldValue] Clicking field...");
 			clickAndDraw(field);
 
+			logger.info("[passFieldValue] Typing value...");
 			safeSendKeys(field, fieldValue);
 
 			String actual = field.getAttribute("value");
-			logger.info(LogColor.DarkGreen + "Actual value in field [" + fieldName + "] = " + actual + LogColor.RESET);
+			logger.info("[passFieldValue] END actualValue='" + actual + "'");
 			return actual;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "passFieldValue failed: " + e + LogColor.RESET);
+			logger.error("[passFieldValue] EXCEPTION", e);
 			return "null";
 		}
 	}
 
+	//	***************************************************************************************************************//	***************************************************************************************************************
 	public boolean selectOption(String optionText) {
 		try {
-			logger.info("Selecting option: " + optionText);
+			logger.info("[selectOption] START optionText='" + optionText + "'");
 
 			if (!"Create New Application".equalsIgnoreCase(optionText)) {
-				logger.warn("Unsupported optionText in automation right now: " + optionText);
+				logger.warn("[selectOption] Unsupported optionText: " + optionText);
 				return false;
 			}
 
 			WebElement card = waitForElement(CREATE_NEW_APP_CARD);
+			if (card == null) {
+				logger.warn("[selectOption] Create New Application card NOT found.");
+				return false;
+			}
+
+			logger.info("[selectOption] Clicking option card...");
 			clickAndDraw(card);
 
 			WebElement radio = waitForElement(CREATE_NEW_APP_RADIO);
-			if (!radio.isSelected()) clickAndDraw(radio);
+			if (radio == null) {
+				logger.warn("[selectOption] Radio NOT found.");
+				return false;
+			}
+
+			if (!radio.isSelected()) {
+				logger.info("[selectOption] Radio not selected. Clicking radio...");
+				clickAndDraw(radio);
+			}
 
 			boolean selected = radio.isSelected();
-			logger.info("Create New Application radio selected = " + selected);
+			logger.info("[selectOption] END selected=" + selected);
 			return selected;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "selectOption failed: " + e + LogColor.RESET);
+			logger.error("[selectOption] EXCEPTION", e);
 			return false;
 		}
 	}
 
+	//	***************************************************************************************************************
 	public boolean isOnPage(String textElement) {
 		try {
+			logger.info("[isOnPage] START textElement='" + textElement + "'");
+
 			String formattedXpath = String.format(page_TEXT, textElement);
-			By text_by = By.xpath(formattedXpath);
+			By textBy = By.xpath(formattedXpath);
 
-			waitForElement(text_by);
+			logger.info("[isOnPage] Waiting for page proof text...");
+			waitForElement(textBy);
 
-			boolean textOk = isElementPresent(text_by);
-
+			boolean textOk = isElementPresent(textBy);
 			String url = driver.getCurrentUrl();
 			boolean urlOk = url != null && url.contains(BUILDER_URL_MUST_CONTAIN);
 
-			return urlOk && textOk;
+			logger.info("[isOnPage] url='" + url + "'");
+			logger.info("[isOnPage] urlOk=" + urlOk + " textOk=" + textOk);
+
+			boolean result = urlOk && textOk;
+			logger.info("[isOnPage] END result=" + result);
+			return result;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "isOnBuilderPage failed: " + e + LogColor.RESET);
+			logger.error("[isOnPage] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -283,14 +351,22 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean clickCollapseIcon() {
 		try {
-			WebElement icon = waitForElement(COLLAPSE_BTN);
-			if (icon == null) return false;
+			logger.info("[clickCollapseIcon] START");
 
+			WebElement icon = waitForElement(COLLAPSE_BTN);
+			if (icon == null) {
+				logger.warn("[clickCollapseIcon] Collapse icon NOT found.");
+				return false;
+			}
+
+			logger.info("[clickCollapseIcon] Clicking collapse icon...");
 			clickAndDraw(icon);
+
+			logger.info("[clickCollapseIcon] END success=true");
 			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "clickCollapseIcon failed: " + e + LogColor.RESET, e);
+			logger.error("[clickCollapseIcon] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -298,20 +374,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean standardQuestionsCollapsed() {
 		try {
+			logger.info("[standardQuestionsCollapsed] START");
+
 			By expanded = By.xpath(String.format(EXPANDED_CONTENT_IN_CATEGORY, "Standard Questions"));
 
 			long end = System.currentTimeMillis() + 3000;
 			boolean expandedVisible = isElementPresent(expanded);
+			logger.info("[standardQuestionsCollapsed] expandedVisible(initial)=" + expandedVisible);
 
 			while (expandedVisible && System.currentTimeMillis() < end) {
 				waitForMlsec(200);
 				expandedVisible = isElementPresent(expanded);
 			}
 
-			return !expandedVisible;
+			boolean collapsed = !expandedVisible;
+			logger.info("[standardQuestionsCollapsed] END collapsed=" + collapsed);
+			return collapsed;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "standardQuestionsCollapsed failed: " + e + LogColor.RESET, e);
+			logger.error("[standardQuestionsCollapsed] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -319,15 +400,23 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean scrollToSection(String sectionName) {
 		try {
+			logger.info("[scrollToSection] START sectionName='" + sectionName + "'");
+
 			By header = By.xpath("//*[normalize-space()='" + sectionName + "']");
 			WebElement headerEl = waitForElement(header);
-			if (headerEl == null) return false;
+			if (headerEl == null) {
+				logger.warn("[scrollToSection] Section header NOT found: " + sectionName);
+				return false;
+			}
 
+			logger.info("[scrollToSection] Scrolling to section header...");
 			scrollScreen(headerEl);
+
+			logger.info("[scrollToSection] END success=true");
 			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "scrollToSection failed: " + e + LogColor.RESET, e);
+			logger.error("[scrollToSection] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -335,17 +424,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean clickAddNewQuestion(String buttonText) {
 		try {
+			logger.info("[clickAddNewQuestion] START buttonText='" + buttonText + "'");
+
 			By btn = By.xpath(String.format(ADD_NEW_QUESTION_BTN_IN_CATEGORY, "Additional Questions"));
-
 			WebElement btnEl = waitForElement(btn);
-			if (btnEl == null) return false;
 
+			if (btnEl == null) {
+				logger.warn("[clickAddNewQuestion] Add New Question button NOT found in Additional Questions section.");
+				return false;
+			}
+
+			logger.info("[clickAddNewQuestion] Scrolling and clicking Add New Question...");
 			scrollScreen(btnEl);
 			clickAndDraw(btnEl);
+
+			logger.info("[clickAddNewQuestion] END success=true");
 			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "clickAddNewQuestion failed: " + e + LogColor.RESET, e);
+			logger.error("[clickAddNewQuestion] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -353,23 +450,33 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean newQuestionFormVisible() {
 		try {
+			logger.info("[newQuestionFormVisible] START");
+
 			By input = By.xpath(String.format(NEW_QUESTION_INPUT_IN_CATEGORY, "Additional Questions"));
-			return isElementPresent(input);
+			boolean visible = isElementPresent(input);
+
+			logger.info("[newQuestionFormVisible] END visible=" + visible);
+			return visible;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "newQuestionFormVisible failed: " + e + LogColor.RESET, e);
+			logger.error("[newQuestionFormVisible] EXCEPTION", e);
 			return false;
 		}
 	}
 
 	//	***************************************************************************************************************
 	public int addAdditionalQuestions(List<Map<String, String>> rows) {
-
 		int success = 0;
 
 		try {
-			for (int i = 0; i < rows.size(); i++) {
+			logger.info("[addAdditionalQuestions] START rowsCount=" + (rows == null ? 0 : rows.size()));
 
+			if (rows == null || rows.isEmpty()) {
+				logger.warn("[addAdditionalQuestions] DataTable rows are empty.");
+				return 0;
+			}
+
+			for (int i = 0; i < rows.size(); i++) {
 				Map<String, String> row = rows.get(i);
 
 				String type = row.get("Type");
@@ -378,40 +485,61 @@ public class ApplicationCreation_POM extends CommonMethods {
 				String requiredStr = row.getOrDefault("Required", "No");
 				boolean required = "Yes".equalsIgnoreCase(requiredStr) || "True".equalsIgnoreCase(requiredStr);
 
+				logger.info("[addAdditionalQuestions] Row " + (i + 1) + "/" + rows.size()
+				+ " | type='" + type + "' | required=" + required
+				+ " | question='" + question + "'");
+
 				boolean added = addOneAdditionalQuestion(type, question, instruction, required);
 
 				if (added) {
 					success++;
-
 					addedAQQuestions.add(question == null ? "" : question.trim());
 
+					logger.info("[addAdditionalQuestions] Added OK. successCount=" + success);
+
 					if (i < rows.size() - 1) {
+						logger.info("[addAdditionalQuestions] Opening new Additional Question form...");
 						boolean opened = openNewAdditionalQuestionForm();
-						if (!opened) break;
+						if (!opened) {
+							logger.warn("[addAdditionalQuestions] Could not open next question form. Breaking.");
+							break;
+						}
 					}
 				} else {
+					logger.warn("[addAdditionalQuestions] Failed to add row " + (i + 1) + ". Breaking.");
 					break;
 				}
 			}
-		} catch (Exception e) {
-			logger.error(LogColor.RED + "addAdditionalQuestions failed: " + e + LogColor.RESET, e);
-		}
 
-		return success;
+			logger.info("[addAdditionalQuestions] END successCount=" + success);
+			return success;
+
+		} catch (Exception e) {
+			logger.error("[addAdditionalQuestions] EXCEPTION", e);
+			return success;
+		}
 	}
 
 	//	***************************************************************************************************************
 	public boolean clickBuilderSaveAndContinue() {
 		try {
-			WebElement btn = waitForElement(BUILDER_SAVE_AND_CONTINUE_BTN);
-			if (btn == null) return false;
+			logger.info("[clickBuilderSaveAndContinue] START");
 
+			WebElement btn = waitForElement(BUILDER_SAVE_AND_CONTINUE_BTN);
+			if (btn == null) {
+				logger.warn("[clickBuilderSaveAndContinue] Save & Continue button NOT found.");
+				return false;
+			}
+
+			logger.info("[clickBuilderSaveAndContinue] Clicking Save & Continue...");
 			clickAndDraw(btn);
 			waitForPageAndAjaxToLoad();
+
+			logger.info("[clickBuilderSaveAndContinue] END success=true");
 			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "clickBuilderSaveAndContinue failed: " + e + LogColor.RESET, e);
+			logger.error("[clickBuilderSaveAndContinue] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -419,14 +547,21 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean clickPreviewApplicationOnBuilder() {
 		try {
+			logger.info("[clickPreviewApplicationOnBuilder] START");
+
+			logger.info("[clickPreviewApplicationOnBuilder] Clicking Preview Application button. Locator=" + BUILDER_PREVIEW_APPLICATION_BTN);
 			clickAndDrawBy(BUILDER_PREVIEW_APPLICATION_BTN);
 			waitForPageAndAjaxToLoad();
 
-			WebElement backBtn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN); // waits up to 40s
-			return backBtn != null;
+			logger.info("[clickPreviewApplicationOnBuilder] Waiting for Back to Application button as proof. Locator=" + PREVIEW_BACK_TO_APPLICATION_BTN);
+			WebElement backBtn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN);
+
+			boolean ok = backBtn != null;
+			logger.info("[clickPreviewApplicationOnBuilder] END success=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "clickPreviewApplicationOnBuilder failed: " + e + LogColor.RESET, e);
+			logger.error("[clickPreviewApplicationOnBuilder] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -434,13 +569,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean isOnPreviewApplicationPage() {
 		try {
-			if (waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN) == null) return false;
-			if (waitForElement(PREVIEW_ROOT) == null) return false;
+			logger.info("[isOnPreviewApplicationPage] START");
 
-			return isElementPresent(PREVIEW_TAB_STANDARD_ACTIVE) || isElementPresent(PREVIEW_TAB_ADDITIONAL_ACTIVE);
+			logger.info("[isOnPreviewApplicationPage] Checking Back to Application button...");
+			if (waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN) == null) {
+				logger.warn("[isOnPreviewApplicationPage] Back to Application NOT found.");
+				return false;
+			}
+
+			logger.info("[isOnPreviewApplicationPage] Checking preview root ApplicantFormOV...");
+			if (waitForElement(PREVIEW_ROOT) == null) {
+				logger.warn("[isOnPreviewApplicationPage] Preview root (ApplicantFormOV) NOT found.");
+				return false;
+			}
+
+			logger.info("[isOnPreviewApplicationPage] END success=true");
+			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "isOnPreviewApplicationPage failed: " + e + LogColor.RESET, e);
+			logger.error("[isOnPreviewApplicationPage] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -448,11 +595,16 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean isStandardQuestionsTabActiveOnPreview() {
 		try {
-			// Strong proof: SQ tab is ACTIVE (wait up to 40s)
+			logger.info("[isStandardQuestionsTabActiveOnPreview] START");
+
 			WebElement sqActive = waitForElement(PREVIEW_TAB_STANDARD_ACTIVE);
-			return sqActive != null;
+			boolean ok = sqActive != null;
+
+			logger.info("[isStandardQuestionsTabActiveOnPreview] END active=" + ok);
+			return ok;
+
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "isStandardQuestionsTabActiveOnPreview failed: " + e + LogColor.RESET, e);
+			logger.error("[isStandardQuestionsTabActiveOnPreview] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -460,18 +612,27 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean applicantClickSaveAndContinueOnPreview() {
 		try {
-			WebElement btn = waitForElement(PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN);
-			if (btn == null) return false;
+			logger.info("[applicantClickSaveAndContinueOnPreview] START");
 
+			WebElement btn = waitForElement(PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN);
+			if (btn == null) {
+				logger.warn("[applicantClickSaveAndContinueOnPreview] Save & Continue button NOT found. Locator=" + PREVIEW_APPLICANT_SAVE_AND_CONTINUE_BTN);
+				return false;
+			}
+
+			logger.info("[applicantClickSaveAndContinueOnPreview] Clicking applicant Save & Continue...");
 			clickAndDraw(btn);
 			waitForPageAndAjaxToLoad();
 
-			// Proof: Additional Questions tab becomes ACTIVE after applicant Save & Continue
+			logger.info("[applicantClickSaveAndContinueOnPreview] Waiting for Additional Questions tab to become active...");
 			WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
-			return aqActive != null;
+
+			boolean ok = aqActive != null;
+			logger.info("[applicantClickSaveAndContinueOnPreview] END success=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "applicantClickSaveAndContinueOnPreview failed: " + e + LogColor.RESET, e);
+			logger.error("[applicantClickSaveAndContinueOnPreview] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -479,12 +640,16 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// ***************************************************************************************************************
 	public boolean isAdditionalQuestionsTabActiveOnPreview() {
 		try {
-			// Strong proof: AQ tab is ACTIVE (wait up to 40s)
+			logger.info("[isAdditionalQuestionsTabActiveOnPreview] START");
+
 			WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
-			return aqActive != null;
+			boolean ok = aqActive != null;
+
+			logger.info("[isAdditionalQuestionsTabActiveOnPreview] END active=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "isAdditionalQuestionsTabActiveOnPreview failed: " + e + LogColor.RESET, e);
+			logger.error("[isAdditionalQuestionsTabActiveOnPreview] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -492,16 +657,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// ***************************************************************************************************************
 	public boolean areBackAndSubmitVisibleOnPreviewAQ() {
 		try {
-			// First make sure we are actually on AQ
-			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) return false;
+			logger.info("[areBackAndSubmitVisibleOnPreviewAQ] START");
 
+			logger.info("[areBackAndSubmitVisibleOnPreviewAQ] Ensuring AQ tab is active...");
+			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) {
+				logger.warn("[areBackAndSubmitVisibleOnPreviewAQ] AQ tab not active / not found.");
+				return false;
+			}
+
+			logger.info("[areBackAndSubmitVisibleOnPreviewAQ] Checking Back button presence...");
 			boolean backVisible = waitUpToForVisible(PREVIEW_APPLICANT_BACK_BTN, 10);
+
+			logger.info("[areBackAndSubmitVisibleOnPreviewAQ] Checking Submit button presence (may be disabled)...");
 			boolean submitVisible = waitUpToForVisible(PREVIEW_APPLICANT_SUBMIT_BTN, 10);
 
+			logger.info("[areBackAndSubmitVisibleOnPreviewAQ] END backVisible=" + backVisible + " submitVisible=" + submitVisible);
 			return backVisible && submitVisible;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "areBackAndSubmitVisibleOnPreviewAQ failed: " + e + LogColor.RESET, e);
+			logger.error("[areBackAndSubmitVisibleOnPreviewAQ] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -509,30 +683,57 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// ***************************************************************************************************************
 	public boolean areAllAddedAQVisibleOnPreview() {
 		try {
-			// make sure we are on Preview AQ screen
-			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) return false;
+			logger.info("[areAllAddedAQVisibleOnPreview] START - verifying added AQ questions on Preview");
+
+			if (addedAQQuestions == null || addedAQQuestions.isEmpty()) {
+				logger.warn("[areAllAddedAQVisibleOnPreview] No stored questions found in addedAQQuestions.");
+				return false;
+			}
+
+			logger.info("[areAllAddedAQVisibleOnPreview] Stored questions count = " + addedAQQuestions.size());
+			logger.info("[areAllAddedAQVisibleOnPreview] Questions = " + addedAQQuestions);
+
+			if (waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE) == null) {
+				logger.warn("[areAllAddedAQVisibleOnPreview] Preview Additional Questions tab is NOT active/found.");
+				return false;
+			}
+			logger.info("[areAllAddedAQVisibleOnPreview] Preview Additional Questions tab is active.");
 
 			int missing = 0;
+			List<String> missingQuestions = new ArrayList<>();
 
-			for (String q : addedAQQuestions) {
-				if (q == null || q.isBlank()) continue;
+			for (int i = 0; i < addedAQQuestions.size(); i++) {
+				String q = addedAQQuestions.get(i);
 
-				// short dynamic XPath: search question text anywhere inside ApplicantFormOV
+				if (q == null || q.isBlank()) {
+					logger.warn("[areAllAddedAQVisibleOnPreview] Question[" + (i + 1) + "] is blank. Skipping.");
+					continue;
+				}
+
+				logger.info("[areAllAddedAQVisibleOnPreview] Checking Question[" + (i + 1) + "]: " + q);
+
 				By qBy = By.xpath(PREVIEW_ROOT_XP + "//*[contains(normalize-space(.), " + xpathLiteral(q) + ")]");
-
-				// using existing waitUpToForVisible helper (10s)
 				boolean found = waitUpToForVisible(qBy, 10);
 
-				if (!found) {
+				if (found) {
+					logger.info("[areAllAddedAQVisibleOnPreview] FOUND: " + q);
+				} else {
 					missing++;
-					logger.warn(LogColor.RED + "Missing question on Preview AQ: " + q + LogColor.RESET);
+					missingQuestions.add(q);
+					logger.warn("[areAllAddedAQVisibleOnPreview] MISSING: " + q);
 				}
 			}
 
-			return missing == 0;
+			if (missing == 0) {
+				logger.info("[areAllAddedAQVisibleOnPreview] PASS - all questions are visible. Count=" + addedAQQuestions.size());
+				return true;
+			}
+
+			logger.warn("[areAllAddedAQVisibleOnPreview] FAIL - missing count=" + missing + " | Missing questions=" + missingQuestions);
+			return false;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "areAllAddedAQVisibleOnPreview failed: " + e + LogColor.RESET, e);
+			logger.error("[areAllAddedAQVisibleOnPreview] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -540,17 +741,26 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// ***************************************************************************************************************
 	public boolean clickBackToApplicationOnPreview() {
 		try {
-			WebElement btn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN);
-			if (btn == null) return false;
+			logger.info("[clickBackToApplicationOnPreview] START");
 
+			WebElement btn = waitForElement(PREVIEW_BACK_TO_APPLICATION_BTN);
+			if (btn == null) {
+				logger.warn("[clickBackToApplicationOnPreview] Back to Application button NOT found. Locator=" + PREVIEW_BACK_TO_APPLICATION_BTN);
+				return false;
+			}
+
+			logger.info("[clickBackToApplicationOnPreview] Clicking Back to Application...");
 			clickAndDraw(btn);
 			waitForPageAndAjaxToLoad();
 
-			// Proof we returned to Builder: Preview Application button should re-appear
-			return waitForElement(BUILDER_PREVIEW_APPLICATION_BTN) != null;
+			logger.info("[clickBackToApplicationOnPreview] Verifying builder is visible again by checking Preview Application button...");
+			boolean ok = waitForElement(BUILDER_PREVIEW_APPLICATION_BTN) != null;
+
+			logger.info("[clickBackToApplicationOnPreview] END success=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "clickBackToApplicationOnPreview failed: " + e + LogColor.RESET, e);
+			logger.error("[clickBackToApplicationOnPreview] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -590,19 +800,23 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean setPublishOpenDateToNow() {
 		try {
+			logger.info("[setPublishOpenDateToNow] START");
+
 			LocalDateTime open = LocalDateTime.now()
-					.plusMinutes(2)              // small buffer to avoid min edge
+					.plusMinutes(2)
 					.withSecond(0).withNano(0);
 
 			DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+			String openVal = open.format(fmt);
 
-			boolean openOk = jsSetDateTimeLocal(PUBLISH_OPEN_DATETIME, open.format(fmt));
+			logger.info("[setPublishOpenDateToNow] Setting Open DateTimeLocal to: " + openVal);
+			boolean openOk = jsSetDateTimeLocal(PUBLISH_OPEN_DATETIME, openVal);
 
-			// Do NOT set Close Date (leave it blank)
+			logger.info("[setPublishOpenDateToNow] END openOk=" + openOk);
 			return openOk;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "setPublishOpenDateToNow failed: " + e + LogColor.RESET, e);
+			logger.error("[setPublishOpenDateToNow] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -611,25 +825,37 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean copyApplicationLinkAndSeeCopied() {
 		try {
-			WebElement btn = waitForElement(PUBLISH_COPY_APP_LINK_BTN); // enabled state (good)
-			if (btn == null) return false;
+			logger.info("[copyApplicationLinkAndSeeCopied] START");
 
+			WebElement btn = waitForElement(PUBLISH_COPY_APP_LINK_BTN);
+			if (btn == null) {
+				logger.warn("[copyApplicationLinkAndSeeCopied] Copy button not found. Locator=" + PUBLISH_COPY_APP_LINK_BTN);
+				return false;
+			}
+
+			logger.info("[copyApplicationLinkAndSeeCopied] Clicking Copy Application Link...");
 			clickAndDraw(btn);
 			waitForPageAndAjaxToLoad();
 
-			// Must NOT use waitForElement here because copied state is disabled
+			logger.info("[copyApplicationLinkAndSeeCopied] Waiting for copied state (copy-msg + disabled)...");
 			boolean copied = waitUpToForVisible(PUBLISH_LINK_COPIED_STATE, 5);
 
-			// Fallback: sometimes text changes but class may differ
 			if (!copied) {
+				logger.info("[copyApplicationLinkAndSeeCopied] Primary copied-state not found. Trying fallback by text...");
 				By copiedByText = By.xpath("//button[contains(@class,'copy-link-button') and normalize-space()='Link Copied']");
 				copied = waitUpToForVisible(copiedByText, 5);
 			}
 
-			return copied;
+			if (copied) {
+				logger.info("[copyApplicationLinkAndSeeCopied] PASS - Link Copied displayed.");
+				return true;
+			}
+
+			logger.warn("[copyApplicationLinkAndSeeCopied] FAIL - Link Copied not displayed.");
+			return false;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "copyApplicationLinkAndSeeCopied failed: " + e + LogColor.RESET, e);
+			logger.error("[copyApplicationLinkAndSeeCopied] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -637,21 +863,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public String addRandomInviteEmailAndVerifyListed() {
 		try {
-			String email = TestDataGenerator.generateTestEmail(); // from CommonMethods
+			String email = TestDataGenerator.generateTestEmail();
+			logger.info("[addRandomInviteEmailAndVerifyListed] START - email generated: " + email);
 
 			WebElement input = waitForElement(PUBLISH_INVITE_EMAIL_INPUT);
-			if (input == null) return null;
+			if (input == null) {
+				logger.warn("[addRandomInviteEmailAndVerifyListed] Email input NOT found. Locator=" + PUBLISH_INVITE_EMAIL_INPUT);
+				return null;
+			}
 
+			logger.info("[addRandomInviteEmailAndVerifyListed] Typing email into input...");
 			clickAndDraw(input);
 			safeSendKeys(input, email);
 
-			// IMPORTANT: trigger blur/validation so Add enables
+			logger.info("[addRandomInviteEmailAndVerifyListed] Triggering validation using TAB...");
 			input.sendKeys(Keys.TAB);
 			waitForMlsec(200);
 
-			// clickAndDrawBy waits until button becomes clickable (enabled)
+			logger.info("[addRandomInviteEmailAndVerifyListed] Clicking Add button. Locator=" + PUBLISH_ADD_EMAIL_BTN);
 			clickAndDrawBy(PUBLISH_ADD_EMAIL_BTN);
-
 			waitForPageAndAjaxToLoad();
 
 			By addedEmail = By.xpath(
@@ -659,16 +889,20 @@ public class ApplicationCreation_POM extends CommonMethods {
 					+ "//span[contains(@class,'td-value') and normalize-space()=" + xpathLiteral(email) + "]"
 					);
 
+			logger.info("[addRandomInviteEmailAndVerifyListed] Verifying email appears in list...");
 			boolean visible = waitUpToForVisible(addedEmail, 10);
 
 			if (visible) {
 				lastInvitedEmail = email;
+				logger.info("[addRandomInviteEmailAndVerifyListed] PASS - email listed: " + email);
 				return email;
 			}
+
+			logger.warn("[addRandomInviteEmailAndVerifyListed] FAIL - email not found in list: " + email);
 			return null;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "addRandomInviteEmailAndVerifyListed failed: " + e + LogColor.RESET, e);
+			logger.error("[addRandomInviteEmailAndVerifyListed] EXCEPTION", e);
 			return null;
 		}
 	}
@@ -676,96 +910,262 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	public boolean deleteLastInvitedEmailAndVerifyRemoved() {
 		try {
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] START");
+
 			if (lastInvitedEmail == null || lastInvitedEmail.isBlank()) {
-				logger.warn("No lastInvitedEmail stored. Add an email before deleting.");
+				logger.warn("[deleteLastInvitedEmailAndVerifyRemoved] lastInvitedEmail is blank. Add email first.");
 				return false;
 			}
+
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Target email to delete: " + lastInvitedEmail);
 
 			By cellBy = inviteEmailCellBy(lastInvitedEmail);
+
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Confirming email exists before delete...");
 			if (!waitUpToForVisible(cellBy, 5)) {
-				logger.warn("Email not present to delete: " + lastInvitedEmail);
+				logger.warn("[deleteLastInvitedEmailAndVerifyRemoved] Email not present in list: " + lastInvitedEmail);
 				return false;
 			}
 
-			// Click trash icon
 			By trashBy = inviteDeleteIconBy(lastInvitedEmail);
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Delete locator: " + trashBy);
 
-			// hover on row/cell first (some UIs only enable actions on hover)
-			try { hoverOver(cellBy); } catch (Exception ignore) {}
+			try {
+				logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Hovering over row...");
+				hoverOver(cellBy);
+			} catch (Exception ignore) {}
 
-			WebElement trash = waitForElement(trashBy);   // presence/visible wait (NOT clickable wait)
-			if (trash == null) return false;
+			WebElement trash = waitForElement(trashBy);
+			if (trash == null) {
+				logger.warn("[deleteLastInvitedEmailAndVerifyRemoved] Delete element NOT found.");
+				return false;
+			}
 
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Clicking delete (JS click)...");
 			scrollScreen(trash);
-
-			// Force click (bypass elementToBeClickable issues)
 			jsclick(driver, trash);
-
 			waitForPageAndAjaxToLoad();
 
-			// If an alert appears, accept it (works only if browser alert is used)
-			try { acceptAlert(); } catch (Exception ignore) {}
-
-			// Verify email disappears
+			logger.info("[deleteLastInvitedEmailAndVerifyRemoved] Verifying email disappears...");
 			long end = System.currentTimeMillis() + 10000;
 			while (System.currentTimeMillis() < end) {
 				if (!isElementPresent(cellBy)) {
+					logger.info("[deleteLastInvitedEmailAndVerifyRemoved] PASS - email removed: " + lastInvitedEmail);
 					return true;
 				}
 				waitForMlsec(200);
 			}
 
+			logger.warn("[deleteLastInvitedEmailAndVerifyRemoved] FAIL - email still present after timeout: " + lastInvitedEmail);
 			return false;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "deleteLastInvitedEmailAndVerifyRemoved failed: " + e + LogColor.RESET, e);
+			logger.error("[deleteLastInvitedEmailAndVerifyRemoved] EXCEPTION", e);
 			return false;
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public boolean clickCompleteOnPublish() {
-	    try {
-	        WebElement btn = waitForElement(PUBLISH_COMPLETE_BTN);
-	        if (btn == null) return false;
+		try {
+			String beforeUrl = driver.getCurrentUrl();
+			logger.info("[clickCompleteOnPublish] START beforeUrl=" + beforeUrl);
 
-	        scrollScreen(btn);
-	        clickAndDraw(btn);
-	        waitForPageAndAjaxToLoad();
+			WebElement btn = waitForElement(PUBLISH_COMPLETE_BTN);
+			if (btn == null) {
+				logger.warn("[clickCompleteOnPublish] Complete button NOT found. Locator=" + PUBLISH_COMPLETE_BTN);
+				return false;
+			}
 
-	        // Proof of completion:
-	        // Option A (recommended): URL no longer contains editapplication
-	        String url = driver.getCurrentUrl();
-	        if (url != null && !url.toLowerCase().contains("editapplication")) {
-	            return true;
-	        }
+			logger.info("[clickCompleteOnPublish] Clicking Complete...");
+			scrollScreen(btn);
+			clickAndDraw(btn);
 
-	        // Option B: button disappears or becomes disabled/loading
-	        boolean stillThere = isElementPresent(PUBLISH_COMPLETE_BTN);
-	        return !stillThere;
+			waitForPageAndAjaxToLoad();
 
-	    } catch (Exception e) {
-	        logger.error(LogColor.RED + "clickCompleteOnPublish failed: " + e + LogColor.RESET, e);
-	        return false;
-	    }
+			String afterUrl = driver.getCurrentUrl();
+			logger.info("[clickCompleteOnPublish] afterUrl=" + afterUrl);
+
+			if (afterUrl != null && !afterUrl.toLowerCase().contains("editapplication")) {
+				logger.info("[clickCompleteOnPublish] PASS - navigated away from editapplication.");
+				return true;
+			}
+
+			boolean stillThere = isElementPresent(PUBLISH_COMPLETE_BTN);
+			logger.info("[clickCompleteOnPublish] Complete still present? " + stillThere);
+
+			boolean ok = !stillThere;
+			logger.info("[clickCompleteOnPublish] END success=" + ok);
+			return ok;
+
+		} catch (Exception e) {
+			logger.error("[clickCompleteOnPublish] EXCEPTION", e);
+			return false;
+		}
 	}
-	
+
+	//	***************************************************************************************************************
+	public String getAQQuestionRequiredMessageText() {
+		try {
+			logger.info("[getAQQuestionRequiredMessageText] START");
+
+			if (!isElementPresent(AQ_REQUIRED_MSG_OPEN_FORM)) {
+				logger.warn("[getAQQuestionRequiredMessageText] Required message not present.");
+				return null;
+			}
+
+			WebElement msgEl = driver.findElement(AQ_REQUIRED_MSG_OPEN_FORM);
+			String msg = msgEl.getText().trim();
+
+			logger.info("[getAQQuestionRequiredMessageText] END msg='" + msg + "'");
+			return msg;
+
+		} catch (Exception e) {
+			logger.error("[getAQQuestionRequiredMessageText] EXCEPTION", e);
+			return null;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean isAQSaveButtonDisabled() {
+		try {
+			logger.info("[isAQSaveButtonDisabled] START");
+
+			WebElement qInput = waitForElement(AQ_QUESTION_INPUT_OPEN);
+			if (qInput == null) {
+				logger.warn("[isAQSaveButtonDisabled] Question input not found, cannot scope Save button.");
+				return false;
+			}
+
+			WebElement saveBtn = qInput.findElement(By.xpath(AQ_SAVE_BTN_RELATIVE_TO_INPUT));
+
+			String disabledAttr = saveBtn.getAttribute("disabled");
+			boolean enabledState = saveBtn.isEnabled();
+			boolean disabled = (disabledAttr != null) || (!enabledState);
+
+			logger.info("[isAQSaveButtonDisabled] SaveBtnFound=true | isEnabled=" + enabledState
+					+ " | disabledAttr=" + disabledAttr + " | RESULT disabled=" + disabled);
+
+			return disabled;
+
+		} catch (Exception e) {
+			logger.error("[isAQSaveButtonDisabled] EXCEPTION", e);
+			return false;
+		}
+	} 
+
+	//	***************************************************************************************************************
+	public boolean clickDeleteIconForCurrentAdditionalQuestion() {
+		try {
+			logger.info("[clickDeleteIconForCurrentAdditionalQuestion] START");
+
+			List<WebElement> buttons = driver.findElements(AQ_DELETE_ICON_BTN);
+			logger.info("[clickDeleteIconForCurrentAdditionalQuestion] Found delete buttons count=" + buttons.size());
+
+			WebElement target = null;
+			for (WebElement b : buttons) {
+				if (b.isDisplayed()) { target = b; break; }
+			}
+
+			if (target == null) {
+				logger.warn("[clickDeleteIconForCurrentAdditionalQuestion] No displayed delete icon found.");
+				return false;
+			}
+
+			scrollScreen(target);
+			jsclick(driver, target);     // safest for overlay/hover containers
+			waitForMlsec(300);           // small animation buffer
+
+			boolean popup = isDeleteQuestionPopupVisible();
+			logger.info("[clickDeleteIconForCurrentAdditionalQuestion] END popupVisible=" + popup);
+			return popup;
+
+		} catch (Exception e) {
+			logger.error("[clickDeleteIconForCurrentAdditionalQuestion] EXCEPTION", e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean isDeleteQuestionPopupVisible() {
+		try {
+			logger.info("[isDeleteQuestionPopupVisible] START");
+
+			boolean visible = waitUpToForVisible(AQ_DELETE_POPUP, 5);
+
+			logger.info("[isDeleteQuestionPopupVisible] END visible=" + visible);
+			return visible;
+
+		} catch (Exception e) {
+			logger.error("[isDeleteQuestionPopupVisible] EXCEPTION", e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public boolean clickDeletePopupButton(String btnText) {
+		try {
+			logger.info("Formatting the X path of Button: "+btnText);
+			String formattedXpath = String.format(AQ_Delete_popUp_buttons, btnText);
+			logger.info("X path of Button: "+formattedXpath);
+
+			By byLocator = By.xpath(formattedXpath);
+
+			waitForElement(byLocator);
+
+			logger.info("Looking for the Button: "+btnText);
+			boolean visible = isElementPresent(byLocator);
+
+			if(visible) {
+
+				logger.info("Clicking on the Button: "+btnText);
+				clickAndDrawBy(byLocator);
+				logger.info("Clicked on the Button: "+btnText);
+
+				return true;
+			}
+			else {
+				return false;
+			}		
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+
+
+
+
+
 	//	***************************************************************************************************************
 	//	Helper Methods
 	//	***************************************************************************************************************
 	private boolean openNewAdditionalQuestionForm() {
 		try {
-			WebElement addBtn = waitForElement(AQ_ADD_NEW_QUESTION_BTN_ENABLED);
-			if (addBtn == null) return false;
+			logger.info("[openNewAdditionalQuestionForm] START");
 
+			WebElement addBtn = waitForElement(AQ_ADD_NEW_QUESTION_BTN_ENABLED);
+			if (addBtn == null) {
+				logger.warn("[openNewAdditionalQuestionForm] Enabled 'Add New Question' button NOT found.");
+				return false;
+			}
+
+			logger.info("[openNewAdditionalQuestionForm] Clicking enabled Add New Question...");
 			scrollScreen(addBtn);
 			clickAndDraw(addBtn);
 
 			WebElement q = waitForElement(AQ_QUESTION_INPUT);
-			return q != null;
+			boolean ok = (q != null);
+
+			logger.info("[openNewAdditionalQuestionForm] END formOpened=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "openNewAdditionalQuestionForm failed: " + e + LogColor.RESET, e);
+			logger.error("[openNewAdditionalQuestionForm] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -773,65 +1173,83 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	private boolean addOneAdditionalQuestion(String type, String question, String instruction, boolean required) {
 		try {
-			WebElement qInput = waitForElement(AQ_QUESTION_INPUT);
-			if (qInput == null) return false;
+			logger.info("[addOneAdditionalQuestion] START type='" + type + "' required=" + required
+					+ " question='" + question + "'");
 
+			WebElement qInput = waitForElement(AQ_QUESTION_INPUT);
+			if (qInput == null) {
+				logger.warn("[addOneAdditionalQuestion] Question input NOT found.");
+				return false;
+			}
+
+			logger.info("[addOneAdditionalQuestion] Setting question text...");
 			scrollScreen(qInput);
 			clickAndDraw(qInput);
 			safeSendKeys(qInput, question);
 
 			WebElement editor = waitForElement(AQ_INSTRUCTION_EDITOR);
-			if (editor == null) return false;
+			if (editor == null) {
+				logger.warn("[addOneAdditionalQuestion] Instruction editor NOT found.");
+				return false;
+			}
 
+			logger.info("[addOneAdditionalQuestion] Setting instruction...");
 			clickAndDraw(editor);
 			editor.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			editor.sendKeys(Keys.BACK_SPACE);
-
-			if (instruction != null && !instruction.isBlank()) {
-				editor.sendKeys(instruction);
-			}
+			if (instruction != null && !instruction.isBlank()) editor.sendKeys(instruction);
 
 			WebElement selectEl = waitForElement(AQ_ANSWER_TYPE_SELECT);
-			if (selectEl == null) return false;
+			if (selectEl == null) {
+				logger.warn("[addOneAdditionalQuestion] Answer Type select NOT found.");
+				return false;
+			}
 
-			Select sel = new Select(selectEl);
-			sel.selectByVisibleText(type);
+			logger.info("[addOneAdditionalQuestion] Selecting answer type='" + type + "'");
+			new Select(selectEl).selectByVisibleText(type);
 
 			if ("Single Choice".equalsIgnoreCase(type)) {
-				boolean ok = addChoiceOptions(Arrays.asList("Option 1", "Option 2"));
-				if (!ok) return false;
+				logger.info("[addOneAdditionalQuestion] Adding Single Choice options...");
+				if (!addChoiceOptions(Arrays.asList("Option 1", "Option 2"))) return false;
 			}
 
 			if ("Multiple Choice".equalsIgnoreCase(type)) {
-				boolean ok = addChoiceOptions(Arrays.asList("Option 1", "Option 2", "Option 3"));
-				if (!ok) return false;
+				logger.info("[addOneAdditionalQuestion] Adding Multiple Choice options...");
+				if (!addChoiceOptions(Arrays.asList("Option 1", "Option 2", "Option 3"))) return false;
 			}
 
-			// ✅ File requires selecting the file type before saving
 			if ("File".equalsIgnoreCase(type)) {
-				// Default to PDF (matches your instruction “PDF only”)
-				boolean ok = selectFileType("PDF");
-				if (!ok) return false;
+				logger.info("[addOneAdditionalQuestion] File type detected. Selecting file type PDF...");
+				if (!selectFileType("PDF")) return false;
 			}
-
-
 
 			WebElement req = waitForElement(AQ_REQUIRED_CHECKBOX);
-			if (req == null) return false;
+			if (req == null) {
+				logger.warn("[addOneAdditionalQuestion] Required checkbox NOT found.");
+				return false;
+			}
 
+			logger.info("[addOneAdditionalQuestion] Setting required checkbox to=" + required);
 			if (required && !req.isSelected()) clickAndDraw(req);
 			if (!required && req.isSelected()) clickAndDraw(req);
 
 			WebElement saveBtn = waitForElement(AQ_SAVE_BUTTON);
-			if (saveBtn == null) return false;
+			if (saveBtn == null) {
+				logger.warn("[addOneAdditionalQuestion] Save button NOT found.");
+				return false;
+			}
 
+			logger.info("[addOneAdditionalQuestion] Clicking Save...");
 			clickAndDraw(saveBtn);
 
 			WebElement addBtn = waitForElement(AQ_ADD_NEW_QUESTION_BTN_ENABLED);
-			return addBtn != null;
+			boolean ok = addBtn != null;
+
+			logger.info("[addOneAdditionalQuestion] END saved=" + ok);
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "addOneAdditionalQuestion failed: " + e + LogColor.RESET, e);
+			logger.error("[addOneAdditionalQuestion] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -839,18 +1257,30 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	private boolean addChoiceOptions(List<String> options) {
 		try {
-			WebElement addBtn = waitForElement(AQ_ADD_OPTION_BTN);
-			if (addBtn == null) return false;
+			logger.info("[addChoiceOptions] START options=" + options);
 
+			WebElement addBtn = waitForElement(AQ_ADD_OPTION_BTN);
+			if (addBtn == null) {
+				logger.warn("[addChoiceOptions] Add Option button NOT found.");
+				return false;
+			}
+
+			// Display As is optional
 			try {
 				if (isElementPresent(AQ_DISPLAY_AS_CHECKBOX)) {
+					logger.info("[addChoiceOptions] Display As: clicking Checkbox");
 					clickAndDraw(waitForElement(AQ_DISPLAY_AS_CHECKBOX));
 				} else if (isElementPresent(AQ_DISPLAY_AS_RADIO)) {
+					logger.info("[addChoiceOptions] Display As: clicking Radio");
 					clickAndDraw(waitForElement(AQ_DISPLAY_AS_RADIO));
+				} else {
+					logger.info("[addChoiceOptions] Display As not present (skipping).");
 				}
 			} catch (Exception ignore) {}
 
 			for (String opt : options) {
+				logger.info("[addChoiceOptions] Adding option='" + opt + "'");
+
 				WebElement addBtn2 = waitForElement(AQ_ADD_OPTION_BTN);
 				if (addBtn2 == null) return false;
 
@@ -861,15 +1291,15 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 				clickAndDraw(optionInput);
 				safeSendKeys(optionInput, opt);
-
 				optionInput.sendKeys(Keys.ENTER);
 				waitForMlsec(200);
 			}
 
+			logger.info("[addChoiceOptions] END success=true");
 			return true;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "addChoiceOptions failed: " + e + LogColor.RESET, e);
+			logger.error("[addChoiceOptions] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -877,28 +1307,31 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	private boolean selectFileType(String expectedType) {
 		try {
-			logger.info("Selecting File Type: " + expectedType);
+			logger.info("[selectFileType] START expectedType='" + expectedType + "'");
 
 			WebElement selectEl = waitForElement(AQ_FILE_TYPE_SELECT);
-			if (selectEl == null) return false;
+			if (selectEl == null) {
+				logger.warn("[selectFileType] File type select NOT found.");
+				return false;
+			}
 
 			Select sel = new Select(selectEl);
 
-			// Some options are like "PDF (.pdf)" so we use CONTAINS match
 			for (WebElement opt : sel.getOptions()) {
 				String text = opt.getText().trim();
 				if (text.equalsIgnoreCase(expectedType) || text.toLowerCase().contains(expectedType.toLowerCase())) {
+					logger.info("[selectFileType] Selecting option='" + text + "'");
 					opt.click();
-					logger.info("Selected File Type option: " + text);
+					logger.info("[selectFileType] END success=true");
 					return true;
 				}
 			}
 
-			logger.warn("No matching File Type option found for: " + expectedType);
+			logger.warn("[selectFileType] No matching option found for '" + expectedType + "'");
 			return false;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "selectFileType failed: " + e + LogColor.RESET, e);
+			logger.error("[selectFileType] EXCEPTION", e);
 			return false;
 		}
 	}
@@ -932,24 +1365,41 @@ public class ApplicationCreation_POM extends CommonMethods {
 	//	***************************************************************************************************************
 	private boolean jsSetDateTimeLocal(By inputBy, String value) {
 		try {
-			WebElement el = waitForElement(inputBy);
-			if (el == null) return false;
+			logger.info("[jsSetDateTimeLocal] START locator=" + inputBy + " value=" + value);
 
-			// value format must be: yyyy-MM-ddTHH:mm
+			WebElement el = waitForElement(inputBy);
+			if (el == null) {
+				logger.warn("[jsSetDateTimeLocal] Input NOT found. locator=" + inputBy);
+				return false;
+			}
+
 			String script =
 					"arguments[0].value = arguments[1];" +
 							"arguments[0].dispatchEvent(new Event('input', {bubbles:true}));" +
 							"arguments[0].dispatchEvent(new Event('change', {bubbles:true}));";
+
 			((JavascriptExecutor) driver).executeScript(script, el, value);
 
 			String actual = el.getAttribute("value");
-			return actual != null && actual.startsWith(value);
+			boolean ok = actual != null && actual.startsWith(value);
+
+			logger.info("[jsSetDateTimeLocal] actualValue='" + actual + "' | success=" + ok);
+			logger.info("[jsSetDateTimeLocal] END");
+			return ok;
 
 		} catch (Exception e) {
-			logger.error(LogColor.RED + "jsSetDateTimeLocal failed: " + e + LogColor.RESET, e);
+			logger.error("[jsSetDateTimeLocal] EXCEPTION locator=" + inputBy + " value=" + value, e);
 			return false;
 		}
 	}
 
+	//	***************************************************************************************************************
+	private WebElement getVisibleDeletePopup() {
+		List<WebElement> popups = driver.findElements(AQ_DELETE_POPUP);
+		for (WebElement p : popups) {
+			if (p.isDisplayed()) return p;
+		}
+		return null;
+	}
 
 }

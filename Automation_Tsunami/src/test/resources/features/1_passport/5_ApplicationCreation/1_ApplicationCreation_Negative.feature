@@ -1,5 +1,5 @@
-@ApplicationCreation @ApplicationCreation-pos @passport @passport-pos @demo
-Feature: Positive tests on Application Creation Feature
+@ApplicationCreation @ApplicationCreation-neg @passport @passport-neg @demo
+Feature: Negative tests on Application Creation Feature
 
   Background: 
     Given User clicks on "Log In" button from Homepage
@@ -20,7 +20,7 @@ Feature: Positive tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_08
+  @Tc_010
   Scenario: Create new application and redirect to builder
     Then User enters "applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
@@ -31,24 +31,10 @@ Feature: Positive tests on Application Creation Feature
     And User scrolls to "Additional Questions" section
     And User clicks on "Add New Question" in Additional Questions section
     Then User should see the New Question form
-    And User fills the Additional Questions form with the following data
-      | Type    | Question                                   | Instruction                               | Required |
-      | Address | What is your company headquarters address? | Street, City, State, Postal Code, Country | Yes      |
-    And User clicks on "Save & Continue" button on the Application Builder page
-    And User clicks on "Preview Application" button on the Application Builder page
-    Then User should be on the Preview Application page
-    #And Applicant should be on the Preview Standard Questions section
-    And Applicant clicks on "Save & Continue" button on the Preview Application page
-    Then Applicant should be on the Preview Additional Questions section
-    And Applicant should see all added Additional Questions on the Preview page
-    And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
-    And User clicks on "Back to Application" button on the Preview Application page
-    And User clicks on "Save & Continue" button on the Application Builder page
-    #Then User sets the Publish Open Date to now and Close Date to one month from now
-    Then User sets the Publish Open Date to now
-    Then User copies the Application Link on the Publish page
-    Then User adds a random invite email and verifies it appears in the list
-    Then User deletes the last added invite email and verifies it is removed
-    Then User clicks on "Complete" button on the Publish page
-    And User logs out
-    Then User should be redirected to the page with title of "StartUp_page_title"
+    # 1) Untitled question validations (empty)
+    Then User should see "This field is required" validation message for Additional Question
+    And Additional Question "Save" button should be disabled
+    # 2) Delete popup for UNTITLED question -> verify warning -> click NO (do not delete)
+    When User clicks on the delete icon for the current Additional Question
+    Then User should see the Delete Question popup
+    And User clicks on "No, Go Back" in the Delete Question popup

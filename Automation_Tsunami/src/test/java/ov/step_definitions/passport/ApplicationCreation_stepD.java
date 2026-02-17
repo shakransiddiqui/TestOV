@@ -362,26 +362,110 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Failed to delete invite email or it still appears in the list."
 				);
 	}
-	
-//	***************************************************************************************************************
+
+	//	***************************************************************************************************************
 	@Then("User clicks on {string} button on the Publish page")
 	public void user_clicks_on_button_on_the_publish_page(String buttonText) {
 
-	    logger.info("Clicking on Publish page button: " + buttonText);
+		logger.info("Clicking on Publish page button: " + buttonText);
 
-	    boolean clicked = false;
+		boolean clicked = false;
 
-	    if ("Complete".equalsIgnoreCase(buttonText)) {
-	        clicked = applicationCreation_pom.clickCompleteOnPublish();
-	    } else {
-	        logger.warn("Unsupported Publish button in this step: " + buttonText);
-	        clicked = false;
-	    }
+		if ("Complete".equalsIgnoreCase(buttonText)) {
+			clicked = applicationCreation_pom.clickCompleteOnPublish();
+		} else {
+			logger.warn("Unsupported Publish button in this step: " + buttonText);
+			clicked = false;
+		}
 
-	    softAssert.softAssertTrue(
-	            clicked,
-	            "Clicked on Publish button: " + buttonText,
-	            "Failed to click on Publish button: " + buttonText
-	    );
+		softAssert.softAssertTrue(
+				clicked,
+				"Clicked on Publish button: " + buttonText,
+				"Failed to click on Publish button: " + buttonText
+				);
 	}
+
+
+	//	*****************************Steps for Negative tests************************************************************
+
+	@Then("User should see {string} validation message for Additional Question")
+	public void user_should_see_validation_message_for_additional_question(String expectedMsg) {
+
+		logger.info("Verifying AQ validation message: " + expectedMsg);
+
+		String actualMsg = applicationCreation_pom.getAQQuestionRequiredMessageText();
+
+		softAssert.softAssertTrue(
+				actualMsg != null && actualMsg.trim().equals(expectedMsg.trim()),
+				"Validation message matched. Actual='" + actualMsg + "'",
+				"Validation message mismatch. Expected='" + expectedMsg + "' | Actual='" + actualMsg + "'"
+				);
+	}
+
+
+	//	***************************************************************************************************************
+	@Then("Additional Question {string} button should be disabled")
+	public void additional_question_button_should_be_disabled(String buttonText) {
+
+		logger.info("Verifying Additional Question button is disabled: " + buttonText);
+
+		boolean disabled = applicationCreation_pom.isAQSaveButtonDisabled();
+
+		softAssert.softAssertTrue(
+				disabled,
+				"AQ '" + buttonText + "' button is disabled (expected).",
+				"AQ '" + buttonText + "' button is NOT disabled (unexpected)."
+				);
+	}
+
+	//	***************************************************************************************************************
+	@When("User clicks on the delete icon for the current Additional Question")
+	public void user_clicks_on_delete_icon_for_current_additional_question() {
+
+		logger.info("Clicking delete icon for the current open Additional Question...");
+
+		boolean ok = applicationCreation_pom.clickDeleteIconForCurrentAdditionalQuestion();
+
+		softAssert.softAssertTrue(
+				ok,
+				"Delete icon clicked and popup opened.",
+				"Failed to click delete icon OR popup did not open."
+				);
+	}
+
+
+	//	***************************************************************************************************************
+	@Then("User should see the Delete Question popup")
+	public void user_should_see_the_delete_question_popup() {
+
+		logger.info("Verifying Delete Question popup is visible...");
+
+		boolean visible = applicationCreation_pom.isDeleteQuestionPopupVisible();
+
+		softAssert.softAssertTrue(
+				visible,
+				"Delete Question popup is visible.",
+				"Delete Question popup is NOT visible."
+				);
+	}
+
+
+	//	***************************************************************************************************************
+	@Then("User clicks on {string} in the Delete Question popup")
+	public void user_clicks_on_in_the_delete_question_popup(String btnText) {
+
+		logger.info("Clicking '" + btnText + "' in Delete Question popup...");
+
+		boolean ok = applicationCreation_pom.clickDeletePopupButton(btnText);
+
+		softAssert.softAssertTrue(
+				ok,
+				"Clicked '" + btnText + "' in Delete Question popup.",
+				"Failed to click '" + btnText + "' in Delete Question popup."
+				);
+	}
+
+
+
+
 }
