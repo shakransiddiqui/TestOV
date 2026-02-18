@@ -1,17 +1,8 @@
-/.metadata/
-Results/
-target/
-screenshot/
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-logs/target/
-=======
-logs/
->>>>>>> Stashed changes
-=======
-logs/
->>>>>>> Stashed changes
-
-# build output
-**/target/
-.cucumber/
+/Automation_Tsunami/Results/
+/Automation_Tsunami/screenshot/
+/Automation_Tsunami/target/
+/Automation_Tsunami/logs/
+*.log
+/target/
+/screenshot/
+/Results/
