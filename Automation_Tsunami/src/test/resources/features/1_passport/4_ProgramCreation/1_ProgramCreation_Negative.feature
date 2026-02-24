@@ -1,4 +1,4 @@
-@ProgramCreation @ProgramCreation-neg @passport @passport-neg   @demo
+@ProgramCreation @ProgramCreation-neg @passport  @demo
 Feature: Negative tests on Program Creation Feature
 
   Background: 
@@ -11,7 +11,7 @@ Feature: Negative tests on Program Creation Feature
     Then User clicks on "Create a new program" button
     Then User should be redirected to the page with title of "CreateProgram_page_title"
 
-  @Tc_009
+  @Tc_009   @passport-neg
   Scenario Outline: Verify Program Details highlights missing required fields when <Case>
     When User enters "<programTitle>" into the "Program Title" field of Program Details
     And User enters "<location>" into the "Location" field of Program Details
@@ -29,3 +29,18 @@ Feature: Negative tests on Program Creation Feature
       | Location is empty            | programTitle | EMPTY    | programType | programDescription | Location            |
       | Program Type is empty        | programTitle | location | EMPTY       | programDescription | Program Type        |
       | Program Description is empty | programTitle | location | programType | EMPTY              | Program Description |
+
+  @Tc_010   @passport-neg
+  Scenario: Verify that user can not select more than 5 perks
+    Then User enters "programTitle" into the "Program Title" field of Program Details
+    Then User enters "location" into the "Location" field of Program Details
+    Then User enters "programType" into the "Program Type" field of Program Details
+    Then User enters "programDescription" into the "Program Description" field of Program Details
+    Then User selects 1 industries
+    And User closes the industries dropdown
+    Then User clicks on "Save & Continue" button
+    Then User should see "Member Perks"
+    Then User attempts to select 6 perks and selection is capped at 5
+    Then User clicks on "Cancel button"
+    And User logs out
+    Then User should be redirected to the page with title of "StartUp_page_title"

@@ -42,8 +42,13 @@ public class ProgramCreation_POM extends CommonMethods {
 	private static final By INDUSTRY_SEARCH_INPUT = By.cssSelector("input[name='searchindustries']");
 	private static final By INDUSTRY_ITEMS = By.cssSelector("ul.dropdown-list > li");
 	private static final By INDUSTRY_PILLS = By.cssSelector("div.sector-pill-container > *");
+	
+	private static final By PROGRAM_CREATION_buttons = By.xpath("//button[text()='Cancel']");
+	
+	
 
-
+	
+	
 
 	//	******************Locator Format Template Strings****************************************************************************
 
@@ -61,7 +66,7 @@ public class ProgramCreation_POM extends CommonMethods {
 
 	//For Program Description
 	private static final String ProgramDetails_ProgramDescription_editor =  "//label[contains(normalize-space(.), '%s')]/following::div[contains(@class,'ql-editor') and @contenteditable='true'][1]";
-	
+
 	//For Industries
 	private static final By INDUSTRY_CHECKED = By.cssSelector("ul.dropdown-list input[type='checkbox']:checked");
 
@@ -73,20 +78,23 @@ public class ProgramCreation_POM extends CommonMethods {
 	private static final By PERK_CHECKED =
 			By.cssSelector("div.rewards-perk-item input[type='checkbox']:checked");
 
+	private static final By PERK_LIMIT_REACHED =
+			By.cssSelector("div.rewards-perk-item.limit-reached");
+
 	//	**************** Actions ***********************************************************************************
 
 	public String passFieldValue(String fieldElement_Value, String fieldElement_Name) {	
 		try {
 			if (fieldElement_Value == null) fieldElement_Value = "";
-			
+
 			if ("Program Type".equalsIgnoreCase(fieldElement_Name)) {
 
-			    if (fieldElement_Value.isBlank()) {
-			        logger.info("Program Type is EMPTY -> leaving it unselected.");
-			        return "Select an option";  // placeholder text is OK
-			    }
+				if (fieldElement_Value.isBlank()) {
+					logger.info("Program Type is EMPTY -> leaving it unselected.");
+					return "Select an option";  // placeholder text is OK
+				}
 
-			    return selectProgramType(fieldElement_Value);
+				return selectProgramType(fieldElement_Value);
 			}
 
 			String formattedXpath ="null";
@@ -113,23 +121,23 @@ public class ProgramCreation_POM extends CommonMethods {
 			// SPECIAL handling for Program Description (Quill editor)
 			if ("Program Description".equalsIgnoreCase(fieldElement_Name)) {
 
-			    logger.info("Typing into Program Description rich text editor...");
+				logger.info("Typing into Program Description rich text editor...");
 
-			    clickAndDraw(field);
+				clickAndDraw(field);
 
-			    // clear existing text first
-			    field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			    field.sendKeys(Keys.BACK_SPACE);
+				// clear existing text first
+				field.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+				field.sendKeys(Keys.BACK_SPACE);
 
-			    // type only if not empty
-			    if (!fieldElement_Value.isBlank()) {
-			        field.sendKeys(fieldElement_Value);
-			    }
+				// type only if not empty
+				if (!fieldElement_Value.isBlank()) {
+					field.sendKeys(fieldElement_Value);
+				}
 
-			    String actualFieldValue = field.getText().trim();
-			    logger.info(LogColor.DarkGreen + "Actual Program Description: " + actualFieldValue + LogColor.RESET);
+				String actualFieldValue = field.getText().trim();
+				logger.info(LogColor.DarkGreen + "Actual Program Description: " + actualFieldValue + LogColor.RESET);
 
-			    return actualFieldValue;
+				return actualFieldValue;
 			}
 
 			logger.info("Clicking on the Field: "+fieldElement_Name);
@@ -141,9 +149,9 @@ public class ProgramCreation_POM extends CommonMethods {
 			// SPECIAL handling for Location autocomplete
 			if ("Location".equalsIgnoreCase(fieldElement_Name) && !fieldElement_Value.isBlank()) {
 
-			    logger.info("Selecting first location suggestion from dropdown");
-			    WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
-			    clickAndDraw(suggestion);
+				logger.info("Selecting first location suggestion from dropdown");
+				WebElement suggestion = waitForElement(By.xpath(locationSuggestion));
+				clickAndDraw(suggestion);
 			}
 
 			logger.info("Making sure value is filled up on the Field: "+fieldElement_Name);
@@ -233,129 +241,208 @@ public class ProgramCreation_POM extends CommonMethods {
 
 	//	***************************************************************************************************************
 	public int selectRandomIndustries(int howMany) {
-	    try {
-	        logger.info("Selecting industries. Requested count = " + howMany);
+		try {
+			logger.info("Selecting industries. Requested count = " + howMany);
 
-	        // 1) Open dropdown
-	        WebElement input = waitForElement(INDUSTRY_SEARCH_INPUT);
-	        scrollScreen(input);
-	        clickAndDraw(input);
+			// 1) Open dropdown
+			WebElement input = waitForElement(INDUSTRY_SEARCH_INPUT);
+			scrollScreen(input);
+			clickAndDraw(input);
 
-	        // 2) Wait for items
-	        List<WebElement> items = driver.findElements(INDUSTRY_ITEMS);
-	        long end = System.currentTimeMillis() + 5000;
-	        while (items.size() == 0 && System.currentTimeMillis() < end) {
-	            waitForMlsec(200);
-	            items = driver.findElements(INDUSTRY_ITEMS);
-	        }
-	        if (items.isEmpty()) {
-	            logger.error(LogColor.RED + "Industries dropdown has no items." + LogColor.RESET);
-	            return 0;
-	        }
-	        logger.info("Industries available = " + items.size());
+			// 2) Wait for items
+			List<WebElement> items = driver.findElements(INDUSTRY_ITEMS);
+			long end = System.currentTimeMillis() + 5000;
+			while (items.size() == 0 && System.currentTimeMillis() < end) {
+				waitForMlsec(200);
+				items = driver.findElements(INDUSTRY_ITEMS);
+			}
+			if (items.isEmpty()) {
+				logger.error(LogColor.RED + "Industries dropdown has no items." + LogColor.RESET);
+				return 0;
+			}
+			logger.info("Industries available = " + items.size());
 
-	        // 3) Clear existing selections (IMPORTANT for Count=0 scenario)
-	        List<WebElement> checked = driver.findElements(INDUSTRY_CHECKED);
-	        if (!checked.isEmpty()) {
-	            logger.info("Clearing pre-selected industries. Checked=" + checked.size());
-	            for (WebElement cb : checked) {
-	                clickAndDraw(cb); // toggles off
-	            }
+			// 3) Clear existing selections (IMPORTANT for Count=0 scenario)
+			List<WebElement> checked = driver.findElements(INDUSTRY_CHECKED);
+			if (!checked.isEmpty()) {
+				logger.info("Clearing pre-selected industries. Checked=" + checked.size());
+				for (WebElement cb : checked) {
+					clickAndDraw(cb); // toggles off
+				}
 
-	            // wait until cleared
-	            long endClear = System.currentTimeMillis() + 3000;
-	            while (!driver.findElements(INDUSTRY_CHECKED).isEmpty() && System.currentTimeMillis() < endClear) {
-	                waitForMlsec(150);
-	            }
-	        }
+				// wait until cleared
+				long endClear = System.currentTimeMillis() + 3000;
+				while (!driver.findElements(INDUSTRY_CHECKED).isEmpty() && System.currentTimeMillis() < endClear) {
+					waitForMlsec(150);
+				}
+			}
 
-	        // 4) If requested 0, return 0 after clearing
-	        if (howMany <= 0) {
-	            int now = driver.findElements(INDUSTRY_CHECKED).size();
-	            logger.info("Requested 0 industries. Checked now = " + now);
-	            return now; // should be 0
-	        }
+			// 4) If requested 0, return 0 after clearing
+			if (howMany <= 0) {
+				int now = driver.findElements(INDUSTRY_CHECKED).size();
+				logger.info("Requested 0 industries. Checked now = " + now);
+				return now; // should be 0
+			}
 
-	        int target = Math.min(howMany, items.size());
+			int target = Math.min(howMany, items.size());
 
-	        // 5) Pick unique random indexes
-	        Set<Integer> picks = new LinkedHashSet<>();
-	        while (picks.size() < target) {
-	            picks.add(randInt(0, items.size() - 1));
-	        }
+			// 5) Pick unique random indexes
+			Set<Integer> picks = new LinkedHashSet<>();
+			while (picks.size() < target) {
+				picks.add(randInt(0, items.size() - 1));
+			}
 
-	        // 6) Click each checkbox (stable)
-	        for (int idx : picks) {
-	            // Re-fetch list to reduce stale issues
-	            List<WebElement> freshItems = driver.findElements(INDUSTRY_ITEMS);
-	            WebElement li = freshItems.get(idx);
+			// 6) Click each checkbox (stable)
+			for (int idx : picks) {
+				// Re-fetch list to reduce stale issues
+				List<WebElement> freshItems = driver.findElements(INDUSTRY_ITEMS);
+				WebElement li = freshItems.get(idx);
 
-	            // click the checkbox inside the li
-	            WebElement cb = li.findElement(By.cssSelector("input[type='checkbox']"));
+				// click the checkbox inside the li
+				WebElement cb = li.findElement(By.cssSelector("input[type='checkbox']"));
 
-	            logger.info("Selecting industry: " + li.getText().trim());
-	            clickAndDraw(cb);
-	        }
+				logger.info("Selecting industry: " + li.getText().trim());
+				clickAndDraw(cb);
+			}
 
-	        // 7) Verify by counting checked checkboxes (NOT pills)
-	        int selectedCount = driver.findElements(INDUSTRY_CHECKED).size();
-	        long end2 = System.currentTimeMillis() + 3000;
-	        while (selectedCount != target && System.currentTimeMillis() < end2) {
-	            waitForMlsec(150);
-	            selectedCount = driver.findElements(INDUSTRY_CHECKED).size();
-	        }
+			// 7) Verify by counting checked checkboxes (NOT pills)
+			int selectedCount = driver.findElements(INDUSTRY_CHECKED).size();
+			long end2 = System.currentTimeMillis() + 3000;
+			while (selectedCount != target && System.currentTimeMillis() < end2) {
+				waitForMlsec(150);
+				selectedCount = driver.findElements(INDUSTRY_CHECKED).size();
+			}
 
-	        logger.info(LogColor.DarkGreen + "Selected industries checked count = " + selectedCount + LogColor.RESET);
-	        return selectedCount;
+			logger.info(LogColor.DarkGreen + "Selected industries checked count = " + selectedCount + LogColor.RESET);
+			return selectedCount;
 
-	    } catch (Exception e) {
-	        logger.error(LogColor.RED + "Problem in Try Block" + LogColor.RESET, e);
-	        return 0;
-	    }
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "Problem in Try Block" + LogColor.RESET, e);
+			return 0;
+		}
 	}
+
+	//	***************************************************************************************************************
+	public boolean closeIndustriesDropdown() {
+		try {
+			logger.info("Attempting to close Industries dropdown...");
+
+			WebElement input = waitForElement(INDUSTRY_SEARCH_INPUT);
+			clickAndDraw(input); // focus it
+			input.sendKeys(Keys.ESCAPE);
+
+			if (waitUntilIndustriesDropdownClosed(3)) return true;
+
+			// fallback: click outside
+			driver.findElement(By.tagName("body")).click();
+
+			return waitUntilIndustriesDropdownClosed(3);
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED + "Failed while trying to close Industries dropdown." + LogColor.RESET, e);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
+	public int attemptSelectPerksNoCap(int requested) {
+		try {
+			logger.info("Attempt selecting perks (NO CAP). Requested = " + requested);
+
+			// 1) clear existing selections
+			for (WebElement cb : driver.findElements(PERK_CHECKED)) {
+				clickAndDraw(cb);
+			}
+
+			// 2) click first N unique cards (or randomize if you prefer)
+			List<WebElement> cards = driver.findElements(PERK_CARDS);
+			if (cards.isEmpty()) return 0;
+
+			int attempts = Math.min(requested, cards.size());
+
+			for (int i = 0; i < attempts; i++) {
+				// re-fetch to reduce stale
+				WebElement card = driver.findElements(PERK_CARDS).get(i);
+				scrollScreen(card);
+				clickAndDraw(card);
+				waitForMlsec(200);
+			}
+
+			return driver.findElements(PERK_CHECKED).size();
+
+		} catch (Exception e) {
+			logger.error("attemptSelectPerksNoCap failed", e);
+			return 0;
+		}
+	}
+
+	public int getLimitReachedCount() {
+		return driver.findElements(PERK_LIMIT_REACHED).size();
+	}
+
+	public int waitForLimitReachedCount(int seconds) {
+	    long end = System.currentTimeMillis() + (seconds * 1000L);
+	    int c = getLimitReachedCount();
+	    while (c == 0 && System.currentTimeMillis() < end) {
+	        waitForMlsec(150);
+	        c = getLimitReachedCount();
+	    }
+	    return c;
+	}
+
 	
 //	***************************************************************************************************************
-	public boolean closeIndustriesDropdown() {
-	    try {
-	        logger.info("Attempting to close Industries dropdown...");
+	public boolean clickOnCancel(String buttonName) {
 
-	        WebElement input = waitForElement(INDUSTRY_SEARCH_INPUT);
-	        clickAndDraw(input); // focus it
-	        input.sendKeys(Keys.ESCAPE);
+		try {
 
-	        if (waitUntilIndustriesDropdownClosed(3)) return true;
+			waitForNetworkIdle();
+			logger.info("Looking for the Button: "+buttonName);
+			boolean visible = isElementPresent(PROGRAM_CREATION_buttons);
 
-	        // fallback: click outside
-	        driver.findElement(By.tagName("body")).click();
+			if(visible) {
 
-	        return waitUntilIndustriesDropdownClosed(3);
+				logger.info("Clicking on the Button: "+buttonName);
+				clickAndDrawBy(PROGRAM_CREATION_buttons);
+				logger.info("Clicked on the Button: "+buttonName);
 
-	    } catch (Exception e) {
-	        logger.error(LogColor.RED + "Failed while trying to close Industries dropdown." + LogColor.RESET, e);
-	        return false;
-	    }
+				return true;
+			}
+			else {
+				return false;
+			}		
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
 	}
 
-	
+
+	//	***************************************************************************************************************
+	//	Helper Methods
+	//	***************************************************************************************************************
+
 	/** Wait until no INDUSTRY_ITEMS are displayed (dropdown closed). */
 	private boolean waitUntilIndustriesDropdownClosed(int seconds) {
-	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
-	        return wait.until(d -> {
-	            List<WebElement> items = d.findElements(INDUSTRY_ITEMS);
-	            // Closed if none are visible
-	            for (WebElement it : items) {
-	                try {
-	                    if (it.isDisplayed()) return false;
-	                } catch (StaleElementReferenceException ignore) {
-	                    // if stale, treat as not visible and continue
-	                }
-	            }
-	            return true;
-	        });
-	    } catch (TimeoutException e) {
-	        return false;
-	    }
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+			return wait.until(d -> {
+				List<WebElement> items = d.findElements(INDUSTRY_ITEMS);
+				// Closed if none are visible
+				for (WebElement it : items) {
+					try {
+						if (it.isDisplayed()) return false;
+					} catch (StaleElementReferenceException ignore) {
+						// if stale, treat as not visible and continue
+					}
+				}
+				return true;
+			});
+		} catch (TimeoutException e) {
+			return false;
+		}
 	}
 
 
@@ -387,7 +474,7 @@ public class ProgramCreation_POM extends CommonMethods {
 		}
 	}
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	public int selectRandomPerks(int requested) {
 		try {
 			logger.info("Selecting perks. Requested = " + requested);

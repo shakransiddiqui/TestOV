@@ -34,15 +34,16 @@ Feature: Positive tests on Application Creation Feature
     And User fills the Additional Questions form with the following data
       | Type    | Question                                   | Instruction                               | Required |
       | Address | What is your company headquarters address? | Street, City, State, Postal Code, Country | Yes      |
-    And User clicks on "Save & Continue" button on the Application Builder page
+    #And User clicks on "Save & Continue" button on the Application Builder page
     And User clicks on "Preview Application" button on the Application Builder page
     Then User should be on the Preview Application page
-    #And Applicant should be on the Preview Standard Questions section
     And Applicant clicks on "Save & Continue" button on the Preview Application page
     Then Applicant should be on the Preview Additional Questions section
     And Applicant should see all added Additional Questions on the Preview page
     And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
     And User clicks on "Back to Application" button on the Preview Application page
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User Should be on the Rubric tab of Application Builder page
     And User clicks on "Save & Continue" button on the Application Builder page
     #Then User sets the Publish Open Date to now and Close Date to one month from now
     Then User sets the Publish Open Date to now

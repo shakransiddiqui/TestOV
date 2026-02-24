@@ -20,7 +20,7 @@ Feature: Negative tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_010
+  @Tc_011
   Scenario: Create new application and redirect to builder
     Then User enters "applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page

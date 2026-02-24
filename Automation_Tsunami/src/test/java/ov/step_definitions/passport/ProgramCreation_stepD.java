@@ -170,4 +170,35 @@ public class ProgramCreation_stepD extends CommonMethods{
 	}
 
 
+	@Then("User attempts to select {int} perks and selection is capped at 5")
+	public void user_attempts_to_select_perks_and_selection_is_capped_at_5(int requested) {
+
+		int checked = programCreation_pom.attemptSelectPerksNoCap(requested);
+
+		softAssert.softAssertEquals(
+				checked, 5,
+				"Perks selection capped correctly at 5 after attempting: " + requested + " (checked=" + checked + ")"
+				);
+
+		int limitReached = programCreation_pom.waitForLimitReachedCount(3);
+
+		softAssert.softAssertTrue(
+				limitReached > 0,
+				"UI applied limit-reached state to remaining cards. Count=" + limitReached,
+				"limit-reached state not found after selecting 5 perks. Count=" + limitReached
+				);
+	}
+	
+	
+	@Then("User clicks on {string}")
+	public void user_clicks_on_button(String buttonName) {
+
+		logger.info("Click on : "+buttonName);
+
+		boolean ButtonIsClickable = programCreation_pom.clickOnCancel(buttonName);
+
+		softAssert.softAssertTrue(ButtonIsClickable, 
+				buttonName+"  is visible and clickable", 
+				buttonName+"  is not clickable");
+	}
 }
