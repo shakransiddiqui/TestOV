@@ -1,4 +1,4 @@
-@ProgramCreation @ProgramCreation-neg @passport  @demo
+@ProgramCreation @ProgramCreation-neg @passport
 Feature: Negative tests on Program Creation Feature
 
   Background: 
@@ -11,7 +11,7 @@ Feature: Negative tests on Program Creation Feature
     Then User clicks on "Create a new program" button
     Then User should be redirected to the page with title of "CreateProgram_page_title"
 
-  @Tc_009   @passport-neg
+  @Tc_009 @Verify_Program_Details_highlights_missing_required_fields   @passport-neg
   Scenario Outline: Verify Program Details highlights missing required fields when <Case>
     When User enters "<programTitle>" into the "Program Title" field of Program Details
     And User enters "<location>" into the "Location" field of Program Details
@@ -30,7 +30,7 @@ Feature: Negative tests on Program Creation Feature
       | Program Type is empty        | programTitle | location | EMPTY       | programDescription | Program Type        |
       | Program Description is empty | programTitle | location | programType | EMPTY              | Program Description |
 
-  @Tc_010   @passport-neg
+  @Tc_010 @Verify_that_user_can_not_select_more_than_5_perks   @passport-neg
   Scenario: Verify that user can not select more than 5 perks
     Then User enters "programTitle" into the "Program Title" field of Program Details
     Then User enters "location" into the "Location" field of Program Details

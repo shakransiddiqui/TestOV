@@ -1,4 +1,4 @@
-@ApplicationCreation @ApplicationCreation-pos @passport @passport-pos @demo
+@ApplicationCreation @ApplicationCreation-pos @passport
 Feature: Positive tests on Application Creation Feature
 
   Background: 
@@ -20,8 +20,8 @@ Feature: Positive tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_08
-  Scenario: Create new application and redirect to builder
+  @Tc_08 @Verify_new_application_creation_with_all_types_Standard_and_Additional_Questions     @passport-pos
+  Scenario: Verify new application creation with all types Standard and Additional Questions
     Then User enters "applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
     And User clicks on "Save & Continue" button
@@ -34,7 +34,6 @@ Feature: Positive tests on Application Creation Feature
     And User fills the Additional Questions form with the following data
       | Type    | Question                                   | Instruction                               | Required |
       | Address | What is your company headquarters address? | Street, City, State, Postal Code, Country | Yes      |
-    #And User clicks on "Save & Continue" button on the Application Builder page
     And User clicks on "Preview Application" button on the Application Builder page
     Then User should be on the Preview Application page
     And Applicant clicks on "Save & Continue" button on the Preview Application page
@@ -43,9 +42,8 @@ Feature: Positive tests on Application Creation Feature
     And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
     And User clicks on "Back to Application" button on the Preview Application page
     And User clicks on "Save & Continue" button on the Application Builder page
-    Then User Should be on the Rubric tab of Application Builder page
+    Then User verifies Rubric section components
     And User clicks on "Save & Continue" button on the Application Builder page
-    #Then User sets the Publish Open Date to now and Close Date to one month from now
     Then User sets the Publish Open Date to now
     Then User copies the Application Link on the Publish page
     Then User adds a random invite email and verifies it appears in the list

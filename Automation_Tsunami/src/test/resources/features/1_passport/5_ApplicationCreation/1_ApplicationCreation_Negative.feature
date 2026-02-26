@@ -1,4 +1,4 @@
-@ApplicationCreation @ApplicationCreation-neg @passport @passport-neg @demo
+@ApplicationCreation @ApplicationCreation-neg @passport
 Feature: Negative tests on Application Creation Feature
 
   Background: 
@@ -20,8 +20,8 @@ Feature: Negative tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_011
-  Scenario: Create new application and redirect to builder
+  @Tc_011				 @passport-neg
+  Scenario: Verify new application creation with empty Additional Question title
     Then User enters "applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
     And User clicks on "Save & Continue" button

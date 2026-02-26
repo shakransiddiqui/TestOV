@@ -246,6 +246,37 @@ public class ApplicationCreation_POM extends CommonMethods {
 					By.xpath("//button[normalize-space()='Complete' or @aria-label='Complete']");
 
 
+			// ===================== RUBRIC (verified from DOM snippets A-F) =====================
+
+			private static final By RUBRIC_HELP_TEXT =
+					By.xpath("//span[contains(@class,'header-sublabel-text') and normalize-space(.)="
+							+ "'Customize the criteria your colleagues will use to judge startups.']");
+
+			private static final By RUBRIC_RATING_QUESTION_TEXT =
+					By.xpath("//div[contains(@class,'sublabel') and contains(normalize-space(.),'How would you rate this application')][1]");
+
+			// star widget
+			private static final By RUBRIC_STAR_BTNS =
+					By.cssSelector("div.form-view-star-rating-container span.star-btn.sm");
+
+			private static final By RUBRIC_SELECTED_STARS =
+					By.cssSelector("div.form-view-star-rating-container span.selected-star");
+
+			private static final By RUBRIC_UNSELECTED_STARS =
+					By.cssSelector("div.form-view-star-rating-container span.unselected-star");
+
+			// comment box
+			private static final By RUBRIC_COMMENT_TEXTAREA =
+					By.cssSelector("textarea.review-field-input[placeholder='Leaving a rating']");
+
+			// Add New Question button (anchored after the rating widget/comment area)
+			private static final By RUBRIC_ADD_NEW_QUESTION_BTN =
+					By.xpath("//textarea[@placeholder='Leaving a rating']" +
+							"/ancestor::div[contains(@class,'form-view-star-rating-container')][1]" +
+							"/following::button[contains(@class,'section-add-question-btn')][1]");
+
+
+
 			//	***************************************************************************************************************
 			//	Main Actions Methods to call from Step Definitions:
 			//	***************************************************************************************************************
@@ -1137,7 +1168,96 @@ public class ApplicationCreation_POM extends CommonMethods {
 			}
 
 			//	***************************************************************************************************************
+			// ===================== RUBRIC - BASIC VISIBILITY CHECKS =====================
 
+			public boolean isRubricHelpTextVisible() {
+				return waitUpToForVisible(RUBRIC_HELP_TEXT, 10);
+			}
+
+			public boolean isRubricRatingQuestionVisible() {
+				return waitUpToForVisible(RUBRIC_RATING_QUESTION_TEXT, 10);
+			}
+
+			public boolean isRubricCommentBoxVisible() {
+				return waitUpToForVisible(RUBRIC_COMMENT_TEXTAREA, 10);
+			}
+
+			//***************************************************************************************************************
+			// ===================== RUBRIC - STAR RATING (creator verification) =====================
+
+			public int waitForRubricStarCount(int seconds) {
+				long end = System.currentTimeMillis() + (seconds * 1000L);
+				int count = driver.findElements(RUBRIC_STAR_BTNS).size();
+
+				while (count == 0 && System.currentTimeMillis() < end) {
+					waitForMlsec(150);
+					count = driver.findElements(RUBRIC_STAR_BTNS).size();
+				}
+				return count;
+			}
+
+
+			//			***************************************************************************************************************
+			/**
+			 * Click star #N (1..5) and verify the DOM updates:
+			 * - selected-star count becomes N
+			 * - total selected+unselected = 5
+			 */
+			public boolean clickRubricStarAndVerify(int starNumber) {
+				try {
+					if (starNumber < 1 || starNumber > 5) return false;
+
+					// wait until stars exist
+					int count = waitForRubricStarCount(5);
+					if (count != 5) {
+						logger.warn("[clickRubricStarAndVerify] Expected 5 stars but found: " + count);
+						return false;
+					}
+
+					List<WebElement> stars = driver.findElements(RUBRIC_STAR_BTNS);
+					WebElement target = stars.get(starNumber - 1);
+
+					scrollScreen(target);
+					clickAndDraw(target);
+
+					long end = System.currentTimeMillis() + 3000;
+					while (System.currentTimeMillis() < end) {
+						int selected = driver.findElements(RUBRIC_SELECTED_STARS).size();
+						int unselected = driver.findElements(RUBRIC_UNSELECTED_STARS).size();
+
+						if (selected == starNumber && (selected + unselected) == 5) {
+							return true;
+						}
+						waitForMlsec(150);
+					}
+
+					return false;
+
+				} catch (Exception e) {
+					logger.error("[clickRubricStarAndVerify] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//***************************************************************************************************************
+			public boolean isRubricAddNewQuestionVisible() {
+				return waitUpToForVisible(RUBRIC_ADD_NEW_QUESTION_BTN, 10);
+			}
+
+			public boolean clickRubricAddNewQuestion() {
+				try {
+					WebElement btn = waitForElement(RUBRIC_ADD_NEW_QUESTION_BTN);
+					if (btn == null) return false;
+
+					scrollScreen(btn);
+					clickAndDraw(btn);
+					return true;
+
+				} catch (Exception e) {
+					logger.error("[clickRubricAddNewQuestion] EXCEPTION", e);
+					return false;
+				}
+			}
 
 
 

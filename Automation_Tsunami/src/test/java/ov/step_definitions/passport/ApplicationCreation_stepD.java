@@ -385,6 +385,52 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
+	//***************************************************************************************************************
+	@Then("User verifies Rubric section components")
+	public void user_verifies_rubric_section_components() {
+
+		// 2) Help text visible
+		softAssert.softAssertTrue(
+				applicationCreation_pom.isRubricHelpTextVisible(),
+				"Rubric help text is visible.",
+				"Rubric help text is NOT visible."
+				);
+
+		// 3) Rating question visible
+		softAssert.softAssertTrue(
+				applicationCreation_pom.isRubricRatingQuestionVisible(),
+				"Rubric rating question is visible.",
+				"Rubric rating question is NOT visible."
+				);
+
+		// 4) Star widget exists and has 5 stars
+		int starCount = applicationCreation_pom.waitForRubricStarCount(5);
+		softAssert.softAssertEquals(
+				starCount, 5,
+				"Rubric star count should be 5 but was: " + starCount
+				);
+
+		// 5) Click star #3 and verify 3 selected stars
+		softAssert.softAssertTrue(
+				applicationCreation_pom.clickRubricStarAndVerify(3),
+				"Rubric star selection works (clicked 3 => 3 selected).",
+				"Rubric star selection FAILED (clicked 3 did not result in 3 selected)."
+				);
+
+		// 6) Comment box visible (read-only for creator, so just presence check)
+		softAssert.softAssertTrue(
+				applicationCreation_pom.isRubricCommentBoxVisible(),
+				"Rubric comment box is visible.",
+				"Rubric comment box is NOT visible."
+				);
+
+		// 7) Add New Question visible
+		softAssert.softAssertTrue(
+				applicationCreation_pom.isRubricAddNewQuestionVisible(),
+				"Rubric Add New Question button is visible.",
+				"Rubric Add New Question button is NOT visible."
+				);
+	}
 
 	//	*****************************Steps for Negative tests************************************************************
 

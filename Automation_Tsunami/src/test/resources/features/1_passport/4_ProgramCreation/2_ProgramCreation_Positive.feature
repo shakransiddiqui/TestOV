@@ -1,4 +1,4 @@
-@ProgramCreation @ProgramCreation-pos @passport @passport-pos @demo
+@ProgramCreation @ProgramCreation-pos @passport
 Feature: Positive tests on Program Creation Feature
 
   Background: 
@@ -9,7 +9,7 @@ Feature: Positive tests on Program Creation Feature
     And User clicks on the "Log In" button
     Then User should be redirected to the page with title of "Organization_page_title"
 
-  @Tc_07
+  @Tc_07			@passport-pos
   Scenario Outline: Verify Create Program form fillup process with different number of industries
     Then User clicks on "Create a new program" button
     Then User should be redirected to the page with title of "CreateProgram_page_title"
