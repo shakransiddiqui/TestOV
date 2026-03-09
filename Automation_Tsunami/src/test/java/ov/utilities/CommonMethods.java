@@ -1071,6 +1071,14 @@ public class CommonMethods extends Driver {
 		public static String generateTestEmail() {
 			return "testemail_" + Instant.now().toEpochMilli() + "@test.com";
 		}
+		
+		public static String generateTestStartupCompany() {
+			return "Business Startup " + Instant.now().toEpochMilli();
+		}
+		
+		public static String generateTestProgramCompany() {
+			return "Business Organization " + Instant.now().toEpochMilli();
+		}
 	}
 
 

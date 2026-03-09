@@ -76,7 +76,7 @@ public class Hooks extends CommonMethods {
 		driver = Driver.getDriver(); // ✅ Assign driver
 
 		logger.info(LogColor.Purple + "Assigning the Driver" + LogColor.RESET);
-		
+
 		// Initialize ExtentTest and ScreenshotUtil
 		ExtentTest test = ExtentCucumberAdapter.getCurrentStep(); // ✅ Get current ExtentTest
 		screenshotUtil = new ScreenshotUtil(driver, test);        // ✅ Create ScreenshotUtil
@@ -94,14 +94,14 @@ public class Hooks extends CommonMethods {
 	@AfterStep
 	public void takeScreenshot(Scenario scenario) {
 		logger.info(LogColor.Indigo + "  @after step hook " + LogColor.RESET);
-		
+
 		//********************************UPDATED**************************************************************************
-//		 if (softAssert != null && softAssert.getFailureCount() > 0) {
-//		        scenario.log("Scenario marked FAILED due to soft assertion failure");
-//		        throw new AssertionError("Soft assertion failure detected");
-//		    }
-		 //****************************************************************************************************************
-		 
+		//		 if (softAssert != null && softAssert.getFailureCount() > 0) {
+		//		        scenario.log("Scenario marked FAILED due to soft assertion failure");
+		//		        throw new AssertionError("Soft assertion failure detected");
+		//		    }
+		//****************************************************************************************************************
+
 		String screenshotName = scenario.getName().replaceAll(" ", "_") + "_" + System.currentTimeMillis();
 		captureAndAttachScreenshot(scenario, screenshotName);
 	}
@@ -119,10 +119,46 @@ public class Hooks extends CommonMethods {
 			status = scenario.isFailed() ? "FAIL" : "PASS"; // fallback
 		}
 
-
-
 		softAssert.AssertAll(); // Logs all failures with screenshots
 	}
+
+
+
+	//	****************************************************************************************************
+	/*
+	 * To put a Special Condition after any Specific Scenario (ex: the Scenarios
+	 * that contain @Logout tag driver will get the URL again)
+	 */	
+	//	@After("@Logout")
+	//	public void afterLogoutScenarios() {
+	//	    try {   
+	//	        driver.get(ConfigurationReader.getProperty("url")); //  baseUrl key
+	//	    } catch (Exception e) {
+	//	        // ignore
+	//	    }
+	//	}
+	//	****************************************************************************************************
+
+	/*
+	 * Before running each test scenario this hook sets the application go back to
+	 * the Homepage(baseURL)
+	 */
+
+	@Before("@passport")
+	public void afterLogoutScenarios() {
+		try {   
+			logger.info(LogColor.Purple + " @Before(@passport) Hook -- Resetting to Homepage before Next Scenario " + LogColor.RESET);
+
+			String URL = ConfigurationReader.getProperty("url"); //  baseUrl key
+			driver.get(ConfigurationReader.getProperty("url")); // Navigates to the specified URL
+			logger.info("URL Launched: " +URL);
+
+		} catch (Exception e) {
+			// ignore
+		}
+	}
+	//	****************************************************************************************************
+
 
 	@AfterAll
 	public static void tearDown() {

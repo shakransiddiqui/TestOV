@@ -1,4 +1,4 @@
-@Login @Login-neg @passport @passport-neg    @demo
+@Login @Login-neg @passport 
 Feature: Negative tests on Login Feature
 
   Background: 
@@ -6,7 +6,7 @@ Feature: Negative tests on Login Feature
     Then Navigates to the page with title of "Login_page_title"
 
   # Negative login test with various invalid and valid credentials
-  @Tc_001 @invalid_login_with_different_invalid_inputs
+  @Tc_001 @invalid_login_with_different_invalid_inputs				@passport-neg
   Scenario Outline: Verify login fails with invalid and valid email and password combinations
     When User enters "<Email>" in the "Email address" field
     And User enters "<Password>" in the "Password" field
@@ -22,7 +22,7 @@ Feature: Negative tests on Login Feature
       | invalidEmail | PMvalidPassword |
 
   # Negative login test with various empty credentials
-  @Tc_002 @invalid_login_with_different_empty_inputs
+  @Tc_002 @invalid_login_with_different_empty_inputs				@passport-neg
   Scenario Outline: Verify login fails with empty email and password combinations
     When User enters "<Email>" in the "Email address" field
     And User enters "<Password>" in the "Password" field

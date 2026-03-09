@@ -72,6 +72,7 @@ public class ProgramCreation_POM extends CommonMethods {
 
 	//For Perks
 	private static final String page_TEXT = "//span[contains(text(), '%s')]";
+	
 	private static final By PERK_CARDS =
 			By.cssSelector("div.rewards-perk-item");   // the whole card
 

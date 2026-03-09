@@ -21,10 +21,18 @@ public class Signup_stepD extends CommonMethods {
 
 		String expectedFieldValue = ConfigurationReader.getProperty(fieldValue);
 
-		if ("DYNAMIC".equalsIgnoreCase(expectedFieldValue)) {
+		if ("DYNAMIC_email".equalsIgnoreCase(expectedFieldValue)) {
 			expectedFieldValue = TestDataGenerator.generateTestEmail();
 		}
 
+		if ("Business Startup".equalsIgnoreCase(expectedFieldValue)) {
+			expectedFieldValue = TestDataGenerator.generateTestStartupCompany();
+		}
+		
+		if ("Business Organization".equalsIgnoreCase(expectedFieldValue)) {
+			expectedFieldValue = TestDataGenerator.generateTestProgramCompany();
+		}
+		
 		logger.info(expectedFieldValue);
 		String ActualFieldValue = signup_pom.passFieldValue(expectedFieldValue, fieldName);
 
@@ -76,8 +84,8 @@ public class Signup_stepD extends CommonMethods {
 		boolean pageVisible = signup_pom.visibilityOfRolePage(textElement);
 
 		softAssert.softAssertTrue(pageVisible, 
-				"Role page is visible", 
-				"Role page is NOT visible");
+				"Role Selection is visible", 
+				"Role Selection is NOT visible");
 	}
 
 	//	***************************************************************************************************************
@@ -127,8 +135,31 @@ public class Signup_stepD extends CommonMethods {
 
 
 	//	***************************************************************************************************************
+	@Then("User selects {string}")
+	public void user_selects(String sso_buttonName) {
+
+		logger.info("Click on Button : "+sso_buttonName);
+
+		boolean ButtonIsClickable = signup_pom.clickOnSsoButton(sso_buttonName);
+
+		softAssert.softAssertTrue(ButtonIsClickable, 
+				sso_buttonName+" Button is visible and clickable", 
+				sso_buttonName+" Button is not clickable");
+	}
 
 
+//	***************************************************************************************************************
+	@Then("User should see {string} on Google page")
+	public void user_should_see_on_google_page(String textElement) {
+	   
+		logger.info("Checking visibility of: " + textElement);
 
+		boolean pageVisible = signup_pom.visibilityOfGoogleSignInPage(textElement);
+
+		softAssert.softAssertTrue(pageVisible, 
+				"Google Sign in Page is visible", 
+				"Google Sign in Page is NOT visible");
+	}
+	
 
 }

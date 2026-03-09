@@ -37,6 +37,10 @@ public class Signup_POM extends CommonMethods {
 	//All buttons to click for SignUp and Program Creation
 	private static final String buttons = "//button[text()='%s']";
 
+	private static final String SSO_buttons = "//span[text()='%s']";
+
+
+
 	//CheckBox of terms-Of-services
 	private static final String checkboxLabelXpath = "//label[@for='%s']";
 	private static final String checkboxInputXpath = "//input[@id='%s']";
@@ -45,14 +49,16 @@ public class Signup_POM extends CommonMethods {
 	private static final String signupRoles = "//label[contains(text(), '%s')]";
 
 	//All page Sub Headers for SignUp
-	private static final String rolePage_subheader = "//p[contains(text(), '%s')]";
 
+	private static final By rolePage_subheader_by = By.xpath("//*[@id='SignUpModal']//label[normalize-space(.)=\"I'm joining Passport because I'm a:\"]");
 	// FIRST suggestion from Google dropdown (no text matching)
 	private static final String locationSuggestion = "(//div[contains(@class,'pac-container')]//div[contains(@class,'pac-item')])[1]";
 
 	//All error texts for SignUp
 	private static final By SIGNUP_ERROR_BY = By.cssSelector(".ulp-input-error-message, .ulp-validator-error, #prompt-alert");
 
+
+	private static final By googlePage_subheader_by = By.xpath("//div[contains(text(), 'Sign in with Google')]");
 
 
 	//	****************Actions***********************************************************************************
@@ -145,7 +151,7 @@ public class Signup_POM extends CommonMethods {
 
 		try {
 			logger.info("Formatting the X path of Button: "+buttonName);
-			String formattedXpath = String.format(buttons, buttonName, buttonName);
+			String formattedXpath = String.format(buttons, buttonName);
 			logger.info("X path of Button: "+formattedXpath);
 
 			By byLocator = By.xpath(formattedXpath);
@@ -176,18 +182,48 @@ public class Signup_POM extends CommonMethods {
 	}
 
 	//	***************************************************************************************************************
+	public boolean clickOnSsoButton(String sso_buttonName) {
+
+		try {
+			logger.info("Formatting the X path of Button: "+sso_buttonName);
+			String formattedXpath = String.format(SSO_buttons, sso_buttonName);
+			logger.info("X path of Button: "+formattedXpath);
+
+			By byLocator = By.xpath(formattedXpath);
+
+			waitForNetworkIdle();
+			logger.info("Looking for the Button: "+sso_buttonName);
+			boolean visible = isElementPresent(byLocator);
+
+			if(visible) {
+
+				WebElement button = driver.findElement(By.xpath(formattedXpath));
+
+				logger.info("Clicking on the Button: "+sso_buttonName);
+				clickAndDrawBy(byLocator);
+				logger.info("Clicked on the Button: "+sso_buttonName);
+
+				return true;
+			}
+			else {
+				return false;
+			}		
+
+		} catch (Exception e) {
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+		}
+	}
+
+	//	***************************************************************************************************************
 	public boolean visibilityOfRolePage(String textElement) {
 
 		try {
 
-			String formattedXpath = String.format(rolePage_subheader, textElement);
-			logger.info(formattedXpath);
+			WebElement text_element = waitForElement(rolePage_subheader_by);
 
-			By rolePage_subheader_by = By.xpath(formattedXpath);
-
-			waitForElement(rolePage_subheader_by);
-
-			boolean headerVisible = isElementPresent(rolePage_subheader_by);
+			boolean headerVisible = isElementDisplayed(text_element);
 
 			if(headerVisible) {
 				return true;
@@ -200,6 +236,32 @@ public class Signup_POM extends CommonMethods {
 			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
 			logger.error(LogColor.RED+e+LogColor.RESET);
 			return false;
+
+		}
+	}
+	
+//	***************************************************************************************************************
+	public boolean visibilityOfGoogleSignInPage(String textElement) {
+
+		try {
+			
+
+			WebElement text_element = waitForElement(googlePage_subheader_by);
+
+			boolean headerVisible = isElementPresent(googlePage_subheader_by);
+
+			if(headerVisible) {
+				return true;
+			}
+			else {
+				return false;		
+			}
+		} catch (Exception e) {
+
+			logger.error(LogColor.RED+"Problem in Try Block"+LogColor.RESET);
+			logger.error(LogColor.RED+e+LogColor.RESET);
+			return false;
+
 		}
 	}
 

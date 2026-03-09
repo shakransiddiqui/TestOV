@@ -1,4 +1,4 @@
-@Login @Login-pos @passport @passport-pos @demo
+@Login @Login-pos @passport 
 Feature: Positive tests on Login Feature
 
   Background: 
@@ -6,7 +6,7 @@ Feature: Positive tests on Login Feature
     Then Navigates to the page with title of "Login_page_title"
 
   # Positive login test with valid credentials as Program Manager
-  @Tc_03 @valid_login_and_logout_program_manager @Logout
+  @Tc_03 @valid_login_and_logout_program_manager @Logout   @passport-pos
   Scenario: Verify user logs in and out successfully with valid credentials as a Program Manager
     When User enters "PMvalidEmail" in the "Email address" field
     And User enters "PMvalidPassword" in the "Password" field
@@ -16,7 +16,7 @@ Feature: Positive tests on Login Feature
     Then User should be redirected to the page with title of "StartUp_page_title"
 
   # Positive login test with valid credentials as Startup Leader
-  @Tc_04 @valid_login_and_logout_startup_leader @Logout
+  @Tc_04 @valid_login_and_logout_startup_leader @Logout     @passport-pos
   Scenario: Verify user logs in and out successfully with valid credentials as a Startup Leader
     When User enters "SLvalidEmail" in the "Email address" field
     And User enters "SLvalidPassword" in the "Password" field
