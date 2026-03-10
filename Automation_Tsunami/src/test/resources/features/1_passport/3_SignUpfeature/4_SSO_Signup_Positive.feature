@@ -1,12 +1,16 @@
-@SSO-Signup @SSO-Signup-pos @passport 
+@SSO-Signup @SSO-Signup-pos @passport
 Feature: Positive tests on SSO Sign Up Feature
 
   Background: 
     Given User clicks on "Sign Up" button from Homepage
     Then Navigates to the page with title of "Signup_page_title"
 
- @demo
+  @demo
   Scenario: Verify user successfully creates an account as a Startup Leader using Google
     Then User selects "Continue with Google"
-    Then User should see "Sign in with Google" on Google page
-    
+    Then User should be redirected to the page with title of "Google_page_title"
+
+  @demo2
+  Scenario: Verify user successfully creates an account as a Startup Leader using Google
+    Then User selects "Continue with LinkedIn"
+    Then User should be redirected to the page with title of "LinkedIn_page_title"
