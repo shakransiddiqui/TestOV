@@ -1,3 +1,74 @@
+ft.shakransiddiqui
+ft.shakransiddiqui
+Sharing their screen
+
+Suzy
+ started a call that lasted 4 hours. — 3/7/2026 2:05 AM
+Suzy — 3/8/2026 2:16 AM
+Attachment file type: acrobat
+Suzy_QA_Project_Snapshot.pdf
+7.06 KB
+Suzy
+ started a call that lasted 12 minutes. — 3/8/2026 2:43 AM
+Suzy
+ started a call that lasted 4 hours. — 3/8/2026 2:54 AM
+Suzy — 3/8/2026 3:28 AM
+package ov.Hooks;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.sql.SQLException;
+
+App Cre POM.txt
+8 KB
+Suzy
+ started a call that lasted 5 hours. — Yesterday at 1:49 AM
+Suzy
+ started a call that lasted an hour. — Yesterday at 11:04 PM
+ft.shakransiddiqui — Yesterday at 11:42 PM
+https://github.com/shakransiddiqui/TestOV
+GitHub
+GitHub - shakransiddiqui/TestOV: For Practice
+For Practice. Contribute to shakransiddiqui/TestOV development by creating an account on GitHub.
+GitHub - shakransiddiqui/TestOV: For Practice
+ft.shakransiddiqui
+ started a call that lasted 2 hours. — 12:33 AM
+Suzy
+ started a call. — 11:21 PM
+ft.shakransiddiqui — 11:54 PM
+Hi Mike — quick note on the Google/LinkedIn SSO “signup automation” request.
+
+Automating the full end-to-end SSO flow through Google/LinkedIn is generally not a good candidate for stable UI automation because those login pages are outside our application and are controlled by the identity providers. They frequently introduce automation blockers such as CAPTCHA, 2FA/security prompts, “suspicious sign-in” challenges, and UI changes without notice. This makes tests flaky, hard to maintain, and unreliable in CI/pipeline runs.
+
+A more robust approach would be : Validate the redirect only (click “Continue with Google/LinkedIn” and confirm we land on the provider sign-in page),
+ft.shakransiddiqui — 12:14 AM
+Image
+Image
+ft.shakransiddiqui — 12:46 AM
+| Type             | Question                                     | Instruction                               | Required |
+      | Single-Line Text | What is your company's tagline?              | Short, single line (≤100 chars).          | Yes      |
+      | Multi-Line Text  | Describe your product in one paragraph.      | 3–5 sentences; problem, solution, users.  | No       |
+      | Number           | How many paying customers do you have today? | Whole number only (no commas).            | Yes      |
+      | Date             | When did you found the company?              | Pick a valid founding date.               | No       |
+      | Email            | What is your main contact email address?     | Valid format (name@domain).               | Yes      |
+      | Single Choice    | What is your primary business model?         | Choose one option.                        | Yes      |
+      | Multiple Choice  | Which platforms do you support?              | Select all that apply.                    | Yes      |
+      | File             | Upload your current pitch deck.              | PDF only, max 25 MB.                      | Yes      |
+      | Phone Number     | What is your main contact phone number?      | Include country code if outside US.       | Yes      |
+      | Website/URL      | What is your company website?                | Full URL, e.g., https://example.com/       | Yes      |
+      | Address          | What is your company headquarters address?   | Street, City, State, Postal Code, Country | Yes      |
+Suzy — 12:59 AM
+@ApplicationCreation @ApplicationCreation-pos @passport
+Feature: Positive tests on Application Creation Feature
+
+  Background: 
+    Given User clicks on "Log In" button from Homepage
+    Then Navigates to the page with title of "Login_page_title"
+
+message.txt
+10 KB
+﻿
 @ApplicationCreation @ApplicationCreation-pos @passport
 Feature: Positive tests on Application Creation Feature
 
@@ -20,9 +91,9 @@ Feature: Positive tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_08 @Verify_new_application_creation_with_all_types_Standard_and_Additional_Questions     @passport-pos
-  Scenario: Verify new application creation with all types Standard and Additional Questions
-    Then User enters "applicationTitle" into the "Application Title" field of Create application
+  @Tc_10 @Verify_new_application_creation_with_all_types_Standard_and_Additional_Questions @passport-pos
+  Scenario: Verify new application creation with all types of Standard and Additional Questions
+    Then User enters "Standard_Additional_applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
     And User clicks on "Save & Continue" button
     And User should see "Basic Information" in the Application Builder page
@@ -32,15 +103,18 @@ Feature: Positive tests on Application Creation Feature
     And User clicks on "Add New Question" in Additional Questions section
     Then User should see the New Question form
     And User fills the Additional Questions form with the following data
-      | Type    | Question                                   | Instruction                               | Required |
-      | Address | What is your company headquarters address? | Street, City, State, Postal Code, Country | Yes      |
-    And User clicks on "Preview Application" button on the Application Builder page
-    Then User should be on the Preview Application page
-    And Applicant clicks on "Save & Continue" button on the Preview Application page
-    Then Applicant should be on the Preview Additional Questions section
-    And Applicant should see all added Additional Questions on the Preview page
-    And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
-    And User clicks on "Back to Application" button on the Preview Application page
+      | Type             | Question                                     | Instruction                               | Required |
+      | Single-Line Text | What is your company's tagline?              | Short, single line (≤100 chars).          | Yes      |
+      | Multi-Line Text  | Describe your product in one paragraph.      | 3–5 sentences; problem, solution, users.  | No       |
+      | Number           | How many paying customers do you have today? | Whole number only (no commas).            | Yes      |
+      | Date             | When did you found the company?              | Pick a valid founding date.               | No       |
+      | Email            | What is your main contact email address?     | Valid format (name@domain).               | Yes      |
+      | Single Choice    | What is your primary business model?         | Choose one option.                        | Yes      |
+      | Multiple Choice  | Which platforms do you support?              | Select all that apply.                    | Yes      |
+      | File             | Upload your current pitch deck.              | PDF only, max 25 MB.                      | Yes      |
+      | Phone Number     | What is your main contact phone number?      | Include country code if outside US.       | Yes      |
+      | Website/URL      | What is your company website?                | Full URL, e.g., https://example.com/      | Yes      |
+      | Address          | What is your company headquarters address?   | Street, City, State, Postal Code, Country | Yes      |
     And User clicks on "Save & Continue" button on the Application Builder page
     Then User verifies Rubric section components
     And User clicks on "Save & Continue" button on the Application Builder page
@@ -51,3 +125,80 @@ Feature: Positive tests on Application Creation Feature
     Then User clicks on "Complete" button on the Publish page
     And User logs out
     Then User should be redirected to the page with title of "StartUp_page_title"
+
+  @Tc_11
+  Scenario: Verify Preview a new application with all types of Standard Questions
+    Then User enters "Standard_applicationTitle" into the "Application Title" field of Create application
+    And User selects the "Create New Application" option on Create Application page
+    And User clicks on "Save & Continue" button
+    And User should see "Basic Information" in the Application Builder page
+    And User should see the following Standard Questions on the Application Builder page
+      | Question            |
+      | Company Name        |
+      | Company Description |
+      | Funding             |
+      | Milestones          |
+    And User clicks on "Preview Application" button on the Application Builder page
+    Then User should be on the Preview Application page
+    And Applicant should see the following Standard Questions on the Preview page
+      | Question            |
+      | Company Name        |
+      | Company Description |
+      | Funding             |
+      | Milestones          |
+    And Clicks on "Save & Continue" button on the Preview Application page
+    Then Applicant should be on the Preview Additional Questions section
+    And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
+    And Clicks on "Back to Application" button on the Preview Application page
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User verifies Rubric section components
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User sets the Publish Open Date to now
+    Then User copies the Application Link on the Publish page
+    Then User adds a random invite email and verifies it appears in the list
+    Then User deletes the last added invite email and verifies it is removed
+    Then User clicks on "Complete" button on the Publish page
+    And User logs out
+    Then User should be redirected to the page with title of "StartUp_page_title"
+
+  @Tc_12
+  Scenario: Verify Preview a new application with all types of Additional Questions
+    Then User enters "Additional_applicationTitle" into the "Application Title" field of Create application
+    And User selects the "Create New Application" option on Create Application page
+    And User clicks on "Save & Continue" button
+    And User should see "Basic Information" in the Application Builder page
+    #And User should see all the Standard Questions
+    #And User clicks on the Click To Hide icon and removes all the Standard Questions one by one
+    And User scrolls to "Additional Questions" section
+    And User clicks on "Add New Question" in Additional Questions section
+    Then User should see the New Question form
+    And User fills the Additional Questions form with the following data
+      | Type             | Question                                     | Instruction                               | Required |
+      | Single-Line Text | What is your company's tagline?              | Short, single line (≤100 chars).          | Yes      |
+      | Multi-Line Text  | Describe your product in one paragraph.      | 3–5 sentences; problem, solution, users.  | No       |
+      | Number           | How many paying customers do you have today? | Whole number only (no commas).            | Yes      |
+      | Date             | When did you found the company?              | Pick a valid founding date.               | No       |
+      | Email            | What is your main contact email address?     | Valid format (name@domain).               | Yes      |
+      | Single Choice    | What is your primary business model?         | Choose one option.                        | Yes      |
+      | Multiple Choice  | Which platforms do you support?              | Select all that apply.                    | Yes      |
+      | File             | Upload your current pitch deck.              | PDF only, max 25 MB.                      | Yes      |
+      | Phone Number     | What is your main contact phone number?      | Include country code if outside US.       | Yes      |
+      | Website/URL      | What is your company website?                | Full URL, e.g., https://example.com/      | Yes      |
+      | Address          | What is your company headquarters address?   | Street, City, State, Postal Code, Country | Yes      |
+    #And User clicks on "Preview Application" button on the Application Builder page
+    #Then User should be on the Preview Application page
+    #And Applicant should see all added Additional Questions on the Preview page
+    #And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
+    #And User clicks on "Back to Application" button on the Preview Application page
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User verifies Rubric section components
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User sets the Publish Open Date to now
+    Then User copies the Application Link on the Publish page
+    Then User adds a random invite email and verifies it appears in the list
+    Then User deletes the last added invite email and verifies it is removed
+    Then User clicks on "Complete" button on the Publish page
+    And User logs out
+    Then User should be redirected to the page with title of "StartUp_page_title"
+message.txt
+10 KB
