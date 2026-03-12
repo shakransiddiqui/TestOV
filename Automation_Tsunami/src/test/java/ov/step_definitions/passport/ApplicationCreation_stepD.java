@@ -1,5 +1,7 @@
 package ov.step_definitions.passport;
 
+import java.util.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -152,29 +154,33 @@ public class ApplicationCreation_stepD extends CommonMethods {
 
 	//	***************************************************************************************************************
 	@Then("User clicks on {string} button on the Application Builder page")
-	public void user_clicks_on_button_on_the_application_builder_page(String buttonText) {
+    public void user_clicks_on_button_on_the_application_builder_page(String buttonText) {
 
-		logger.info("Clicking on Builder page button: " + buttonText);
+        logger.info("Clicking on Builder page button: " + buttonText);
 
-		boolean clicked = false;
+        boolean clicked = false;
 
-		if ("Preview Application".equalsIgnoreCase(buttonText)) {
-			clicked = applicationCreation_pom.clickPreviewApplicationOnBuilder();
+        if ("Preview Application".equalsIgnoreCase(buttonText)) {
+            clicked = applicationCreation_pom.clickPreviewApplicationOnBuilder();
 
-		} else if ("Save & Continue".equalsIgnoreCase(buttonText)) {
-			clicked = applicationCreation_pom.clickBuilderSaveAndContinue();
+        } else if ("Save & Continue".equalsIgnoreCase(buttonText)) {
+            clicked = applicationCreation_pom.clickBuilderSaveAndContinue();
+        }
 
-		} else {
-			logger.warn("Unsupported builder button in this step: " + buttonText);
-			clicked = false;
-		}
+        else if ("Cancel".equalsIgnoreCase(buttonText)) {
+            clicked = applicationCreation_pom.clickBuilderCancel();
 
-		softAssert.softAssertTrue(
-				clicked,
-				"Clicked on Builder button: " + buttonText,
-				"Failed to click on Builder button: " + buttonText
-				);
-	}
+        } else {
+            logger.warn("Unsupported builder button in this step: " + buttonText);
+            clicked = false;
+        }
+
+        softAssert.softAssertTrue(
+                clicked,
+                "Clicked on Builder button: " + buttonText,
+                "Failed to click on Builder button: " + buttonText
+                );
+    }
 
 	//	***************************************************************************************************************
 	@Then("User should be on the Preview Application page")
@@ -200,7 +206,7 @@ public class ApplicationCreation_stepD extends CommonMethods {
 
 
 	// ***************************************************************************************************************
-	@Then("Applicant clicks on {string} button on the Preview Application page")
+	@Then("Clicks on {string} button on the Preview Application page")
 	public void applicant_clicks_on_button_on_the_preview_application_page(String buttonText) {
 
 		logger.info("Applicant clicking on Preview page button: " + buttonText);
@@ -512,6 +518,40 @@ public class ApplicationCreation_stepD extends CommonMethods {
 	}
 
 
+	//	***************************************************************************************************************
+	@Then("User should see the following Standard Questions on the Application Builder page")
+	public void user_should_see_the_following_standard_questions_on_the_application_builder_page(DataTable dataTable) {
+
+		logger.info("Verifying list of Standard Questions on Builder page...");
+
+		// Convert the Cucumber Data Table into a format Java can read easily
+		List<Map<String, String>> questions = dataTable.asMaps(String.class, String.class);
+
+		boolean allFound = applicationCreation_pom.verifyStandardQuestionsOnBuilder(questions);
+
+		softAssert.softAssertTrue(
+				allFound, 
+				"All expected Standard Questions were FOUND on Builder page.", 
+				"Some Standard Questions are MISSING on the Builder page."
+				);
+	}
+
+	//	***************************************************************************************************************
+	@Then("Applicant should see the following Standard Questions on the Preview page")
+	public void applicant_should_see_the_following_standard_questions_on_the_preview_page(DataTable dataTable) {
+
+		logger.info("Verifying list of Standard Questions on Preview page...");
+
+		List<Map<String, String>> questions = dataTable.asMaps(String.class, String.class);
+
+		boolean allFound = applicationCreation_pom.verifyStandardQuestionsOnPreview(questions);
+
+		softAssert.softAssertTrue(
+				allFound, 
+				"All expected Standard Questions were FOUND on Preview page.", 
+				"Some Standard Questions are MISSING on the Preview page."
+				);
+	}
 
 
 }

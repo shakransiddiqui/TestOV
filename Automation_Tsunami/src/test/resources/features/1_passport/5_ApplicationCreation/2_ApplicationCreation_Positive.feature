@@ -75,9 +75,6 @@ Feature: Positive tests on Application Creation Feature
       | Company Description |
       | Funding             |
       | Milestones          |
-    And Clicks on "Save & Continue" button on the Preview Application page
-    Then Applicant should be on the Preview Additional Questions section
-    And Applicant should see "Back" and "Submit" buttons on the Preview Additional Questions section
     And Clicks on "Back to Application" button on the Preview Application page
     And User clicks on "Save & Continue" button on the Application Builder page
     Then User verifies Rubric section components

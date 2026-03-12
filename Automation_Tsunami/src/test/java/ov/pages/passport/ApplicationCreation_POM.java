@@ -160,6 +160,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// Builder footer Save & Continue (NOT preview applicant one)
 	private static final By BUILDER_SAVE_AND_CONTINUE_BTN =
 			By.cssSelector("footer.create-application-footer button[aria-label='Save & Continue']");
+	
+	// Builder footer Cancel
+    private static final By BUILDER_CANCEL_BTN =
+            By.cssSelector("footer.create-application-footer button[aria-label='Cancel']");
 
 
 	// ===================== PUBLISH (Dates) =====================
@@ -576,6 +580,30 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
+//			***************************************************************************************************************
+			  public boolean clickBuilderCancel() {
+                  try {
+                      logger.info("[clickBuilderCancel] START");
+
+                      WebElement btn = waitForElement(BUILDER_CANCEL_BTN);
+                      if (btn == null) {
+                          logger.warn("[clickBuilderCancel] Cancel button NOT found.");
+                          return false;
+                      }
+
+                      logger.info("[clickBuilderCancel] Clicking Cancel...");
+                      clickAndDraw(btn);
+                      waitForPageAndAjaxToLoad();
+
+                      logger.info("[clickBuilderCancel] END success=true");
+                      return true;
+
+                  } catch (Exception e) {
+                      logger.error("[clickBuilderCancel] EXCEPTION", e);
+                      return false;
+                  }
+              }
+			
 			//	***************************************************************************************************************
 			public boolean clickPreviewApplicationOnBuilder() {
 				try {
@@ -1259,7 +1287,86 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
+			// ***************************************************************************************************************
+			// Method to verify Standard Questions on the Builder Page
+			public boolean verifyStandardQuestionsOnBuilder(List<Map<String, String>> expectedQuestions) {
+				try {
+					logger.info("[verifyStandardQuestionsOnBuilder] START");
 
+					// First, make sure the Standard Questions section is expanded
+					By expandedArea = By.xpath(String.format(EXPANDED_CONTENT_IN_CATEGORY, "Standard Questions"));
+					if (!isElementPresent(expandedArea)) {
+						logger.warn("Standard Questions area is NOT expanded. Cannot verify questions.");
+						return false;
+					}
+
+					int missingCount = 0;
+
+					// Loop through the list of questions from the feature file
+					for (Map<String, String> row : expectedQuestions) {
+						String questionText = row.get("Question");
+						logger.info("Looking for Standard Question in Builder: " + questionText);
+
+						// Look for the text inside the Standard Questions category
+						String dynamicXpath = String.format(CATEGORY_CONTAINER_BY_HEADER, "Standard Questions") 
+								+ "//*[contains(normalize-space(.), " + xpathLiteral(questionText) + ")]";
+
+						boolean found = waitUpToForVisible(By.xpath(dynamicXpath), 5);
+
+						if (found) {
+							logger.info(LogColor.DarkGreen + "FOUND: " + questionText + LogColor.RESET);
+						} else {
+							logger.warn(LogColor.RED + "MISSING: " + questionText + LogColor.RESET);
+							missingCount++;
+						}
+					}
+
+					return missingCount == 0; // Returns true only if 0 questions are missing
+
+				} catch (Exception e) {
+					logger.error("[verifyStandardQuestionsOnBuilder] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			// ***************************************************************************************************************
+			// Method to verify Standard Questions on the Preview Page
+			public boolean verifyStandardQuestionsOnPreview(List<Map<String, String>> expectedQuestions) {
+				try {
+					logger.info("[verifyStandardQuestionsOnPreview] START");
+
+					// Make sure we are on the Standard Questions tab in Preview
+					if (waitForElement(PREVIEW_TAB_STANDARD_ACTIVE) == null) {
+						logger.warn("Preview Standard Questions tab is NOT active.");
+						return false;
+					}
+
+					int missingCount = 0;
+
+					for (Map<String, String> row : expectedQuestions) {
+						String questionText = row.get("Question");
+						logger.info("Looking for Standard Question in Preview: " + questionText);
+
+						// Look for the text inside the Preview screen
+						String dynamicXpath = PREVIEW_ROOT_XP + "//*[contains(normalize-space(.), " + xpathLiteral(questionText) + ")]";
+
+						boolean found = waitUpToForVisible(By.xpath(dynamicXpath), 5);
+
+						if (found) {
+							logger.info(LogColor.DarkGreen + "FOUND: " + questionText + LogColor.RESET);
+						} else {
+							logger.warn(LogColor.RED + "MISSING: " + questionText + LogColor.RESET);
+							missingCount++;
+						}
+					}
+
+					return missingCount == 0;
+
+				} catch (Exception e) {
+					logger.error("[verifyStandardQuestionsOnPreview] EXCEPTION", e);
+					return false;
+				}
+			}
 
 
 			//	***************************************************************************************************************

@@ -13,7 +13,6 @@ Feature: Negative tests on Manual Sign Up Feature
     Then User clicks on "Sign Up" button
     Then User should see a signup error or validation message
     Then User should remain on the Signup page with title of "Signup_page_title"
-    Then User clicks back twice and navigates to Startup page with title of "StartUp_page_title"
 
   @Tc_004 @signup_with_empty_password    @passport-neg
   Scenario: Sign up should show validation error when Password is empty

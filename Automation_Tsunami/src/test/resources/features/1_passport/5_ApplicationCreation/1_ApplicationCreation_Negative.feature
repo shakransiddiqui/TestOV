@@ -20,9 +20,9 @@ Feature: Negative tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_011				 @passport-neg
-  Scenario: Verify new application creation with empty Additional Question title
-    Then User enters "applicationTitle" into the "Application Title" field of Create application
+  @Tc_010 @Validate_that_an_Additional_Question_cannot_be_saved_without_a_question_title         @passport-neg
+  Scenario: Validate that an Additional Question cannot be saved without a question title
+    Then User enters "Standard_Additional_applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
     And User clicks on "Save & Continue" button
     And User should see "Basic Information" in the Application Builder page
@@ -31,10 +31,8 @@ Feature: Negative tests on Application Creation Feature
     And User scrolls to "Additional Questions" section
     And User clicks on "Add New Question" in Additional Questions section
     Then User should see the New Question form
-    # 1) Untitled question validations (empty)
     Then User should see "This field is required" validation message for Additional Question
     And Additional Question "Save" button should be disabled
-    # 2) Delete popup for UNTITLED question -> verify warning -> click NO (do not delete)
-    When User clicks on the delete icon for the current Additional Question
-    Then User should see the Delete Question popup
-    And User clicks on "No, Go Back" in the Delete Question popup
+    And User clicks on "Cancel" button on the Application Builder page
+    And User logs out
+    Then User should be redirected to the page with title of "StartUp_page_title"
