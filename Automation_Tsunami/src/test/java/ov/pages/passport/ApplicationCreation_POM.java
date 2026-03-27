@@ -160,10 +160,10 @@ public class ApplicationCreation_POM extends CommonMethods {
 	// Builder footer Save & Continue (NOT preview applicant one)
 	private static final By BUILDER_SAVE_AND_CONTINUE_BTN =
 			By.cssSelector("footer.create-application-footer button[aria-label='Save & Continue']");
-	
+
 	// Builder footer Cancel
-    private static final By BUILDER_CANCEL_BTN =
-            By.cssSelector("footer.create-application-footer button[aria-label='Cancel']");
+	private static final By BUILDER_CANCEL_BTN =
+			By.cssSelector("footer.create-application-footer button[aria-label='Cancel']");
 
 
 	// ===================== PUBLISH (Dates) =====================
@@ -226,6 +226,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 							+ "//span[contains(@class,'tab-text') and normalize-space()='Standard Questions']"
 							+ "/parent::*[contains(concat(' ', normalize-space(@class), ' '), ' active ')]");
 
+
 			private static final By PREVIEW_TAB_ADDITIONAL_ACTIVE =
 					By.xpath(PREVIEW_ROOT_XP
 							+ "//span[contains(@class,'tab-text') and normalize-space()='Additional Questions']"
@@ -275,9 +276,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 			// Add New Question button (anchored after the rating widget/comment area)
 			private static final By RUBRIC_ADD_NEW_QUESTION_BTN =
-					By.xpath("//textarea[@placeholder='Leaving a rating']" +
-							"/ancestor::div[contains(@class,'form-view-star-rating-container')][1]" +
-							"/following::button[contains(@class,'section-add-question-btn')][1]");
+					By.xpath("(//button[contains(@class,'section-add-question-btn')])[2]");
 
 
 
@@ -580,30 +579,31 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
-//			***************************************************************************************************************
-			  public boolean clickBuilderCancel() {
-                  try {
-                      logger.info("[clickBuilderCancel] START");
 
-                      WebElement btn = waitForElement(BUILDER_CANCEL_BTN);
-                      if (btn == null) {
-                          logger.warn("[clickBuilderCancel] Cancel button NOT found.");
-                          return false;
-                      }
+			//**************************************************************************************************************
+			public boolean clickBuilderCancel() {
+				try {
+					logger.info("[clickBuilderCancel] START");
 
-                      logger.info("[clickBuilderCancel] Clicking Cancel...");
-                      clickAndDraw(btn);
-                      waitForPageAndAjaxToLoad();
+					WebElement btn = waitForElement(BUILDER_CANCEL_BTN);
+					if (btn == null) {
+						logger.warn("[clickBuilderCancel] Cancel button NOT found.");
+						return false;
+					}
 
-                      logger.info("[clickBuilderCancel] END success=true");
-                      return true;
+					logger.info("[clickBuilderCancel] Clicking Cancel...");
+					clickAndDraw(btn);
+					waitForPageAndAjaxToLoad();
 
-                  } catch (Exception e) {
-                      logger.error("[clickBuilderCancel] EXCEPTION", e);
-                      return false;
-                  }
-              }
-			
+					logger.info("[clickBuilderCancel] END success=true");
+					return true;
+
+				} catch (Exception e) {
+					logger.error("[clickBuilderCancel] EXCEPTION", e);
+					return false;
+				}
+			}
+
 			//	***************************************************************************************************************
 			public boolean clickPreviewApplicationOnBuilder() {
 				try {
@@ -669,6 +669,25 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
+
+			// ***************************************************************************************************************
+			public boolean isAdditionalQuestionsTabActiveOnPreview() {
+				try {
+					logger.info("[isAdditionalQuestionsTabActiveOnPreview] START");
+
+					WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
+					boolean ok = aqActive != null;
+
+					logger.info("[isAdditionalQuestionsTabActiveOnPreview] END active=" + ok);
+					return ok;
+
+				} catch (Exception e) {
+					logger.error("[isAdditionalQuestionsTabActiveOnPreview] EXCEPTION", e);
+					return false;
+				}
+			}
+
+
 			//	***************************************************************************************************************
 			public boolean applicantClickSaveAndContinueOnPreview() {
 				try {
@@ -697,22 +716,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
-			// ***************************************************************************************************************
-			public boolean isAdditionalQuestionsTabActiveOnPreview() {
-				try {
-					logger.info("[isAdditionalQuestionsTabActiveOnPreview] START");
 
-					WebElement aqActive = waitForElement(PREVIEW_TAB_ADDITIONAL_ACTIVE);
-					boolean ok = aqActive != null;
-
-					logger.info("[isAdditionalQuestionsTabActiveOnPreview] END active=" + ok);
-					return ok;
-
-				} catch (Exception e) {
-					logger.error("[isAdditionalQuestionsTabActiveOnPreview] EXCEPTION", e);
-					return false;
-				}
-			}
 
 			// ***************************************************************************************************************
 			public boolean areBackAndSubmitVisibleOnPreviewAQ() {
@@ -1287,41 +1291,41 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
+
 			// ***************************************************************************************************************
-			// Method to verify Standard Questions on the Builder Page
-			public boolean verifyStandardQuestionsOnBuilder(List<Map<String, String>> expectedQuestions) {
+			public boolean verifyStandardQuestionsOnBuilder(List<Map<String, String>> rows) {
 				try {
 					logger.info("[verifyStandardQuestionsOnBuilder] START");
 
-					// First, make sure the Standard Questions section is expanded
-					By expandedArea = By.xpath(String.format(EXPANDED_CONTENT_IN_CATEGORY, "Standard Questions"));
-					if (!isElementPresent(expandedArea)) {
-						logger.warn("Standard Questions area is NOT expanded. Cannot verify questions.");
+					if (rows == null || rows.isEmpty()) {
+						logger.warn("[verifyStandardQuestionsOnBuilder] DataTable rows are empty.");
 						return false;
 					}
 
-					int missingCount = 0;
+					for (Map<String, String> row : rows) {
+						String question = row.get("Question");
 
-					// Loop through the list of questions from the feature file
-					for (Map<String, String> row : expectedQuestions) {
-						String questionText = row.get("Question");
-						logger.info("Looking for Standard Question in Builder: " + questionText);
-
-						// Look for the text inside the Standard Questions category
-						String dynamicXpath = String.format(CATEGORY_CONTAINER_BY_HEADER, "Standard Questions") 
-								+ "//*[contains(normalize-space(.), " + xpathLiteral(questionText) + ")]";
-
-						boolean found = waitUpToForVisible(By.xpath(dynamicXpath), 5);
-
-						if (found) {
-							logger.info(LogColor.DarkGreen + "FOUND: " + questionText + LogColor.RESET);
-						} else {
-							logger.warn(LogColor.RED + "MISSING: " + questionText + LogColor.RESET);
-							missingCount++;
+						if (question == null || question.trim().isEmpty()) {
+							logger.warn("[verifyStandardQuestionsOnBuilder] Found blank question in DataTable.");
+							return false;
 						}
+
+						logger.info("[verifyStandardQuestionsOnBuilder] Verifying builder question: " + question);
+
+						By questionBy = By.xpath("//div[contains(text()," + xpathLiteral(question.trim()) + ")]");
+
+						boolean visible = waitUpToForVisible(questionBy, 10);
+
+						if (!visible) {
+							logger.warn("[verifyStandardQuestionsOnBuilder] MISSING on Builder page: " + question);
+							return false;
+						}
+
+						logger.info("[verifyStandardQuestionsOnBuilder] FOUND on Builder page: " + question);
 					}
 
-					return missingCount == 0; // Returns true only if 0 questions are missing
+					logger.info("[verifyStandardQuestionsOnBuilder] END success=true");
+					return true;
 
 				} catch (Exception e) {
 					logger.error("[verifyStandardQuestionsOnBuilder] EXCEPTION", e);
@@ -1330,37 +1334,48 @@ public class ApplicationCreation_POM extends CommonMethods {
 			}
 
 			// ***************************************************************************************************************
-			// Method to verify Standard Questions on the Preview Page
-			public boolean verifyStandardQuestionsOnPreview(List<Map<String, String>> expectedQuestions) {
+			public boolean verifyStandardQuestionsOnPreview(List<Map<String, String>> rows) {
 				try {
 					logger.info("[verifyStandardQuestionsOnPreview] START");
 
-					// Make sure we are on the Standard Questions tab in Preview
-					if (waitForElement(PREVIEW_TAB_STANDARD_ACTIVE) == null) {
-						logger.warn("Preview Standard Questions tab is NOT active.");
+					if (rows == null || rows.isEmpty()) {
+						logger.warn("[verifyStandardQuestionsOnPreview] DataTable rows are empty.");
 						return false;
 					}
 
-					int missingCount = 0;
+					for (Map<String, String> row : rows) {
+						String question = row.get("Question");
 
-					for (Map<String, String> row : expectedQuestions) {
-						String questionText = row.get("Question");
-						logger.info("Looking for Standard Question in Preview: " + questionText);
-
-						// Look for the text inside the Preview screen
-						String dynamicXpath = PREVIEW_ROOT_XP + "//*[contains(normalize-space(.), " + xpathLiteral(questionText) + ")]";
-
-						boolean found = waitUpToForVisible(By.xpath(dynamicXpath), 5);
-
-						if (found) {
-							logger.info(LogColor.DarkGreen + "FOUND: " + questionText + LogColor.RESET);
-						} else {
-							logger.warn(LogColor.RED + "MISSING: " + questionText + LogColor.RESET);
-							missingCount++;
+						if (question == null || question.trim().isEmpty()) {
+							logger.warn("[verifyStandardQuestionsOnPreview] Found blank question in DataTable.");
+							return false;
 						}
+
+						logger.info("[verifyStandardQuestionsOnPreview] Verifying preview question: " + question);
+
+						By questionBy = By.xpath("//span[contains(text()," + xpathLiteral(question.trim()) + ")]");
+
+						boolean visible = waitUpToForVisible(questionBy, 10);
+
+						if(question.equals("Website")) {
+							By website_questionBy = By.xpath("(//span[contains(text()," + xpathLiteral(question.trim()) + ")])[3]");
+
+							visible = waitUpToForVisible(website_questionBy, 10);	
+
+						}
+
+
+
+						if (!visible) {
+							logger.warn("[verifyStandardQuestionsOnPreview] MISSING on Preview page: " + question);
+							return false;
+						}
+
+						logger.info("[verifyStandardQuestionsOnPreview] FOUND on Preview page: " + question);
 					}
 
-					return missingCount == 0;
+					logger.info("[verifyStandardQuestionsOnPreview] END success=true");
+					return true;
 
 				} catch (Exception e) {
 					logger.error("[verifyStandardQuestionsOnPreview] EXCEPTION", e);

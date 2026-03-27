@@ -25,14 +25,14 @@ public class Signup_stepD extends CommonMethods {
 			expectedFieldValue = TestDataGenerator.generateTestEmail();
 		}
 
-		if ("Business Startup".equalsIgnoreCase(expectedFieldValue)) {
+		if ("DYNAMIC_Startup".equalsIgnoreCase(expectedFieldValue)) {
 			expectedFieldValue = TestDataGenerator.generateTestStartupCompany();
 		}
-		
-		if ("Business Organization".equalsIgnoreCase(expectedFieldValue)) {
+
+		if ("DYNAMIC_Organization".equalsIgnoreCase(expectedFieldValue)) {
 			expectedFieldValue = TestDataGenerator.generateTestProgramCompany();
 		}
-		
+
 		logger.info(expectedFieldValue);
 		String ActualFieldValue = signup_pom.passFieldValue(expectedFieldValue, fieldName);
 
@@ -148,10 +148,10 @@ public class Signup_stepD extends CommonMethods {
 	}
 
 
-//	***************************************************************************************************************
+	//	***************************************************************************************************************
 	@Then("User should see {string} on Google page")
 	public void user_should_see_on_google_page(String textElement) {
-	   
+
 		logger.info("Checking visibility of: " + textElement);
 
 		boolean pageVisible = signup_pom.visibilityOfGoogleSignInPage(textElement);
@@ -160,6 +160,6 @@ public class Signup_stepD extends CommonMethods {
 				"Google Sign in Page is visible", 
 				"Google Sign in Page is NOT visible");
 	}
-	
+
 
 }
