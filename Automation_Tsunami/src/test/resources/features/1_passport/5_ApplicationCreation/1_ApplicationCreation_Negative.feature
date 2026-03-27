@@ -20,7 +20,7 @@ Feature: Negative tests on Application Creation Feature
     Then User should be redirected to the page with title of "CreateApplication_page_title"
     And User should see "Create Application"
 
-  @Tc_010 @Validate_that_an_Additional_Question_cannot_be_saved_without_a_question_title         @passport-neg
+  @Tc_010 @Validate_that_an_Additional_Question_cannot_be_saved_without_a_question_title @passport-neg
   Scenario: Validate that an Additional Question cannot be saved without a question title
     Then User enters "Standard_Additional_applicationTitle" into the "Application Title" field of Create application
     And User selects the "Create New Application" option on Create Application page
@@ -33,6 +33,24 @@ Feature: Negative tests on Application Creation Feature
     Then User should see the New Question form
     Then User should see "This field is required" validation message for Additional Question
     And Additional Question "Save" button should be disabled
+    And User clicks on "Cancel" button on the Application Builder page
+    And User logs out
+    Then User should be redirected to the page with title of "StartUp_page_title"
+
+  @Tc_011 @Validate_Rubric_Question_Cannot_Be_Saved_Without_Title @passport-neg
+  Scenario: Validate Rubric Question Cannot Be Saved Without Title
+    Then User enters "Standard_Additional_applicationTitle" into the "Application Title" field of Create application
+    And User selects the "Create New Application" option on Create Application page
+    And User clicks on "Save & Continue" button
+    And User should see "Basic Information" in the Application Builder page
+    And User clicks on "Save & Continue" button on the Application Builder page
+    Then User verifies Rubric section components
+    When User clicks on the first Rubric Edit Question icon
+    Then User removes the Default question
+    Then User should see "This field is required" validation message for Rubric Question
+    Then Rubric Question "Remove Question" button should be disabled
+    Then Rubric Question "Copy Question" button should be disabled
+    Then Rubric Question "Save" button should be disabled
     And User clicks on "Cancel" button on the Application Builder page
     And User logs out
     Then User should be redirected to the page with title of "StartUp_page_title"

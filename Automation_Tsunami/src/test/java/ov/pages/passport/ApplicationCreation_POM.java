@@ -128,9 +128,9 @@ public class ApplicationCreation_POM extends CommonMethods {
 	private static final By AQ_REQUIRED_MSG_OPEN_FORM =
 			By.xpath(AQ_OPEN_FORM + "//span[contains(@class,'input-error-message-container')][1]");
 
-	// Delete icon for the currently open Additional Question (trash button)
-	private static final By AQ_DELETE_ICON_BTN =
-			By.cssSelector("button.circle-button.warn.hideShadow");
+	// Delete / Copy icon for the currently open Additional Question	
+	private static final String AQ_ACTION_ICON_BTN =
+			"//button[contains(@class,'circle-button')][.//*[name()='svg' and @data-icon='%s']]";
 
 	// popup container (best proof)
 	private static final By AQ_DELETE_POPUP =
@@ -251,7 +251,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 					By.xpath("//button[normalize-space()='Complete' or @aria-label='Complete']");
 
 
-			// ===================== RUBRIC (verified from DOM snippets A-F) =====================
+			// ===================== RUBRIC locators =====================
 
 			private static final By RUBRIC_HELP_TEXT =
 					By.xpath("//span[contains(@class,'header-sublabel-text') and normalize-space(.)="
@@ -278,6 +278,70 @@ public class ApplicationCreation_POM extends CommonMethods {
 			private static final By RUBRIC_ADD_NEW_QUESTION_BTN =
 					By.xpath("(//button[contains(@class,'section-add-question-btn')])[2]");
 
+			// Rubric - open/edit form elements
+			private static final By RUBRIC_ALLOW_COMMENTS_TOGGLE =
+					By.xpath("//div[contains(@class,'rubric-comments-field-container')]//div[contains(@class,'TToggleSwitch')]");
+
+			private static final By RUBRIC_ALLOW_COMMENTS_TOGGLE_ACTIVE =
+					By.xpath("//div[contains(@class,'rubric-comments-field-container')]//div[contains(@class,'t-toggle-switch') and contains(@class,'active')]");
+
+			private static final By RUBRIC_COMMENT_BOX_IN_EDIT_FORM =
+					By.cssSelector("textarea.review-field-input");
+
+			private static final By RUBRIC_REQUIRED_QUESTION_CHECKBOX =
+					By.cssSelector("input.required-question-input");
+
+			private static final By RUBRIC_SAVE_BUTTON =
+					By.xpath("//button[contains(@class,'question-save-action-btn') and normalize-space()='Save']");
+
+			private static final By RUBRIC_EDIT_FORM_VISIBLE =
+					By.cssSelector("div.rubric-comments-field-container");
+
+			private static final By RUBRIC_EDIT_RATING_INPUT =
+					By.xpath("//input[@value='Rating' or @placeholder='Rating']");
+			
+			private static final By RUBRIC_QUESTION_TITLE_INPUT =
+			        By.id("category-1-question-1-question-label");
+
+			private static final By RUBRIC_VALIDATION_MESSAGE =
+			        By.xpath("//span[contains(@class,'input-error-message-container')]");
+
+			private static final By RUBRIC_INSTRUCTIONS_LABEL =
+			        By.xpath("//label[normalize-space()='Instructions']");
+			
+			private static final By RUBRIC_REMOVE_QUESTION_BUTTON =
+			        By.xpath("//footer[contains(@class,'QuestionFooter')]//button[contains(@class,'warn')]");
+
+			private static final By RUBRIC_COPY_QUESTION_BUTTON =
+			        By.xpath("//footer[contains(@class,'QuestionFooter')]//button[contains(@class,'primary') and .//*[name()='svg' and @data-icon='copy']]");
+
+			private static final By RUBRIC_SAVE_DISABLED_BUTTON =
+			        By.xpath("//footer[contains(@class,'QuestionFooter')]//button[contains(@class,'question-save-action-btn') and normalize-space()='Save']");
+
+			// ===================== PREVIEW - SAVE MY RESPONSES CHECKBOX =====================
+
+			private static final By PREVIEW_SAVE_RESPONSES_CONTAINER =
+					By.xpath("//div[contains(@class,'save-response-container')][.//span[normalize-space()='Save my responses to use in future applications on Passport']]");
+
+			private static final By PREVIEW_SAVE_RESPONSES_CHECKBOX =
+					By.xpath("//div[contains(@class,'save-response-container')][.//span[normalize-space()='Save my responses to use in future applications on Passport']]//input[@type='checkbox']");
+
+			// ===================== AQ FORM DISPLAY / DELETE STATE =====================
+
+			// Current open New Question form container
+			private static final By AQ_CURRENT_NEW_QUESTION_FORM =
+					By.xpath(AQ_CATEGORY + "//div[contains(@class,'question-container')][.//input[@placeholder='Write Question Here']][1]");
+
+			// The question input inside the open form
+			private static final By AQ_CURRENT_NEW_QUESTION_INPUT =
+					By.xpath(AQ_CATEGORY + "//input[@placeholder='Write Question Here'][1]");
+
+			// Add New Question button in Additional Questions section
+			private static final By AQ_ADD_NEW_QUESTION_BTN =
+					By.xpath(AQ_CATEGORY + "//button[contains(@class,'section-add-question-btn')][1]");
+
+			private static final By FIRST_TOP_EDIT_QUESTION_ICON =
+					By.xpath("(//button[contains(@class,'edit-question-btn')][.//*[name()='svg' and @data-icon='pen-to-square']])[1]");
 
 
 			//	***************************************************************************************************************
@@ -315,7 +379,7 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
-			//	***************************************************************************************************************//	***************************************************************************************************************
+			//	***************************************************************************************************************
 			public boolean selectOption(String optionText) {
 				try {
 					logger.info("[selectOption] START optionText='" + optionText + "'");
@@ -495,6 +559,22 @@ public class ApplicationCreation_POM extends CommonMethods {
 
 				} catch (Exception e) {
 					logger.error("[newQuestionFormVisible] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//***************************************************************************************************************
+			public boolean isRubricEditFormVisible() {
+				try {
+					logger.info("[isRubricEditFormVisible] START");
+
+					boolean visible = waitUpToForVisible(RUBRIC_EDIT_FORM_VISIBLE, 5);
+
+					logger.info("[isRubricEditFormVisible] END visible=" + visible);
+					return visible;
+
+				} catch (Exception e) {
+					logger.error("[isRubricEditFormVisible] EXCEPTION", e);
 					return false;
 				}
 			}
@@ -1118,37 +1198,52 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			} 
 
-			//	***************************************************************************************************************
-			public boolean clickDeleteIconForCurrentAdditionalQuestion() {
+			//	***************************************************************************************************************			
+			public boolean clickActionIconForCurrentAdditionalQuestion(String iconName) {
 				try {
-					logger.info("[clickDeleteIconForCurrentAdditionalQuestion] START");
+					logger.info("[clickActionIconForCurrentAdditionalQuestion] START iconName='" + iconName + "'");
 
-					List<WebElement> buttons = driver.findElements(AQ_DELETE_ICON_BTN);
-					logger.info("[clickDeleteIconForCurrentAdditionalQuestion] Found delete buttons count=" + buttons.size());
+					String dataIcon = getActionIconDataIcon(iconName);
+					String formattedXpath = String.format(AQ_ACTION_ICON_BTN, dataIcon);
+
+					logger.info("[clickActionIconForCurrentAdditionalQuestion] XPath = " + formattedXpath);
+
+					List<WebElement> buttons = driver.findElements(By.xpath(formattedXpath));
+					logger.info("[clickActionIconForCurrentAdditionalQuestion] Found buttons count = " + buttons.size());
 
 					WebElement target = null;
-					for (WebElement b : buttons) {
-						if (b.isDisplayed()) { target = b; break; }
+
+					for (WebElement button : buttons) {
+						if (button.isDisplayed()) {
+							target = button;
+							break;
+						}
 					}
 
 					if (target == null) {
-						logger.warn("[clickDeleteIconForCurrentAdditionalQuestion] No displayed delete icon found.");
+						logger.warn("[clickActionIconForCurrentAdditionalQuestion] No displayed '" + iconName + "' icon found.");
 						return false;
 					}
 
 					scrollScreen(target);
-					jsclick(driver, target);     // safest for overlay/hover containers
-					waitForMlsec(300);           // small animation buffer
+					clickAndDraw(target);
+					waitForMlsec(300);
 
-					boolean popup = isDeleteQuestionPopupVisible();
-					logger.info("[clickDeleteIconForCurrentAdditionalQuestion] END popupVisible=" + popup);
-					return popup;
+					if ("Remove Question".equalsIgnoreCase(iconName)) {
+						boolean popupVisible = isDeleteQuestionPopupVisible();
+						logger.info("[clickActionIconForCurrentAdditionalQuestion] Delete popup visible = " + popupVisible);
+						return popupVisible;
+					}
+
+					logger.info("[clickActionIconForCurrentAdditionalQuestion] END success=true");
+					return true;
 
 				} catch (Exception e) {
-					logger.error("[clickDeleteIconForCurrentAdditionalQuestion] EXCEPTION", e);
+					logger.error("[clickActionIconForCurrentAdditionalQuestion] EXCEPTION", e);
 					return false;
 				}
 			}
+
 
 			//	***************************************************************************************************************
 			public boolean isDeleteQuestionPopupVisible() {
@@ -1383,10 +1478,488 @@ public class ApplicationCreation_POM extends CommonMethods {
 				}
 			}
 
+			// ***************************************************************************************************************
+			public boolean hideAndVerifyStandardQuestionsOnBuilder(List<Map<String, String>> rows) {
+				try {
+					logger.info("[hideAndVerifyStandardQuestionsOnBuilder] START");
 
+					if (rows == null || rows.isEmpty()) {
+						logger.warn("[hideAndVerifyStandardQuestionsOnBuilder] DataTable rows are empty.");
+						return false;
+					}
+
+					for (Map<String, String> row : rows) {
+						String question = row.get("Question");
+
+						if (question == null || question.trim().isEmpty()) {
+							logger.warn("[hideAndVerifyStandardQuestionsOnBuilder] Found blank question in DataTable.");
+							return false;
+						}
+
+						question = question.trim();
+
+						logger.info("[hideAndVerifyStandardQuestionsOnBuilder] Processing question: " + question);
+
+						boolean hidden = hideOneStandardQuestionAndVerify(question);
+
+						if (!hidden) {
+							logger.warn("[hideAndVerifyStandardQuestionsOnBuilder] FAILED to hide question: " + question);
+							return false;
+						}
+
+						logger.info("[hideAndVerifyStandardQuestionsOnBuilder] Successfully hidden: " + question);
+					}
+
+					logger.info("[hideAndVerifyStandardQuestionsOnBuilder] END success=true");
+					return true;
+
+				} catch (Exception e) {
+					logger.error("[hideAndVerifyStandardQuestionsOnBuilder] EXCEPTION", e);
+					return false;
+				}
+			}
+
+
+			// ***************************************************************************************************************
+			public boolean checkSaveMyResponsesCheckboxOnPreview() {
+				try {
+					logger.info("[checkSaveMyResponsesCheckboxOnPreview] START");
+
+					WebElement container = waitForElement(PREVIEW_SAVE_RESPONSES_CONTAINER);
+					if (container == null) {
+						logger.warn("[checkSaveMyResponsesCheckboxOnPreview] Save-response container NOT found.");
+						return false;
+					}
+
+					scrollScreen(container);
+					waitForMlsec(300);
+
+					WebElement checkbox = waitForElement(PREVIEW_SAVE_RESPONSES_CHECKBOX);
+					if (checkbox == null) {
+						logger.warn("[checkSaveMyResponsesCheckboxOnPreview] Checkbox NOT found.");
+						return false;
+					}
+
+					logger.info("[checkSaveMyResponsesCheckboxOnPreview] Initial selected state = " + checkbox.isSelected());
+
+					if (!checkbox.isSelected()) {
+						logger.info("[checkSaveMyResponsesCheckboxOnPreview] Checkbox not selected. Clicking...");
+						jsclick(driver, checkbox);
+						waitForMlsec(300);
+					}
+
+					boolean selected = checkbox.isSelected();
+
+					logger.info("[checkSaveMyResponsesCheckboxOnPreview] END selected=" + selected);
+					return selected;
+
+				} catch (Exception e) {
+					logger.error("[checkSaveMyResponsesCheckboxOnPreview] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			// ***************************************************************************************************************
+			public boolean isCurrentNewQuestionFormStillDisplayed() {
+				try {
+					logger.info("[isCurrentNewQuestionFormStillDisplayed] START");
+
+					boolean formVisible = waitUpToForVisible(AQ_CURRENT_NEW_QUESTION_FORM, 5);
+					boolean inputVisible = waitUpToForVisible(AQ_CURRENT_NEW_QUESTION_INPUT, 5);
+
+					logger.info("[isCurrentNewQuestionFormStillDisplayed] formVisible=" + formVisible + " | inputVisible=" + inputVisible);
+
+					return formVisible && inputVisible;
+
+				} catch (Exception e) {
+					logger.error("[isCurrentNewQuestionFormStillDisplayed] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			// ***************************************************************************************************************
+			public boolean isNewQuestionFormRemovedAfterDelete() {
+				try {
+					logger.info("[isNewQuestionFormRemovedAfterDelete] START");
+
+					long end = System.currentTimeMillis() + 5000;
+
+					while (System.currentTimeMillis() < end) {
+
+						boolean formStillPresent = isElementPresent(AQ_CURRENT_NEW_QUESTION_FORM);
+						boolean inputStillPresent = isElementPresent(AQ_CURRENT_NEW_QUESTION_INPUT);
+						boolean addButtonVisible = isElementPresent(AQ_ADD_NEW_QUESTION_BTN);
+
+						logger.info("[isNewQuestionFormRemovedAfterDelete] formStillPresent=" + formStillPresent
+								+ " | inputStillPresent=" + inputStillPresent
+								+ " | addButtonVisible=" + addButtonVisible);
+
+						if (!formStillPresent && !inputStillPresent && addButtonVisible) {
+							logger.info("[isNewQuestionFormRemovedAfterDelete] END success=true");
+							return true;
+						}
+
+						waitForMlsec(200);
+					}
+
+					logger.warn("[isNewQuestionFormRemovedAfterDelete] END success=false");
+					return false;
+
+				} catch (Exception e) {
+					logger.error("[isNewQuestionFormRemovedAfterDelete] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//			***************************************************************************************************************
+			public boolean enterValueIntoAdditionalNewQuestionForm(String fieldValue, String fieldName) {
+				try {
+					logger.info("[enterValueIntoAdditionalNewQuestionForm] START fieldName='" + fieldName + "' | fieldValue='" + fieldValue + "'");
+
+					WebElement field = null;
+
+					if ("Question".equalsIgnoreCase(fieldName)) {
+						field = waitForElement(AQ_CURRENT_NEW_QUESTION_INPUT);
+					} else {
+						logger.warn("[enterValueIntoAdditionalNewQuestionForm] Unsupported fieldName: " + fieldName);
+						return false;
+					}
+
+					if (field == null) {
+						logger.warn("[enterValueIntoAdditionalNewQuestionForm] Field NOT found for: " + fieldName);
+						return false;
+					}
+
+					scrollScreen(field);
+					clickAndDraw(field);
+					field.clear();
+					safeSendKeys(field, fieldValue);
+
+					String actualValue = field.getAttribute("value");
+					boolean ok = actualValue != null && actualValue.trim().equals(fieldValue.trim());
+
+					logger.info("[enterValueIntoAdditionalNewQuestionForm] END actualValue='" + actualValue + "' | success=" + ok);
+					return ok;
+
+				} catch (Exception e) {
+					logger.error("[enterValueIntoAdditionalNewQuestionForm] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//			***************************************************************************************************************
+			public boolean isAdditionalQuestionDuplicatedInUI(String questionText) {
+				try {
+					logger.info("[isAdditionalQuestionDuplicatedInUI] START questionText='" + questionText + "'");
+
+					By questionBy = duplicatedAdditionalQuestionLabelBy(questionText);
+
+					long end = System.currentTimeMillis() + 5000;
+					int count = 0;
+
+					while (System.currentTimeMillis() < end) {
+						List<WebElement> matches = driver.findElements(questionBy);
+
+						count = 0;
+						for (WebElement element : matches) {
+							if (element.isDisplayed()) {
+								count++;
+							}
+						}
+
+						logger.info("[isAdditionalQuestionDuplicatedInUI] Current visible count = " + count);
+
+						if (count >= 2) {
+							logger.info("[isAdditionalQuestionDuplicatedInUI] END success=true");
+							return true;
+						}
+
+						waitForMlsec(200);
+					}
+
+					logger.warn("[isAdditionalQuestionDuplicatedInUI] END success=false | final visible count=" + count);
+					return false;
+
+				} catch (Exception e) {
+					logger.error("[isAdditionalQuestionDuplicatedInUI] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//			***************************************************************************************************************
+			public boolean clickFirstTopEditQuestionIcon() {
+				try {
+					logger.info("[clickFirstTopEditQuestionIcon] START");
+
+					WebElement editBtn = waitForElement(FIRST_TOP_EDIT_QUESTION_ICON);
+
+					if (editBtn == null) {
+						logger.warn("[clickFirstTopEditQuestionIcon] First/top Edit Question icon NOT found.");
+						return false;
+					}
+
+					scrollScreen(editBtn);
+					clickAndDraw(editBtn);
+					waitForMlsec(300);
+
+					boolean formVisible = newQuestionFormVisible();
+
+					logger.info("[clickFirstTopEditQuestionIcon] END formVisible=" + formVisible);
+					return formVisible;
+
+				} catch (Exception e) {
+					logger.error("[clickFirstTopEditQuestionIcon] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//***************************************************************************************************************
+			public boolean clickFirstRubricEditQuestionIcon() {
+				try {
+					logger.info("[clickFirstRubricEditQuestionIcon] START");
+
+					WebElement editBtn = waitForElement(FIRST_TOP_EDIT_QUESTION_ICON);
+
+					if (editBtn == null) {
+						logger.warn("[clickFirstRubricEditQuestionIcon] First Edit Question icon NOT found.");
+						return false;
+					}
+
+					scrollScreen(editBtn);
+					clickAndDraw(editBtn);
+					waitForMlsec(500);
+
+					boolean formVisible = isRubricEditFormVisible();
+
+					logger.info("[clickFirstRubricEditQuestionIcon] END formVisible=" + formVisible);
+					return formVisible;
+
+				} catch (Exception e) {
+					logger.error("[clickFirstRubricEditQuestionIcon] EXCEPTION", e);
+					return false;
+				}
+			}
+
+			//***************************************************************************************************************
+			public boolean removeDefaultRubricQuestion() {
+			    try {
+			        logger.info("[removeDefaultRubricQuestion] START");
+
+			        WebElement input = waitForElement(RUBRIC_QUESTION_TITLE_INPUT);
+			        if (input == null) {
+			            logger.warn("[removeDefaultRubricQuestion] Rubric title input NOT found.");
+			            return false;
+			        }
+
+			        scrollScreen(input);
+			        clickAndDraw(input);
+
+			        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+			        input.sendKeys(Keys.BACK_SPACE);
+
+			        WebElement outside = waitForElement(RUBRIC_INSTRUCTIONS_LABEL);
+			        if (outside != null) {
+			            clickAndDraw(outside);
+			        } else {
+			            jsclick(driver, driver.findElement(By.tagName("body")));
+			        }
+
+			        waitForMlsec(500);
+
+			        String value = input.getAttribute("value");
+			        boolean cleared = value == null || value.trim().isEmpty();
+
+			        logger.info("[removeDefaultRubricQuestion] END cleared=" + cleared);
+			        return cleared;
+
+			    } catch (Exception e) {
+			        logger.error("[removeDefaultRubricQuestion] EXCEPTION", e);
+			        return false;
+			    }
+			}
+
+			//***************************************************************************************************************
+			public String getRubricQuestionRequiredMessageText() {
+			    try {
+			        logger.info("[getRubricQuestionRequiredMessageText] START");
+
+			        WebElement msg = waitForElement(RUBRIC_VALIDATION_MESSAGE);
+			        if (msg == null) {
+			            logger.warn("[getRubricQuestionRequiredMessageText] Validation message NOT found.");
+			            return null;
+			        }
+
+			        String text = msg.getText().trim();
+			        logger.info("[getRubricQuestionRequiredMessageText] END text='" + text + "'");
+			        return text;
+
+			    } catch (Exception e) {
+			        logger.error("[getRubricQuestionRequiredMessageText] EXCEPTION", e);
+			        return null;
+			    }
+			}
+
+			//***************************************************************************************************************
+			public boolean isRubricRemoveButtonDisabled() {
+			    try {
+			        logger.info("[isRubricRemoveButtonDisabled] START");
+
+			        List<WebElement> buttons = driver.findElements(RUBRIC_REMOVE_QUESTION_BUTTON);
+			        if (buttons.isEmpty()) {
+			            logger.warn("[isRubricRemoveButtonDisabled] Remove button not found.");
+			            return false;
+			        }
+
+			        WebElement btn = buttons.get(0);
+			        String disabledAttr = btn.getAttribute("disabled");
+			        boolean disabled = disabledAttr != null || !btn.isEnabled();
+
+			        logger.info("[isRubricRemoveButtonDisabled] disabledAttr=" + disabledAttr + " | isEnabled=" + btn.isEnabled() + " | result=" + disabled);
+			        return disabled;
+
+			    } catch (Exception e) {
+			        logger.error("[isRubricRemoveButtonDisabled] EXCEPTION", e);
+			        return false;
+			    }
+			}
+
+			//***************************************************************************************************************
+			public boolean isRubricCopyButtonDisabled() {
+			    try {
+			        logger.info("[isRubricCopyButtonDisabled] START");
+
+			        List<WebElement> buttons = driver.findElements(RUBRIC_COPY_QUESTION_BUTTON);
+			        if (buttons.isEmpty()) {
+			            logger.warn("[isRubricCopyButtonDisabled] Copy button not found.");
+			            return false;
+			        }
+
+			        WebElement btn = buttons.get(0);
+			        String disabledAttr = btn.getAttribute("disabled");
+			        boolean disabled = disabledAttr != null || !btn.isEnabled();
+
+			        logger.info("[isRubricCopyButtonDisabled] disabledAttr=" + disabledAttr + " | isEnabled=" + btn.isEnabled() + " | result=" + disabled);
+			        return disabled;
+
+			    } catch (Exception e) {
+			        logger.error("[isRubricCopyButtonDisabled] EXCEPTION", e);
+			        return false;
+			    }
+			}
+
+			//***************************************************************************************************************
+			public boolean isRubricSaveButtonDisabled() {
+			    try {
+			        logger.info("[isRubricSaveButtonDisabled] START");
+
+			        List<WebElement> buttons = driver.findElements(RUBRIC_SAVE_DISABLED_BUTTON);
+			        if (buttons.isEmpty()) {
+			            logger.warn("[isRubricSaveButtonDisabled] Save button not found.");
+			            return false;
+			        }
+
+			        WebElement btn = buttons.get(0);
+			        String disabledAttr = btn.getAttribute("disabled");
+			        boolean disabled = disabledAttr != null || !btn.isEnabled();
+
+			        logger.info("[isRubricSaveButtonDisabled] disabledAttr=" + disabledAttr + " | isEnabled=" + btn.isEnabled() + " | result=" + disabled);
+			        return disabled;
+
+			    } catch (Exception e) {
+			        logger.error("[isRubricSaveButtonDisabled] EXCEPTION", e);
+			        return false;
+			    }
+			}
+			
+			//***************************************************************************************************************
+			public boolean clickRubricAllowCommentsToggleAndVerifyStateChanges() {
+				try {
+					logger.info("[clickRubricAllowCommentsToggleAndVerifyStateChanges] START");
+
+					WebElement toggle = waitForElement(RUBRIC_ALLOW_COMMENTS_TOGGLE);
+					if (toggle == null) {
+						logger.warn("[clickRubricAllowCommentsToggleAndVerifyStateChanges] Toggle switch NOT found.");
+						return false;
+					}
+
+					boolean wasActive = isElementPresent(RUBRIC_ALLOW_COMMENTS_TOGGLE_ACTIVE);
+					logger.info("[clickRubricAllowCommentsToggleAndVerifyStateChanges] Active before click = " + wasActive);
+
+					scrollScreen(toggle);
+					clickAndDraw(toggle);
+					waitForMlsec(500);
+
+					boolean isActiveNow = isElementPresent(RUBRIC_ALLOW_COMMENTS_TOGGLE_ACTIVE);
+					logger.info("[clickRubricAllowCommentsToggleAndVerifyStateChanges] Active after click = " + isActiveNow);
+
+					boolean changed = (wasActive != isActiveNow);
+
+					logger.info("[clickRubricAllowCommentsToggleAndVerifyStateChanges] END changed=" + changed);
+					return changed;
+
+				} catch (Exception e) {
+					logger.error("[clickRubricAllowCommentsToggleAndVerifyStateChanges] EXCEPTION", e);
+					return false;
+				}
+			}
+
+
+			//***************************************************************************************************************
+			public boolean clickRubricRequiredQuestionCheckboxAndSave() {
+				try {
+					logger.info("[clickRubricRequiredQuestionCheckboxAndSave] START");
+
+					WebElement checkbox = waitForElement(RUBRIC_REQUIRED_QUESTION_CHECKBOX);
+					if (checkbox == null) {
+						logger.warn("[clickRubricRequiredQuestionCheckboxAndSave] Required Question checkbox NOT found.");
+						return false;
+					}
+
+					logger.info("[clickRubricRequiredQuestionCheckboxAndSave] Initial checked state = " + checkbox.isSelected());
+
+					if (!checkbox.isSelected()) {
+						scrollScreen(checkbox);
+						clickAndDraw(checkbox);
+						waitForMlsec(300);
+					}
+
+					boolean checked = checkbox.isSelected();
+					logger.info("[clickRubricRequiredQuestionCheckboxAndSave] Checked state after click = " + checked);
+
+					if (!checked) {
+						logger.warn("[clickRubricRequiredQuestionCheckboxAndSave] Checkbox did not become checked.");
+						return false;
+					}
+
+					WebElement saveBtn = waitForElement(RUBRIC_SAVE_BUTTON);
+					if (saveBtn == null) {
+						logger.warn("[clickRubricRequiredQuestionCheckboxAndSave] Save button NOT found.");
+						return false;
+					}
+
+					scrollScreen(saveBtn);
+					clickAndDraw(saveBtn);
+					waitForMlsec(500);
+
+					// After save, rubric should collapse back to preview mode
+					boolean collapsed = waitUpToForVisible(FIRST_TOP_EDIT_QUESTION_ICON, 5);
+					logger.info("[clickRubricRequiredQuestionCheckboxAndSave] END collapsed=" + collapsed);
+
+					return collapsed;
+
+				} catch (Exception e) {
+					logger.error("[clickRubricRequiredQuestionCheckboxAndSave] EXCEPTION", e);
+					return false;
+				}
+			}
+
+
+			//***************************************************************************************************************
 			//	***************************************************************************************************************
-			//	Helper Methods
+			//	Helper Methods to call from Main Actions Methods :
 			//	***************************************************************************************************************
+			//***************************************************************************************************************
+
 			private boolean openNewAdditionalQuestionForm() {
 				try {
 					logger.info("[openNewAdditionalQuestionForm] START");
@@ -1643,6 +2216,133 @@ public class ApplicationCreation_POM extends CommonMethods {
 					if (p.isDisplayed()) return p;
 				}
 				return null;
+			}
+
+			// ===================== STANDARD QUESTIONS - HIDE/SHOW =====================
+
+			// Question block by exact label text inside Standard Questions section
+			private By standardQuestionBlockBy(String questionText) {
+				return By.xpath(
+						"//div[contains(@class,'list-group-item') and contains(@class,'standard')]" +
+								"[.//div[@class='label' and contains(normalize-space(.), " + xpathLiteral(questionText) + ")]" +
+								" or .//span[contains(@class,'question-preview-label') and normalize-space()=" + xpathLiteral(questionText) + "]]"
+						);
+			}
+
+			// Eye / Eye-slash toggle inside the same standard question block
+			private By standardQuestionHideToggleBy(String questionText) {
+				return By.xpath(
+						"//div[contains(@class,'list-group-item') and contains(@class,'standard')]" +
+								"[.//div[@class='label' and contains(normalize-space(.), " + xpathLiteral(questionText) + ")]" +
+								" or .//span[contains(@class,'question-preview-label') and normalize-space()=" + xpathLiteral(questionText) + "]]" +
+								"//div[contains(@class,'is-hidden-option-container')]//span[contains(@class,'hidden-opt-label')]//*[name()='svg']"
+						);
+			}
+
+			// Hidden-state proof for the same question block
+			private By hiddenStandardQuestionBlockBy(String questionText) {
+				return By.xpath(
+						"//div[contains(@class,'list-group-item') and contains(@class,'standard') and contains(@class,'hidden')]" +
+								"[.//span[contains(@class,'question-preview-label') and normalize-space()=" + xpathLiteral(questionText) + "]" +
+								" or .//div[@class='label' and contains(normalize-space(.), " + xpathLiteral(questionText) + ")]]"
+						);
+			}
+
+			// Optional: direct proof using eye-slash icon inside the same block
+			private By standardQuestionEyeSlashBy(String questionText) {
+				return By.xpath(
+						"//div[contains(@class,'list-group-item') and contains(@class,'standard')]" +
+								"[.//span[contains(@class,'question-preview-label') and normalize-space()=" + xpathLiteral(questionText) + "]" +
+								" or .//div[@class='label' and contains(normalize-space(.), " + xpathLiteral(questionText) + ")]]" +
+								"//div[contains(@class,'is-hidden-option-container') and contains(@class,'inactive')]" +
+								"//*[name()='svg' and @data-icon='eye-slash']"
+						);
+			}
+
+			// ***************************************************************************************************************
+			private boolean hideOneStandardQuestionAndVerify(String questionText) {
+				try {
+					logger.info("[hideOneStandardQuestionAndVerify] START question='" + questionText + "'");
+
+					By blockBy = standardQuestionBlockBy(questionText);
+					By toggleBy = standardQuestionHideToggleBy(questionText);
+					By hiddenBlockBy = hiddenStandardQuestionBlockBy(questionText);
+					By eyeSlashBy = standardQuestionEyeSlashBy(questionText);
+
+					WebElement block = waitForElement(blockBy);
+					if (block == null) {
+						logger.warn("[hideOneStandardQuestionAndVerify] Question block NOT found for: " + questionText);
+						return false;
+					}
+
+					scrollScreen(block);
+					waitForMlsec(300);
+
+					// If already hidden, do not click again
+					if (isElementPresent(hiddenBlockBy) || isElementPresent(eyeSlashBy)) {
+						logger.info("[hideOneStandardQuestionAndVerify] Question already hidden: " + questionText);
+						return true;
+					}
+
+					WebElement toggle = waitForElement(toggleBy);
+					if (toggle == null) {
+						logger.warn("[hideOneStandardQuestionAndVerify] Hide toggle NOT found for: " + questionText);
+						return false;
+					}
+
+					logger.info("[hideOneStandardQuestionAndVerify] Clicking hide toggle for: " + questionText);
+					scrollScreen(toggle);
+					clickAndDraw(toggle);
+					waitForMlsec(500);
+
+					long end = System.currentTimeMillis() + 5000;
+					while (System.currentTimeMillis() < end) {
+
+						boolean hiddenBlock = isElementPresent(hiddenBlockBy);
+						boolean eyeSlash = isElementPresent(eyeSlashBy);
+
+						if (hiddenBlock || eyeSlash) {
+							logger.info("[hideOneStandardQuestionAndVerify] Hidden state confirmed for: " + questionText
+									+ " | hiddenBlock=" + hiddenBlock + " | eyeSlash=" + eyeSlash);
+							return true;
+						}
+
+						waitForMlsec(200);
+					}
+
+					logger.warn("[hideOneStandardQuestionAndVerify] Hidden state NOT confirmed for: " + questionText);
+					return false;
+
+				} catch (Exception e) {
+					logger.error("[hideOneStandardQuestionAndVerify] EXCEPTION for question='" + questionText + "'", e);
+					return false;
+				}
+			}
+
+
+			//**********************************************************************************
+			private String getActionIconDataIcon(String iconName) {
+				switch (iconName.trim().toLowerCase()) {
+				case "remove question":
+					return "trash-can";
+				case "copy question":
+					return "copy";
+				default:
+					throw new IllegalArgumentException("Unsupported icon name: " + iconName);
+				}
+			}
+
+			//			private By duplicatedAdditionalQuestionLabelBy(String questionText) {
+			//				return By.xpath("//div[contains(@class,'list-group-item')]//div[@class='label' and normalize-space()=" + xpathLiteral(questionText) + "]");
+			//			}
+
+			private By duplicatedAdditionalQuestionLabelBy(String questionText) {
+				return By.xpath(
+						AQ_CATEGORY
+						+ "//div[contains(@class,'list-group-item')]//div[@class='label' and normalize-space()="
+						+ xpathLiteral(questionText)
+						+ "]"
+						);
 			}
 
 }

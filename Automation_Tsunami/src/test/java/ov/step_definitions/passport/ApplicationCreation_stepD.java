@@ -60,6 +60,24 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
+
+	// ***************************************************************************************************************
+	@Then("User should hide all the following Standard Questions from the Application Builder page")
+	public void user_should_hide_all_the_following_standard_questions_from_the_application_builder_page(DataTable table) {
+
+		logger.info("Hiding and verifying Standard Questions on Application Builder page...");
+
+		boolean ok = applicationCreation_pom.hideAndVerifyStandardQuestionsOnBuilder(
+				table.asMaps(String.class, String.class)
+				);
+
+		softAssert.softAssertTrue(
+				ok,
+				"All expected Standard Questions were hidden successfully on the Application Builder page.",
+				"Failed to hide one or more Standard Questions on the Application Builder page."
+				);
+	}
+
 	//	***************************************************************************************************************
 	@Then("User clicks the collapse icon on the Application Builder page")
 	public void user_clicks_the_collapse_icon_on_the_application_builder_page() {
@@ -135,6 +153,50 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
+	//	***************************************************************************************************************
+	@Then("User enters {string} into the {string} field of Additional New Question form")
+	public void user_enters_into_the_field_of_additional_new_question_form(String fieldValue, String fieldName) {
+
+		logger.info("Entering value into Additional New Question form field. fieldName='" + fieldName + "' | fieldValue='" + fieldValue + "'");
+
+		boolean entered = applicationCreation_pom.enterValueIntoAdditionalNewQuestionForm(fieldValue, fieldName);
+
+		softAssert.softAssertTrue(
+				entered,
+				"Entered value into '" + fieldName + "' field successfully.",
+				"Failed to enter value into '" + fieldName + "' field."
+				);
+	}
+
+	//	***************************************************************************************************************
+	@Then("User should see the Additional Question {string} duplicated in the UI")
+	public void user_should_see_the_additional_question_duplicated_in_the_ui(String questionText) {
+
+		logger.info("Verifying Additional Question is duplicated in the UI: " + questionText);
+
+		boolean duplicated = applicationCreation_pom.isAdditionalQuestionDuplicatedInUI(questionText);
+
+		softAssert.softAssertTrue(
+				duplicated,
+				"Additional Question is duplicated in the UI: " + questionText,
+				"Additional Question is NOT duplicated in the UI: " + questionText
+				);
+	}
+
+	//	***************************************************************************************************************
+	@When("User clicks on the first Edit Question icon")
+	public void user_clicks_on_the_first_top_edit_question_icon() {
+
+		logger.info("Clicking on the first/top Edit Question icon...");
+
+		boolean clicked = applicationCreation_pom.clickFirstTopEditQuestionIcon();
+
+		softAssert.softAssertTrue(
+				clicked,
+				"Clicked on the first Edit Question icon and opened the form successfully.",
+				"Failed to click on the first Edit Question icon or open the form."
+				);
+	}
 
 	//	***************************************************************************************************************
 	@Then("User fills the Additional Questions form with the following data")
@@ -187,7 +249,7 @@ public class ApplicationCreation_stepD extends CommonMethods {
 		logger.info("Verifying Preview Application page is displayed...");
 
 		boolean onPreview = applicationCreation_pom.isOnPreviewApplicationPage();
-		
+
 
 		softAssert.softAssertTrue(
 				onPreview,
@@ -206,7 +268,7 @@ public class ApplicationCreation_stepD extends CommonMethods {
 
 		boolean standardActive = applicationCreation_pom.isStandardQuestionsTabActiveOnPreview();
 
-	
+
 		softAssert.softAssertTrue(
 				standardActive,
 				"Standard Questions tab is active on Preview.",
@@ -214,22 +276,22 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
-	
+
 	// ***************************************************************************************************************
-		@Then("User should be on the Additional Questions tab")
-		public void user_should_be_on_the_Additional_Questions_tab() {
+	@Then("User should be on the Additional Questions tab")
+	public void user_should_be_on_the_Additional_Questions_tab() {
 
-			logger.info("Verifying Additional Questions tab is active...");
+		logger.info("Verifying Additional Questions tab is active...");
 
-			boolean AdditionalActive = applicationCreation_pom.isAdditionalQuestionsTabActiveOnPreview();
+		boolean AdditionalActive = applicationCreation_pom.isAdditionalQuestionsTabActiveOnPreview();
 
-		
-			softAssert.softAssertTrue(
-					AdditionalActive,
-					"Additional Questions tab is active on Preview.",
-					"Additional Questions tab is NOT active on Preview."
-					);
-		}
+
+		softAssert.softAssertTrue(
+				AdditionalActive,
+				"Additional Questions tab is active on Preview.",
+				"Additional Questions tab is NOT active on Preview."
+				);
+	}
 
 	// ***************************************************************************************************************
 	@Then("Applicant should be on the Preview Additional Questions section")
@@ -448,6 +510,111 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				);
 	}
 
+	//	***************************************************************************************************************
+	@When("User clicks on the first Rubric Edit Question icon")
+	public void user_clicks_on_the_first_rubric_edit_question_icon() {
+
+		logger.info("Clicking on the first Rubric Edit Question icon...");
+
+		boolean clicked = applicationCreation_pom.clickFirstRubricEditQuestionIcon();
+
+		softAssert.softAssertTrue(
+				clicked,
+				"Clicked on the first Rubric Edit Question icon and opened the Rubric form successfully.",
+				"Failed to click on the first Rubric Edit Question icon or open the Rubric form."
+				);
+	}
+
+	//***************************************************************************************************************
+	@Then("User removes the Default question")
+	public void user_removes_the_default_question() {
+
+	    logger.info("Removing the default Rubric question...");
+
+	    boolean removed = applicationCreation_pom.removeDefaultRubricQuestion();
+
+	    softAssert.softAssertTrue(
+	            removed,
+	            "Default Rubric question was removed successfully.",
+	            "Failed to remove the default Rubric question."
+	    );
+	}
+
+	//***************************************************************************************************************
+	@Then("User should see {string} validation message for Rubric Question")
+	public void user_should_see_validation_message_for_rubric_question(String expectedMsg) {
+
+	    logger.info("Verifying Rubric validation message: " + expectedMsg);
+
+	    String actualMsg = applicationCreation_pom.getRubricQuestionRequiredMessageText();
+
+	    softAssert.softAssertTrue(
+	            actualMsg != null && actualMsg.trim().equals(expectedMsg.trim()),
+	            "Rubric validation message matched. Actual='" + actualMsg + "'",
+	            "Rubric validation message mismatch. Expected='" + expectedMsg + "' | Actual='" + actualMsg + "'"
+	    );
+	}
+
+	//***************************************************************************************************************
+	@Then("Rubric Question {string} button should be disabled")
+	public void rubric_question_button_should_be_disabled(String buttonText) {
+
+	    logger.info("Verifying Rubric button is disabled: " + buttonText);
+
+	    boolean disabled = false;
+
+	    if ("Remove Question".equalsIgnoreCase(buttonText)) {
+	        disabled = applicationCreation_pom.isRubricRemoveButtonDisabled();
+	    } 
+	    else if ("Copy Question".equalsIgnoreCase(buttonText)) {
+	        disabled = applicationCreation_pom.isRubricCopyButtonDisabled();
+	    } 
+	    else if ("Save".equalsIgnoreCase(buttonText)) {
+	        disabled = applicationCreation_pom.isRubricSaveButtonDisabled();
+	    } 
+	    else {
+	        logger.warn("Unsupported Rubric button in this step: " + buttonText);
+	        disabled = false;
+	    }
+
+	    softAssert.softAssertTrue(
+	            disabled,
+	            "Rubric '" + buttonText + "' button is disabled as expected.",
+	            "Rubric '" + buttonText + "' button is NOT disabled."
+	    );
+	}
+
+	//***************************************************************************************************************
+	@Then("User clicks on the toggle switch to Allow comments for this criterion")
+	public void user_clicks_on_the_toggle_switch_to_allow_comments_for_this_criterion() {
+
+		logger.info("Clicking on toggle switch: Allow comments for this criterion...");
+
+		boolean clicked = applicationCreation_pom.clickRubricAllowCommentsToggleAndVerifyStateChanges();
+		
+		softAssert.softAssertTrue(
+				clicked,
+				"Allow comments toggle switch clicked successfully.",
+				"Failed to click Allow comments toggle switch."
+				);
+	}
+
+	//***************************************************************************************************************
+	@Then("User clicks on Required Question checkbox and Save button")
+	public void user_clicks_on_required_question_checkbox_and_save_button() {
+
+		logger.info("Clicking on Required Question checkbox and Save button...");
+
+		boolean saved = applicationCreation_pom.clickRubricRequiredQuestionCheckboxAndSave();
+
+		softAssert.softAssertTrue(
+				saved,
+				"Required Question checkbox checked and Save button clicked successfully.",
+				"Failed to check Required Question checkbox and/or click Save button."
+				);
+	}
+
+
 	//	*****************************Steps for Negative tests************************************************************
 
 	@Then("User should see {string} validation message for Additional Question")
@@ -481,19 +648,21 @@ public class ApplicationCreation_stepD extends CommonMethods {
 	}
 
 	//	***************************************************************************************************************
-	@When("User clicks on the delete icon for the current Additional Question")
-	public void user_clicks_on_delete_icon_for_current_additional_question() {
 
-		logger.info("Clicking delete icon for the current open Additional Question...");
+	@When("User clicks on the {string} icon for the current Additional Question")
+	public void user_clicks_on_the_icon_for_the_current_additional_question(String iconName) {
 
-		boolean ok = applicationCreation_pom.clickDeleteIconForCurrentAdditionalQuestion();
+		logger.info("Clicking '" + iconName + "' icon for the current open Additional Question...");
+
+		boolean ok = applicationCreation_pom.clickActionIconForCurrentAdditionalQuestion(iconName);
 
 		softAssert.softAssertTrue(
 				ok,
-				"Delete icon clicked and popup opened.",
-				"Failed to click delete icon OR popup did not open."
+				"Clicked on '" + iconName + "' icon successfully.",
+				"Failed to click on '" + iconName + "' icon."
 				);
 	}
+
 
 
 	//	***************************************************************************************************************
@@ -526,7 +695,7 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Failed to click '" + btnText + "' in Delete Question popup."
 				);
 	}
-	
+
 	// ***************************************************************************************************************
 	@Then("User should see the following Standard Questions on the Application Builder page")
 	public void user_should_see_the_following_standard_questions_on_the_application_builder_page(DataTable table) {
@@ -560,12 +729,52 @@ public class ApplicationCreation_stepD extends CommonMethods {
 				"Some expected Standard Questions are missing on the Preview page."
 				);
 	}
-	
+
 	// ***************************************************************************************************************
-	
-	
-	
-	
+	@Then("Checks on Save my responses to use in future applications on Passport")
+	public void checks_on_save_my_responses_to_use_in_future_applications_on_passport() {
+
+		logger.info("Checking 'Save my responses to use in future applications on Passport' checkbox...");
+
+		boolean checked = applicationCreation_pom.checkSaveMyResponsesCheckboxOnPreview();
+
+		softAssert.softAssertTrue(
+				checked,
+				"'Save my responses to use in future applications on Passport' checkbox was checked successfully.",
+				"Failed to check 'Save my responses to use in future applications on Passport' checkbox."
+				);
+	}
+
+	// ***************************************************************************************************************
+	@Then("User should remain in the current New Question form")
+	public void user_should_remain_in_the_current_new_question_form() {
+
+		logger.info("Verifying user remains in the current New Question form...");
+
+		boolean visible = applicationCreation_pom.isCurrentNewQuestionFormStillDisplayed();
+
+		softAssert.softAssertTrue(
+				visible,
+				"User remained in the current New Question form.",
+				"User did NOT remain in the current New Question form."
+				);
+	}
+
+	// ***************************************************************************************************************
+	@Then("User should not see the New Question form displayed")
+	public void user_should_not_see_the_new_question_form_displayed() {
+
+		logger.info("Verifying New Question form is no longer displayed...");
+
+		boolean notVisible = applicationCreation_pom.isNewQuestionFormRemovedAfterDelete();
+
+		softAssert.softAssertTrue(
+				notVisible,
+				"New Question form is no longer displayed after delete.",
+				"New Question form is still displayed after delete."
+				);
+	}
+
 
 
 }
