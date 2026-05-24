@@ -26,7 +26,7 @@ import io.cucumber.junit.CucumberOptions;
 		glue= {"ov.step_definitions","ov.Hooks"},
 		dryRun = false,
 		
-		tags = "@Signup-pos",
+		tags = "@Tc_17",
 		
 		monochrome= true
 	

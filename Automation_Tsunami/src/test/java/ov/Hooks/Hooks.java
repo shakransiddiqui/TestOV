@@ -106,7 +106,7 @@ public class Hooks extends CommonMethods {
 		captureAndAttachScreenshot(scenario, screenshotName);
 	}
 
-	@After
+	@After(order = 0)
 	public void after(Scenario scenario) {
 		logger.info(LogColor.Indigo + " @after hook " + LogColor.RESET);
 		logger.info(LogColor.DarkGreen + "================================================================" + LogColor.RESET);
@@ -158,6 +158,38 @@ public class Hooks extends CommonMethods {
 		}
 	}
 	//	****************************************************************************************************
+
+	@After(value = "@passport", order = 1)
+	public void logoutAfterPassportScenario(Scenario scenario) {
+		try {
+			logger.info(LogColor.Purple + " @After(@passport) Hook -- Attempting logout after scenario: "
+					+ scenario.getName() + LogColor.RESET);
+
+			if (Driver.getDriver() == null) {
+				logger.warn("@After(@passport) Hook -- Driver is null. Skipping logout.");
+				return;
+			}
+
+			boolean loggedOut = header_pom.logout();
+			logger.info("@After(@passport) Hook -- logout() result = " + loggedOut);
+
+			if (!loggedOut) {
+				logger.warn("@After(@passport) Hook -- Standard logout did not complete. Clearing cookies and resetting to base URL.");
+				Driver.getDriver().manage().deleteAllCookies();
+				Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+			}
+		} catch (Exception e) {
+			logger.error("@After(@passport) Hook -- Failed while logging out after scenario.", e);
+			try {
+				if (Driver.getDriver() != null) {
+					Driver.getDriver().manage().deleteAllCookies();
+					Driver.getDriver().get(ConfigurationReader.getProperty("url"));
+				}
+			} catch (Exception fallbackException) {
+				logger.error("@After(@passport) Hook -- Fallback cleanup after logout failure also failed.", fallbackException);
+			}
+		}
+	}
 
 
 	@AfterAll

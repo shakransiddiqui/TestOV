@@ -78,11 +78,15 @@ import com.google.common.base.Function;
 import io.cucumber.core.gherkin.Step;
 import io.cucumber.java.Scenario;
 import ov.pages.passport.ApplicationCreation_POM;
+import ov.pages.passport.ApplicationEvaluation_POM;
+import ov.pages.passport.ApplicationManagement_POM;
 import ov.pages.passport.Header_POM;
 import ov.pages.passport.Homepage_POM;
 import ov.pages.passport.Login_POM;
 import ov.pages.passport.ProgramCreation_POM;
+import ov.pages.passport.ProgramManagement_POM;
 import ov.pages.passport.Signup_POM;
+import ov.pages.passport.StartupProgramApplication_POM;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -128,7 +132,11 @@ public class CommonMethods extends Driver {
 	public static Header_POM header_pom = new Header_POM();
 	public static Signup_POM signup_pom = new Signup_POM();
 	public static ProgramCreation_POM programCreation_pom = new ProgramCreation_POM();
+	public static ProgramManagement_POM programManagement_pom = new ProgramManagement_POM();
 	public static ApplicationCreation_POM applicationCreation_pom = new ApplicationCreation_POM();
+	public static ApplicationEvaluation_POM applicationEvaluation_pom = new ApplicationEvaluation_POM();
+	public static StartupProgramApplication_POM startupProgramApplication_pom = new StartupProgramApplication_POM();
+	public static ApplicationManagement_POM applicationManagement_pom = new ApplicationManagement_POM();
 
 
 

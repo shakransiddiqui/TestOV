@@ -1,7 +1,12 @@
 package ov.utilities;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +33,7 @@ public class Driver {
 	public static final Logger logger = LogManager.getLogger(Driver.class);
 
 	// Default download path:
-	public static String downloadFolderPath = System.getProperty("user.dir")+"\\Downloads";
+	public static String downloadFolderPath = Paths.get(System.getProperty("user.dir"), "Results", "Downloads").toString();
 
 	public static String browser = System.getProperty("browser", "chrome");
 
@@ -38,6 +43,7 @@ public class Driver {
 	public static WebDriver getDriver() {
 
 		if (driver==null) {
+			refreshDownloadFolderPath();
 
 			//		Backup Code if browser is not given in maven command / pipeline:
 			if(browser==null || browser.isBlank()) {
@@ -63,6 +69,8 @@ public class Driver {
 				edgePrefs.put("profile.default_zoom_level", 0); // Forces default zoom (100%).
 				edgePrefs.put("profile.default_content_setting_values.automatic_downloads", 1); // Allows multiple automatic downloads without prompts.
 				edgePrefs.put("download.prompt_for_download", false); // Prevents download confirmation popups. Disables “Save as” dialog
+				edgePrefs.put("download.directory_upgrade", true);
+				edgePrefs.put("safebrowsing.enabled", true);
 				edgeOptions.setExperimentalOption("prefs", edgePrefs); // Injects all preferences into Edge before launch.
 // Arguments: 				
 				edgeOptions.addArguments("--inprivate"); // Launches Edge in private mode.
@@ -84,6 +92,7 @@ public class Driver {
 
 				// launch Browser
 				driver = new EdgeDriver(edgeOptions); // Starts Edge with all defined options.
+				configureChromiumDownloadsIfSupported();
 
 				break;		
 				
@@ -94,6 +103,8 @@ public class Driver {
 			chromePrefs.put("profile.default_zoom_level", 0);
 			chromePrefs.put("profile.default_content_setting_values.automatic_downloads", 1);
 			chromePrefs.put("download.prompt_for_download", false);
+			chromePrefs.put("download.directory_upgrade", true);
+			chromePrefs.put("safebrowsing.enabled", true);
 
 			chromeOptions.setExperimentalOption("prefs", chromePrefs); // Injects all preferences into chrome before launch.
 
@@ -116,6 +127,7 @@ public class Driver {
 
 			// Launch Browser
 			driver = new ChromeDriver(chromeOptions); // Starts Edge with all defined options.
+			configureChromiumDownloadsIfSupported();
 
 			break;
 			
@@ -127,6 +139,8 @@ public class Driver {
 			    chromePrefs.put("profile.default_zoom_level", 0);
 			    chromePrefs.put("profile.default_content_setting_values.automatic_downloads", 1);
 			    chromePrefs.put("download.prompt_for_download", false);
+			    chromePrefs.put("download.directory_upgrade", true);
+			    chromePrefs.put("safebrowsing.enabled", true);
 
 			    chromeOptions.setExperimentalOption("prefs", chromePrefs);
 
@@ -150,6 +164,7 @@ public class Driver {
 
 			    // Launch Browser
 			    driver = new ChromeDriver(chromeOptions);
+			    configureChromiumDownloadsIfSupported();
 			    break;
 			    
 			case "edge-headless":
@@ -160,6 +175,8 @@ public class Driver {
 				edgePrefs.put("profile.default_zoom_level", 0);
 				edgePrefs.put("profile.default_content_setting_values.automatic_downloads", 1);
 				edgePrefs.put("download.prompt_for_download", false);
+				edgePrefs.put("download.directory_upgrade", true);
+				edgePrefs.put("safebrowsing.enabled", true);
 				edgeOptions.setExperimentalOption("prefs", edgePrefs);
 
 //	Arguments:			
@@ -181,6 +198,7 @@ public class Driver {
 				System.setProperty("edge.temp.profile", tempUserDataDirheadless);
 
 				driver = new EdgeDriver(edgeOptions);
+				configureChromiumDownloadsIfSupported();
 
 //				devicce matrics
 
@@ -192,6 +210,70 @@ public class Driver {
 	 
 		return driver;  // Hands the fully configured browser to the test.
 	} // ---getDriver() ends.
+
+	private static void configureChromiumDownloadsIfSupported() {
+		try {
+			if (driver == null) {
+				return;
+			}
+
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("behavior", "allow");
+			parameters.put("downloadPath", downloadFolderPath);
+
+			if (driver instanceof ChromeDriver chromeDriver) {
+				chromeDriver.executeCdpCommand("Page.setDownloadBehavior", parameters);
+				logger.info("Configured Chrome download behavior for path: " + downloadFolderPath);
+			} else if (driver instanceof EdgeDriver edgeDriver) {
+				edgeDriver.executeCdpCommand("Page.setDownloadBehavior", parameters);
+				logger.info("Configured Edge download behavior for path: " + downloadFolderPath);
+			}
+		} catch (Exception e) {
+			logger.warn("Could not configure Chromium download behavior for path: " + downloadFolderPath, e);
+		}
+	}
+
+	private static File getLatestReportDownloadsFolder() {
+		try {
+			File resultsRoot = Paths.get(System.getProperty("user.dir"), "Results").toFile();
+			if (!resultsRoot.exists() || !resultsRoot.isDirectory()) {
+				return null;
+			}
+
+			File[] reportFolders = resultsRoot.listFiles(file -> file.isDirectory()
+					&& file.getName().startsWith("test-report"));
+			if (reportFolders == null || reportFolders.length == 0) {
+				return null;
+			}
+
+			File latestReportFolder = Arrays.stream(reportFolders)
+					.max(Comparator.comparingLong(File::lastModified))
+					.orElse(null);
+			return latestReportFolder == null ? null : new File(latestReportFolder, "Downloads");
+		} catch (Exception e) {
+			logger.warn("Failed while resolving the latest report Downloads folder.", e);
+			return null;
+		}
+	}
+
+	private static String resolveDownloadFolderPath() {
+		File reportDownloadsFolder = getLatestReportDownloadsFolder();
+		File resolvedFolder = reportDownloadsFolder != null
+				? reportDownloadsFolder
+				: Paths.get(System.getProperty("user.dir"), "Results", "Downloads").toFile();
+		resolvedFolder.mkdirs();
+		return resolvedFolder.getAbsolutePath();
+	}
+
+	public static void refreshDownloadFolderPath() {
+		String resolvedPath = resolveDownloadFolderPath();
+		if (!resolvedPath.equals(downloadFolderPath)) {
+			logger.info("Updating browser download folder from '" + downloadFolderPath + "' to '" + resolvedPath + "'");
+		}
+		downloadFolderPath = resolvedPath;
+		new File(downloadFolderPath).mkdirs();
+		configureChromiumDownloadsIfSupported();
+	}
 
 //	************************************************************************************************************************************************************
 
@@ -210,6 +292,7 @@ public class Driver {
 		//launching URL:
 		logger.info(LogColor.Purple + "Browser Setup" + LogColor.RESET);
 		Driver.getDriver().manage().deleteAllCookies();  // Clears all cookies from the browser session
+		refreshDownloadFolderPath();
 		Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(15)); // Tells Selenium: “When searching for an element, wait up to 15 seconds before failing.”
 		Driver.getDriver().manage().window().maximize(); // Maximizes the browser window
 		String URL = ConfigurationReader.getProperty("url"); // Fetches the url value from a config file
@@ -221,5 +304,3 @@ public class Driver {
 	} // ---BrowserSetup() ends
 
 }
-
-

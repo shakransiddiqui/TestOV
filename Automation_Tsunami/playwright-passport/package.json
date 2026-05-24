@@ -1,0 +1,22 @@
+{
+  "name": "playwright-passport",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Playwright TypeScript project for Passport automation.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "bdd": "cucumber-js",
+    "bdd:smoke": "cucumber-js --tags \"@Tc_01 or @Tc_02 or @Tc_03 or @Tc_04\""
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^24.7.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
